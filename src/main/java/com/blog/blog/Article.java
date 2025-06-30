@@ -1,13 +1,6 @@
 package com.blog.blog;
 
 public class Article {
-    // CREATE TABLE Article (
-    //     id INT PRIMARY KEY,
-    //     title VARCHAR(255),
-    //     subtitle VARCHAR(255),
-    //     content TEXT
-    // );
-
     private int id;
     private String title;
     private String subtitle;

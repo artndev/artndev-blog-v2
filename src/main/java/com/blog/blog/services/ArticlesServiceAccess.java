@@ -1,6 +1,5 @@
 package com.blog.blog.services;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.blog.blog.Article;
 import com.blog.blog.interfaces.ArticlesDao;
-import com.zaxxer.hikari.HikariDataSource;
 
 @Repository
 public class ArticlesServiceAccess implements ArticlesDao {
