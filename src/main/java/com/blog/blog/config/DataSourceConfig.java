@@ -20,7 +20,6 @@ public class DataSourceConfig {
     @Value("${db.PASSWORD}")
     private String DB_PASSWORD;
 
-
     @Bean
     @Primary
     HikariDataSource hikariDataSource() {
