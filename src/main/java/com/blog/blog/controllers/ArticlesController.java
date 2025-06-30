@@ -1,5 +1,6 @@
 package com.blog.blog.controllers;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class ArticlesController {
     private ArticlesService articlesService;
 
     @GetMapping("/articles")
-    public List<Article> getAllArticles() {
+    public List<Article> getAllArticles() throws SQLException {
         return articlesService.getAllArticles();
     }
 

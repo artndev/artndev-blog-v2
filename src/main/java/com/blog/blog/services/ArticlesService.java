@@ -1,5 +1,6 @@
 package com.blog.blog.services;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ public class ArticlesService {
     @Autowired
     private ArticlesDao articelsDao;
 
-    public List<Article> getAllArticles() {
+    public List<Article> getAllArticles() throws SQLException {
         return articelsDao.getAllArticles();
     }
 

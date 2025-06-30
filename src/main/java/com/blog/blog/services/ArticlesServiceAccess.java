@@ -1,17 +1,33 @@
 package com.blog.blog.services;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.blog.blog.Article;
 import com.blog.blog.interfaces.ArticlesDao;
+import com.zaxxer.hikari.HikariDataSource;
 
 @Repository
 public class ArticlesServiceAccess implements ArticlesDao {
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     @Override
-    public List<Article> getAllArticles() {
-        return List.of(new Article(1, "Test", "Test", "Test"));
+    public List<Article> getAllArticles() throws SQLException {
+        return jdbcTemplate.query(
+            "SELECT * FROM Articles",
+            (rs, rowNum) -> new Article(
+                rs.getInt("id"),
+                rs.getString("title"),
+                rs.getString("subtitle"),
+                rs.getString("content")
+            )
+        );
     }
 
     @Override
