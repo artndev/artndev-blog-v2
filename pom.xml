@@ -28,7 +28,6 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
-		<start-class>com.blog.blog</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -78,10 +77,14 @@
 	</dependencies>
 
 	<build>
+		<finalName>app</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+                	<mainClass>com.blog.blog.BlogApplication</mainClass>
+            	</configuration>
 			</plugin>
 		</plugins>
 	</build>
