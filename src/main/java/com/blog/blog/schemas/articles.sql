@@ -1,6 +1,8 @@
 CREATE TABLE Articles (
-    id INT PRIMARY KEY,
-    title VARCHAR(255),
-    subtitle VARCHAR(255),
-    content TEXT
+    Id INT AUTO_INCREMENT,
+    Title VARCHAR(255) NOT NULL,
+    Subtitle VARCHAR(255) NOT NULL,
+    Content TEXT NOT NULL,
+    Updated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    PRIMARY KEY (Id)
 );

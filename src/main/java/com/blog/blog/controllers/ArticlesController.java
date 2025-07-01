@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blog.blog.config.Article;
-import com.blog.blog.config.ArticlesResponse;
+import com.blog.blog.Article;
+import com.blog.blog.ArticlesResponse;
 import com.blog.blog.services.ArticlesService;
 
 import jakarta.validation.Valid;
@@ -25,7 +25,8 @@ public class ArticlesController {
     private ArticlesService articlesService;
 
     @GetMapping("/articles")
-    public ResponseEntity<ArticlesResponse<List<Article>>> getAllArticles() throws DataAccessException {
+    public ResponseEntity<ArticlesResponse<List<Article>>> getAllArticles() 
+    throws DataAccessException {
         List<Article> articles = articlesService.getAllArticles();
 
         return ResponseEntity.ok(
@@ -34,7 +35,8 @@ public class ArticlesController {
     }
 
     @GetMapping("/articles/{id}")
-    public ResponseEntity<ArticlesResponse<Article>> getArticle(@PathVariable String id) throws DataAccessException {
+    public ResponseEntity<ArticlesResponse<Article>> getArticle(@PathVariable String id) 
+    throws DataAccessException {
         Article article = articlesService.getArticle(Integer.parseInt(id));
 
         return ResponseEntity.ok(
@@ -43,7 +45,8 @@ public class ArticlesController {
     }
 
     @PostMapping("/articles")
-    public ResponseEntity<ArticlesResponse<Boolean>> addArticle(@Valid @RequestBody Article article) throws DataAccessException {
+    public ResponseEntity<ArticlesResponse<Boolean>> addArticle(@Valid @RequestBody Article article) 
+    throws DataAccessException {
         articlesService.addArticle(article);
 
         return ResponseEntity.ok(
@@ -62,7 +65,8 @@ public class ArticlesController {
     }
 
     @DeleteMapping("/articles/{id}")
-    public ResponseEntity<ArticlesResponse<Boolean>> deleteArticle(@PathVariable String id) throws DataAccessException {
+    public ResponseEntity<ArticlesResponse<Boolean>> deleteArticle(@PathVariable String id) 
+    throws DataAccessException {
         articlesService.deleteArticle(Integer.parseInt(id));
 
         return ResponseEntity.ok(

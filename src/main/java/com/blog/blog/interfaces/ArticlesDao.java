@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
-import com.blog.blog.config.Article;
+import com.blog.blog.Article;
 
 public interface ArticlesDao {
     public List<Article> getAllArticles() throws DataAccessException;

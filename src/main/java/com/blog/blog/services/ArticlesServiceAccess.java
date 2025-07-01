@@ -7,8 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.blog.blog.config.Article;
-import com.blog.blog.config.ArticleRowMapper;
+import com.blog.blog.Article;
 import com.blog.blog.interfaces.ArticlesDao;
 
 @Repository
@@ -41,9 +40,8 @@ public class ArticlesServiceAccess implements ArticlesDao {
     public void addArticle(Article article) throws DataAccessException {
         jdbcTemplate.update(
             """
-                INSERT INTO Articles (Id, Title, Subtitle, Content) VALUES(?, ?, ?, ?);        
+                INSERT INTO Articles (Title, Subtitle, Content) VALUES(?, ?, ?);        
             """,
-            article.getId(),
             article.getTitle(),
             article.getSubtitle(),
             article.getContent()
@@ -54,7 +52,12 @@ public class ArticlesServiceAccess implements ArticlesDao {
     public void updateArticle(int id, Article newArticle) throws DataAccessException {
         jdbcTemplate.update(
             """
-                UPDATE Articles SET Title = ?, Subtitle = ?, Content = ? WHERE Id = ?;
+                UPDATE Articles SET 
+                    Title = ?, 
+                    Subtitle = ?, 
+                    Content = ?,
+                    Updated = CURRENT_TIMESTAMP()
+                WHERE Id = ?;
             """,
             newArticle.getTitle(),
             newArticle.getSubtitle(),

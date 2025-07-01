@@ -1,4 +1,4 @@
-package com.blog.blog.config;
+package com.blog.blog;
 
 public class ArticlesResponse<T> {
     private String message;
