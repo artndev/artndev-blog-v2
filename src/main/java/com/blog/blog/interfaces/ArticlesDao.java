@@ -1,6 +1,5 @@
 package com.blog.blog.interfaces;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -12,9 +11,9 @@ public interface ArticlesDao {
 
     public Article getArticle(int id) throws DataAccessException;
 
-    public void addArticle(Article article);
+    public void addArticle(Article article) throws DataAccessException;
 
-    public void updateArticle(int id, Article newArticle);
+    public void updateArticle(int id, Article newArticle) throws DataAccessException;
 
-    public void deleteArticle(int id);
+    public void deleteArticle(int id) throws DataAccessException;
 }

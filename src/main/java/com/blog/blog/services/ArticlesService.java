@@ -22,15 +22,15 @@ public class ArticlesService {
         return articelsDao.getArticle(id);
     }
 
-    public void addArticle(Article article) {
+    public void addArticle(Article article) throws DataAccessException {
         articelsDao.addArticle(article);
     }
 
-    public void updateArticle(int id, Article newArticle) {
+    public void updateArticle(int id, Article newArticle) throws DataAccessException {
         articelsDao.updateArticle(id, newArticle);
     }
 
-    public void deleteArticle(int id) {
+    public void deleteArticle(int id) throws DataAccessException {
         articelsDao.deleteArticle(id);
     }
 }

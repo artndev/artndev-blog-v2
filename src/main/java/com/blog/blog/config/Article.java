@@ -1,19 +1,33 @@
 package com.blog.blog.config;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class Article {
-    private int id;
+    @Min(1)
+    private Integer id;
+
+    @NotBlank
+    @NotNull
     private String title;
+
+    @NotBlank
+    @NotNull
     private String subtitle;
+
+    @NotBlank
+    @NotNull
     private String content;
 
-    public Article(int id, String title, String subtitle, String content) {
+    public Article(Integer id, String title, String subtitle, String content) {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
         this.content = content;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

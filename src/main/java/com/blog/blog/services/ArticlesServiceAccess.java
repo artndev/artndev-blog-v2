@@ -1,6 +1,5 @@
 package com.blog.blog.services;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,25 +28,48 @@ public class ArticlesServiceAccess implements ArticlesDao {
 
     @Override
     public Article getArticle(int id) throws DataAccessException {
-        try {
-            return jdbcTemplate.queryForObject(
-                """
-                    SELECT * FROM Articles WHERE Id = ?;        
-                """,
-                new ArticleRowMapper(),
-                id
-            );
-        } catch (DataAccessException e) {
-            return null;
-        }
+        return jdbcTemplate.queryForObject(
+            """
+                SELECT * FROM Articles WHERE Id = ?;        
+            """,
+            new ArticleRowMapper(),
+            id
+        );
     };
 
     @Override
-    public void addArticle(Article article) {};
+    public void addArticle(Article article) throws DataAccessException {
+        jdbcTemplate.update(
+            """
+                INSERT INTO Articles (Id, Title, Subtitle, Content) VALUES(?, ?, ?, ?);        
+            """,
+            article.getId(),
+            article.getTitle(),
+            article.getSubtitle(),
+            article.getContent()
+        );
+    };
 
     @Override
-    public void updateArticle(int id, Article newArticle) {};
+    public void updateArticle(int id, Article newArticle) throws DataAccessException {
+        jdbcTemplate.update(
+            """
+                UPDATE Articles SET Title = ?, Subtitle = ?, Content = ? WHERE Id = ?;
+            """,
+            newArticle.getTitle(),
+            newArticle.getSubtitle(),
+            newArticle.getContent(),
+            id
+        );
+    }
 
     @Override
-    public void deleteArticle(int id) {};
+    public void deleteArticle(int id) throws DataAccessException {
+        jdbcTemplate.update(
+            """
+                DELETE FROM Articles WHERE Id = ?;
+            """,
+            id
+        );
+    }
 }

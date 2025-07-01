@@ -1,8 +1,6 @@
 package com.blog.blog.controllers;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -19,6 +17,8 @@ import com.blog.blog.config.Article;
 import com.blog.blog.config.ArticlesResponse;
 import com.blog.blog.services.ArticlesService;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class ArticlesController {
     @Autowired
@@ -26,57 +26,47 @@ public class ArticlesController {
 
     @GetMapping("/articles")
     public ResponseEntity<ArticlesResponse<List<Article>>> getAllArticles() throws DataAccessException {
-        try {
-            List<Article> articles = articlesService.getAllArticles();
+        List<Article> articles = articlesService.getAllArticles();
 
-            return ResponseEntity.ok(
-                new ArticlesResponse<List<Article>>("Articles have been got successfully", articles)  
-            );            
-        } catch (DataAccessException e) {
-            return ResponseEntity.status(500).body(
-                new ArticlesResponse<>("Server is not responding", null)
-            );
-        }
+        return ResponseEntity.ok(
+            new ArticlesResponse<List<Article>>("Articles have been got successfully", articles)  
+        );  
     }
 
     @GetMapping("/articles/{id}")
     public ResponseEntity<ArticlesResponse<Article>> getArticle(@PathVariable String id) throws DataAccessException {
-        try {
-            Article article = articlesService.getArticle(Integer.parseInt(id));
+        Article article = articlesService.getArticle(Integer.parseInt(id));
 
-            if (article == null)
-                return ResponseEntity.status(400).body(
-                    new ArticlesResponse<>("Article has not been found", null)
-                );
-
-            return ResponseEntity.ok(
-              new ArticlesResponse<Article>("Article has been got successfully", article)  
-            );
-        } catch (DataAccessException e) {
-            return ResponseEntity.status(500).body(
-                new ArticlesResponse<>("Server is not responding", null)
-            );
-        }
+        return ResponseEntity.ok(
+            new ArticlesResponse<Article>("Article has been got successfully", article)  
+        );
     }
 
     @PostMapping("/articles")
-    public ResponseEntity<String> addArticle(@RequestBody Article article) {
+    public ResponseEntity<ArticlesResponse<Boolean>> addArticle(@Valid @RequestBody Article article) throws DataAccessException {
         articlesService.addArticle(article);
 
-        return ResponseEntity.ok().body("{\"message\": \"Article has been added successfully\"}");
+        return ResponseEntity.ok(
+            new ArticlesResponse<Boolean>("Article has been created successfully", true)  
+        );
     }
 
     @PutMapping("/articles/{id}")
-    public ResponseEntity<String> updateArticle(@PathVariable String id, @RequestBody Article article) {
+    public ResponseEntity<ArticlesResponse<Boolean>> updateArticle(@PathVariable String id, @Valid @RequestBody Article article) 
+    throws DataAccessException {
         articlesService.updateArticle(Integer.parseInt(id), article);
 
-        return ResponseEntity.ok("{\"message\": \"Article has been updated successfully\"}");
+        return ResponseEntity.ok(
+            new ArticlesResponse<Boolean>("Article has been updated successfully", true)  
+        );
     }
 
     @DeleteMapping("/articles/{id}")
-    public ResponseEntity<String> deleteArticle(@PathVariable String id) {
+    public ResponseEntity<ArticlesResponse<Boolean>> deleteArticle(@PathVariable String id) throws DataAccessException {
         articlesService.deleteArticle(Integer.parseInt(id));
 
-        return ResponseEntity.ok("{\"message\": \"Article has been deleted successfully\"}");
+        return ResponseEntity.ok(
+            new ArticlesResponse<Boolean>("Article has been deleted successfully", true)  
+        );
     }
 }
