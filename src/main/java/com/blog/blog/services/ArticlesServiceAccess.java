@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.blog.blog.Article;
+import com.blog.blog.config.ArticleRowMapper;
 import com.blog.blog.interfaces.ArticlesDao;
 
 @Repository
@@ -18,19 +19,22 @@ public class ArticlesServiceAccess implements ArticlesDao {
     @Override
     public List<Article> getAllArticles() throws SQLException {
         return jdbcTemplate.query(
-            "SELECT * FROM Articles",
-            (rs, rowNum) -> new Article(
-                rs.getInt("id"),
-                rs.getString("title"),
-                rs.getString("subtitle"),
-                rs.getString("content")
-            )
+            """
+               SELECT * FROM Articles;     
+            """,
+            new ArticleRowMapper()
         );
     }
 
     @Override
     public Article getArticle(int id) {
-        return new Article(1, "Test", "Test", "Test");
+        return jdbcTemplate.queryForObject(
+            """
+                SELECT * FROM Articles WHERE Id = ?;        
+            """,
+            new ArticleRowMapper(),
+            id
+        );
     };
 
     @Override
