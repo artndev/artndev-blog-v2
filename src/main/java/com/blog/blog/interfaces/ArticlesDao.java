@@ -3,12 +3,14 @@ package com.blog.blog.interfaces;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.blog.blog.Article;
+import org.springframework.dao.DataAccessException;
+
+import com.blog.blog.config.Article;
 
 public interface ArticlesDao {
-    public List<Article> getAllArticles() throws SQLException;
+    public List<Article> getAllArticles() throws DataAccessException;
 
-    public Article getArticle(int id);
+    public Article getArticle(int id) throws DataAccessException;
 
     public void addArticle(Article article);
 

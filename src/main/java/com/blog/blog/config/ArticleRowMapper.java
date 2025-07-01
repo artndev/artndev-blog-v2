@@ -4,9 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
-
-import com.blog.blog.Article;
-
 import org.springframework.lang.NonNull;
 
 public class ArticleRowMapper implements RowMapper<Article> {

@@ -1,4 +1,4 @@
-package com.blog.blog;
+package com.blog.blog.config;
 
 public class Article {
     private int id;

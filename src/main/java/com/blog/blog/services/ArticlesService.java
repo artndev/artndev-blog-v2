@@ -1,12 +1,12 @@
 package com.blog.blog.services;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.blog.blog.Article;
+import com.blog.blog.config.Article;
 import com.blog.blog.interfaces.ArticlesDao;
 
 @Service
@@ -14,11 +14,11 @@ public class ArticlesService {
     @Autowired
     private ArticlesDao articelsDao;
 
-    public List<Article> getAllArticles() throws SQLException {
+    public List<Article> getAllArticles() throws DataAccessException {
         return articelsDao.getAllArticles();
     }
 
-    public Article getArticle(int id) {
+    public Article getArticle(int id) throws DataAccessException {
         return articelsDao.getArticle(id);
     }
 
