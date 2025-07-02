@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`flex flex-col h-screen hanken-grotesk`}
+        className={`flex flex-col h-screen inter`}
       >
         <header className="flex justify-between self-center w-full max-w-[1000px] p-[40px]">
           <Link href="#">
@@ -32,17 +32,17 @@ export default function RootLayout({
           <main className="h-full p-[0_20px_0_20px]">
             {children}
           </main>
-          <footer className="flex flex-col gap-6 text-(--background) bg-(--foreground) p-[40px_40px_40px_40px]">
-            <div className="flex flex-col gap-3">
-              <span className="jetbrains-mono">
+          <footer className="flex flex-col gap-6 text-(--background) bg-(--foreground) p-[40px]">
+            <div className="flex flex-col gap-3 text-(--muted-foreground)">
+              <span>
                 Fullstack application based on Spring Boot and Next.js
               </span>
-              <span className="text-(--muted-foreground)">
-                Designed by @artndev
-              </span>
             </div>
-            <div className="grid grid-cols-[repeat(2,_minmax(0,_250px))] gap-6 jetbrains-mono">
+            <div className="grid grid-cols-[repeat(2,_minmax(0,_250px))] gap-6">
               <div className="flex flex-col gap-3">
+                <span className="font-semibold">
+                  Socials
+                </span>
                 <Link href="#">
                   Github
                 </Link>
@@ -51,11 +51,11 @@ export default function RootLayout({
                 </Link>
               </div>
               <div className="flex flex-col gap-3">
+                <span className="font-semibold">
+                  Other
+                </span>
                 <Link href="#">
-                  CV.pdf
-                </Link>
-                <Link href="#">
-                  LICENCE.md
+                  LICENCE
                 </Link>
               </div>
             </div>

@@ -1,20 +1,21 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
-
-export default function Card() {
+export default function ThoughtCard({ title, content, updated }: { 
+  title: string; 
+  content: string; 
+  updated: string 
+}) {
   return (
-    <div className="flex justify-center items-center w-full h-full">
-      <div className="flex flex-col gap-6 w-[max-content]">
-        <h1 className="text-5xl font-semibold leading-none hanken-grotesk">
-          Diary of my mind
-        </h1>
-        <Button className="max-w-[50%] justify-between">
-          <span>
-            Inspect
-          </span>
-          <ArrowRight />
-        </Button>
+    <>
+      <div className="flex flex-col gap-3 min-w-[250px] max-w-[500px]">
+        <span className="text-2xl font-semibold">
+          {title}
+        </span>
+        <span>
+          {content}
+        </span>
+        <span className="text-(--muted-foreground)">
+          {updated}
+        </span>
       </div>
-    </div>
+    </>
   );
 }
