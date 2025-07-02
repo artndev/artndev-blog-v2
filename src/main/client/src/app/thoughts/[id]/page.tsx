@@ -1,20 +1,26 @@
 'use client'
 
-import { useParams } from 'next/navigation';
+import { I_Article } from '@/app/_types';
+import { useEffect, useState } from 'react';
 import ThoughtPreview from '../_components/thought-preview';
+import { getArticle } from '../actions';
 
-export default function ThoughtPage() {
-  const params = useParams<{ id: string; }>()
-  
-  console.log(params.id)
+export default function ThoughtPage({ params }: { params: { id: string } }) {
+  const [article, setArticle] = useState<I_Article | null>(null)
+
+  useEffect(() => {
+    getArticle(params.id)
+      .then(res => setArticle(res.answer))
+      .catch(err => console.log(err))
+  }, [params.id])
 
   return (
     <div className="flex justify-center items-center w-full">
-      <ThoughtPreview 
-        title="Test"
-        content="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?"
-        updated="02/07/2025"
-      />
+      {article && <ThoughtPreview 
+        title={article.Title}
+        content={article.Subtitle}
+        updated={article.Updated}
+      />}
     </div>
   );
 }
