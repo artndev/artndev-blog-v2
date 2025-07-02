@@ -1,17 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,16 +15,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`flex flex-col h-screen ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`flex flex-col h-screen hanken-grotesk`}
       >
         <header className="flex justify-between self-center w-full max-w-[1000px] p-[40px]">
-          <Link href="#" className="underline">
+          <Link href="#">
             Home
           </Link>
-          <Link href="#" className="underline">
+          <Link href="#">
             Thoughts
           </Link>
-          <Link href="#" className="underline">
+          <Link href="#">
             Source
           </Link>
         </header>
@@ -54,28 +43,20 @@ export default function RootLayout({
             </div>
             <div className="grid grid-cols-[repeat(2,_minmax(0,_250px))] gap-6">
               <div className="flex flex-col gap-3">
-                <span className="underline">
-                  <Link href="#">
-                    Github
-                  </Link>
-                </span>
-                <span className="underline">
-                  <Link href="#">
-                    Telegram
-                  </Link>
-                </span>
+                <Link href="#">
+                  Github
+                </Link>
+                <Link href="#">
+                  Telegram
+                </Link>
               </div>
-              <div className="flex flex-col gap-3">
-                <span className="underline">
-                  <Link href="#">
-                    CV.pdf
-                  </Link>
-                </span>
-                <span className="underline">
-                  <Link href="#">
-                    LICENCE.md
-                  </Link>
-                </span>
+              <div className="flex flex-col gap-3 jetbrains-mono">
+                <Link href="#">
+                  CV.pdf
+                </Link>
+                <Link href="#">
+                  LICENCE.md
+                </Link>
               </div>
             </div>
           </footer>

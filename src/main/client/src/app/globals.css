@@ -121,6 +121,10 @@
   font-family: "JetBrains Mono", monospace;
 }
 
+a {
+  @apply underline;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
