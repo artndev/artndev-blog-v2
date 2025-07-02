@@ -41,7 +41,7 @@ export default function RootLayout({
                 Designed by @artndev
               </span>
             </div>
-            <div className="grid grid-cols-[repeat(2,_minmax(0,_250px))] gap-6">
+            <div className="grid grid-cols-[repeat(2,_minmax(0,_250px))] gap-6 jetbrains-mono">
               <div className="flex flex-col gap-3">
                 <Link href="#">
                   Github
@@ -50,7 +50,7 @@ export default function RootLayout({
                   Telegram
                 </Link>
               </div>
-              <div className="flex flex-col gap-3 jetbrains-mono">
+              <div className="flex flex-col gap-3">
                 <Link href="#">
                   CV.pdf
                 </Link>
