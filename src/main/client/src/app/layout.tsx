@@ -18,26 +18,24 @@ export default function RootLayout({
         className={`flex flex-col h-screen inter`}
       >
         <header className="flex justify-between self-center w-full max-w-[1000px] p-[40px]">
-          <Link href="#">
+          <Link href="/">
             Home
           </Link>
-          <Link href="#">
+          <Link href="/thoughts">
             Thoughts
           </Link>
           <Link href="#">
             Source
           </Link>
         </header>
-        <section className="flex-1">
-          <main className="h-full p-[0_20px_0_20px]">
+        <section className="flex-1 flex flex-col">
+          <main className="flex-1 p-[0_20px_40px_20px]">
             {children}
           </main>
           <footer className="flex flex-col gap-6 text-(--background) bg-(--foreground) p-[40px]">
-            <div className="flex flex-col gap-3 text-(--muted-foreground)">
-              <span>
-                Fullstack application based on Spring Boot and Next.js
-              </span>
-            </div>
+            <span className="text-(--muted-foreground)">
+              Fullstack application based on Spring Boot and Next.js
+            </span>
             <div className="grid grid-cols-[repeat(2,_minmax(0,_250px))] gap-6">
               <div className="flex flex-col gap-3">
                 <span className="font-semibold">
@@ -52,10 +50,10 @@ export default function RootLayout({
               </div>
               <div className="flex flex-col gap-3">
                 <span className="font-semibold">
-                  Other
+                  Product
                 </span>
                 <Link href="#">
-                  LICENCE
+                  License
                 </Link>
               </div>
             </div>
