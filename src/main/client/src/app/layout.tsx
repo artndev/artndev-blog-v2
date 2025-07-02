@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,9 +26,60 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`flex flex-col h-screen ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <header className="flex justify-between self-center w-full max-w-[1000px] p-[40px]">
+          <Link href="#" className="underline">
+            Home
+          </Link>
+          <Link href="#" className="underline">
+            Thoughts
+          </Link>
+          <Link href="#" className="underline">
+            Source
+          </Link>
+        </header>
+        <section className="flex-1">
+          <main className="h-full p-[0_20px_0_20px]">
+            {children}
+          </main>
+          <footer className="flex flex-col gap-6 text-(--background) bg-(--foreground) p-[40px_40px_40px_40px]">
+            <div className="flex flex-col gap-3">
+              <span className="jetbrains-mono">
+                Fullstack application based on Spring Boot and Next.js
+              </span>
+              <span className="text-(--muted-foreground)">
+                Designed by @artndev
+              </span>
+            </div>
+            <div className="grid grid-cols-[repeat(2,_minmax(0,_250px))] gap-6">
+              <div className="flex flex-col gap-3">
+                <span className="underline">
+                  <Link href="#">
+                    Github
+                  </Link>
+                </span>
+                <span className="underline">
+                  <Link href="#">
+                    Telegram
+                  </Link>
+                </span>
+              </div>
+              <div className="flex flex-col gap-3">
+                <span className="underline">
+                  <Link href="#">
+                    CV.pdf
+                  </Link>
+                </span>
+                <span className="underline">
+                  <Link href="#">
+                    LICENCE.md
+                  </Link>
+                </span>
+              </div>
+            </div>
+          </footer>
+        </section>
       </body>
     </html>
   );
