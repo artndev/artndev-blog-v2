@@ -36,7 +36,7 @@ export default function ThoughtsPage() {
 
   return (
     <div className="flex justify-center w-full">
-      <div className="flex flex-col items-center gap-12 max-w-[1000px] p-[0_20px_0_20px]">
+      <div className="flex flex-col items-center gap-12 max-w-[1000px]">
         {data.map((val, i) => {
           return <ThoughtCard 
             id={val.id}
