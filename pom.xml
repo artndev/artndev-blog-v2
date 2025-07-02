@@ -152,7 +152,7 @@
                             <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${frontend-src-dir}/.next</directory>
+                                    <directory>${frontend-src-dir}/out</directory>
                                     <filtering>false</filtering>
                                 </resource>
                             </resources>
