@@ -124,15 +124,16 @@
 }
 
 .hanken-grotesk {
-  @apply font-['Hanken Grotesk',_sans-serif];
+  font-family: 'Hanken Grotesk', sans-serif;
 }
 
 .jetbrains-mono {
-  @apply font-['JetBrains Mono',_monospace];
+  font-family: 'JetBrains Mono', monospace;
 }
 
 #root {
-  @apply flex flex-col min-h-screen font-['Inter',_sans-serif];
+  @apply flex flex-col min-h-screen;
+  font-family: 'Inter', sans-serif;
 }
 
 a {

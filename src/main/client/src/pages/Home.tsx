@@ -5,16 +5,18 @@ const Home = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="self-center flex flex-col gap-6">
-      <div className="text-5xl font-semibold hanken-grotesk">
-        Explore <span className="jetbrains-mono">stunning</span> ideas.
+    <div className="flex justify-center items-center w-full">
+      <div className="flex flex-col gap-6">
+        <div className="text-5xl font-semibold hanken-grotesk">
+          Explore <span className="jetbrains-mono">stunning</span> ideas.
+        </div>
+        <Button
+          className="w-[200px] rounded-full cursor-pointer"
+          onClick={() => navigate('/articles')}
+        >
+          Dive into my articles
+        </Button>
       </div>
-      <Button
-        className="w-[200px] rounded-full cursor-pointer"
-        onClick={() => navigate('/articles')}
-      >
-        Dive into my articles
-      </Button>
     </div>
   )
 }

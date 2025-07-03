@@ -1,7 +1,9 @@
-import React from 'react'
-
 const NotFound = () => {
-  return <div>NotFound</div>
+  return (
+    <div className="flex justify-center items-center w-full">
+      <div className="text-5xl font-semibold jetbrains-mono">Not Found</div>
+    </div>
+  )
 }
 
 export default NotFound
