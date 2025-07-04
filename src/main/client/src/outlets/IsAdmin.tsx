@@ -9,7 +9,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useAdminContext } from '@/hooks/use-admin-content'
+import { useAdminContext } from '@/hooks/use-admin-context'
 import { AdminFormSchema, type T_AdminFormSchema } from '@/lib/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
