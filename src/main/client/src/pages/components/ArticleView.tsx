@@ -29,7 +29,7 @@ const ArticleView: React.FC<I_ArticleProps> = ({
       </span>
       <Button
         variant={'outline'}
-        className="self-end w-[200px] rounded-full"
+        className="self-end min-w-[200px] rounded-full"
         onClick={() => navigate('/articles')}
       >
         Back to articles

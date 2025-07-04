@@ -11,7 +11,7 @@ const Home = () => {
           Explore <span className="jetbrains-mono">stunning</span> ideas.
         </div>
         <Button
-          className="w-[200px] rounded-full cursor-pointer"
+          className="max-w-[200px] rounded-full cursor-pointer"
           onClick={() => navigate('/articles')}
         >
           Dive into articles

@@ -54,7 +54,7 @@ const AdminPanel = () => {
           <div className="flex flex-col gap-8 w-[min(1000px,_100%)]">
             <Button
               variant={'outline'}
-              className="w-[200px] rounded-full"
+              className="self-end w-[200px] rounded-full"
               onClick={() => navigate('/articles')}
             >
               Back to articles
@@ -66,18 +66,24 @@ const AdminPanel = () => {
                     {article.title}
                     <Badge className="h-[max-content]">ID: {article.id}</Badge>
                   </div>
-                  <div className="flex gap-3">
-                    <Button size={'icon'}>
+                  <div className="flex gap-3 w-full">
+                    <Button className="min-w-[100px] rounded-full">
                       <Pen />
+                      Edit
                     </Button>
                     <Button
-                      size={'icon'}
+                      className="min-w-[100px] rounded-full"
                       onClick={() => navigate(`/articles/${article.id}`)}
                     >
                       <Link />
+                      View
                     </Button>
-                    <Button variant={'destructive'} size={'icon'}>
+                    <Button
+                      variant={'destructive'}
+                      className="min-w-[100px] rounded-full ml-auto"
+                    >
                       <Trash2 />
+                      Delete
                     </Button>
                   </div>
                 </div>
