@@ -14,7 +14,7 @@ const Home = () => {
           className="w-[200px] rounded-full cursor-pointer"
           onClick={() => navigate('/articles')}
         >
-          Dive into my articles
+          Dive into articles
         </Button>
       </div>
     </div>

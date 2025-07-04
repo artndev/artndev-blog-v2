@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form'
 import { Outlet } from 'react-router-dom'
 
 const IsAdmin = () => {
-  const [isAdmin, setIsAdmin] = useState<boolean>(false)
+  const [isAdmin, setIsAdmin] = useState<boolean>(true) // false
   const form = useForm<T_IsAdminSchema>({
     resolver: zodResolver(IsAdminSchema),
     defaultValues: {

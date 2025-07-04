@@ -16,11 +16,9 @@ const ArticleCard: React.FC<I_ArticleProps> = ({
 
   return (
     <div className={cn(`flex flex-col gap-6 w-full`, className)}>
-      <div className="flex flex-col gap-1 text-2xl font-semibold hanken-grotesk">
+      <div className="flex flex-col gap-2 text-2xl font-semibold hanken-grotesk">
         {title}
-        <Badge variant={'default'} className="h-[max-content]">
-          ID: {id}
-        </Badge>
+        <Badge className="h-[max-content]">ID: {id}</Badge>
       </div>
       <span>{content}</span>
       <span className="text-sm text-(--muted-foreground)">
@@ -28,7 +26,7 @@ const ArticleCard: React.FC<I_ArticleProps> = ({
       </span>
       <Button
         variant={'outline'}
-        className="self-end w-[200px] rounded-full cursor-pointer"
+        className="self-end w-[200px] rounded-full"
         onClick={() => navigate(`/articles/${id}`)}
       >
         Read more

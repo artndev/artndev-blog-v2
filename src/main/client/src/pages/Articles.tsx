@@ -46,7 +46,7 @@ const Articles = () => {
     <>
       {articles?.length ? (
         <div className="flex justify-center w-full">
-          <div className="flex flex-col gap-12 w-[min(1000px,_100%)]">
+          <div className="flex flex-col gap-8 w-[min(1000px,_100%)]">
             {articles.map((article, i) => {
               return (
                 <ArticleCard
