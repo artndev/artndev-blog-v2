@@ -31,7 +31,7 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({ onSubmit }) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-6 w-[min(500px,_100%)]"
         >
-          <span className="text-2xl font-semibold hanken-grotesk">Sign in</span>
+          <span className="text-2xl font-semibold hanken-grotesk">Article</span>
           <FormField
             control={form.control}
             name="title"
