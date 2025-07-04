@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div className="flex justify-center items-center w-full">
       <div className="flex flex-col gap-6">
-        <div className="text-5xl font-semibold hanken-grotesk">
+        <div className="text-4xl font-semibold hanken-grotesk">
           Explore <span className="jetbrains-mono">stunning</span> ideas.
         </div>
         <Button

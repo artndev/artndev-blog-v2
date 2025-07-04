@@ -1,65 +1,64 @@
-import { useEffect, useState } from 'react'
-import axios from './axios.js'
+// import { useEffect, useState } from 'react'
+// import axios from './axios.js'
+// import type { I_Article, I_AxiosResponse } from './types'
 import ArticleCard from './components/ArticleCard'
-import type { I_Article, I_AxiosResponse } from './types'
 
-// const articles = [
-//   {
-//     Id: '1',
-//     Title: 'Test',
-//     Content:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-//     Updated: '02/07/2025',
-//   },
-//   {
-//     Id: '1',
-//     Title: 'Test',
-//     Content:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-//     Updated: '02/07/2025',
-//   },
-//   {
-//     Id: '1',
-//     Title: 'Test',
-//     Content:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-//     Updated: '02/07/2025',
-//   },
-//   {
-//     Id: '1',
-//     Title: 'Test',
-//     Content:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-//     Updated: '02/07/2025',
-//   },
-// ]
+const articles = [
+  {
+    id: 1,
+    title: 'Generating AI videos using model',
+    subtitle: 'Useful prompts and general analysis',
+    content:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+    updated: new Date().toString(),
+  },
+  {
+    id: 2,
+    title: 'Test2',
+    subtitle: 'Test2',
+    content:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+    updated: new Date().toString(),
+  },
+  {
+    id: 3,
+    title: 'Test3',
+    subtitle: 'Test3',
+    content:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+    updated: new Date().toString(),
+  },
+]
 
 const Articles = () => {
-  const [articles, setArticles] = useState<I_Article[] | null>(null)
+  // const [articles, setArticles] = useState<I_Article[] | null>(null)
 
-  useEffect(() => {
-    axios
-      .get('/articles')
-      .then((res: I_AxiosResponse<I_Article[] | null>) =>
-        setArticles(res.data.answer)
-      )
-      .catch(err => console.log(err))
-  }, [])
+  // useEffect(() => {
+  //   axios
+  //     .get('/articles')
+  //     .then((res: I_AxiosResponse<I_Article[] | null>) =>
+  //       setArticles(res.data.answer)
+  //     )
+  //     .catch(err => console.log(err))
+  // }, [])
 
   return (
     <>
       {articles?.length ? (
         <div className="flex justify-center w-full">
-          <div className="flex flex-col items-center gap-12 w-[min(1000px,_100%)]">
+          <div className="flex flex-col gap-12 w-[min(1000px,_100%)]">
             {articles.map((article, i) => {
               return (
                 <ArticleCard
                   id={article.id}
                   title={article.title}
                   content={article.subtitle}
-                  updated={new Date(article.updated).toLocaleString('en-GB', {
-                    timeZone: 'UTC',
-                  })}
+                  updated={new Date(article.updated).toLocaleDateString(
+                    'en-GB',
+                    {
+                      timeZone: 'UTC',
+                    }
+                  )}
                   key={i}
                 />
               )

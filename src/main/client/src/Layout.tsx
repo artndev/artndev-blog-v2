@@ -3,15 +3,17 @@ import { Link, Outlet } from 'react-router-dom'
 const Layout = () => {
   return (
     <>
-      <header className="self-center flex justify-between w-[min(1000px,_100%)] p-[40px]">
-        <Link to="/">Home</Link>
-        <Link to="/articles">Articles</Link>
-        <Link to="#">Source</Link>
+      <header className="flex justify-center w-full p-[40px] sticky top-0 bg-(--background) shadow-sm">
+        <div className="flex justify-between w-[min(1000px,_100%)] ">
+          <Link to="/">Home</Link>
+          <Link to="/articles">Articles</Link>
+          <Link to="#">Source</Link>
+        </div>
       </header>
-      <main className="flex-1 flex p-[0_20px_40px_20px]">
+      <main className="flex-1 flex p-[40px_20px_40px_20px]">
         <Outlet />
       </main>
-      <footer className="flex flex-col gap-6 text-(--background) bg-(--foreground) p-[40px]">
+      <footer className="flex flex-col gap-6 text-(--background) bg-(--foreground) p-[40px] shadow-sm">
         <span className="text-(--muted-foreground)">
           Fullstack application based on Spring Boot and React
         </span>
