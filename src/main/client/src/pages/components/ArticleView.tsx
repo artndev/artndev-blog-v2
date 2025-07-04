@@ -1,10 +1,11 @@
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 import React from 'react'
+import Markdown from 'react-markdown'
 import { useNavigate } from 'react-router-dom'
 import type { I_ArticleProps } from '../types'
-import { Badge } from '@/components/ui/badge'
-import Markdown from 'react-markdown'
 
 const ArticleView: React.FC<I_ArticleProps> = ({
   id,
@@ -27,13 +28,23 @@ const ArticleView: React.FC<I_ArticleProps> = ({
       <span className="text-sm text-(--muted-foreground)">
         Updated at {updated}
       </span>
-      <Button
-        variant={'outline'}
-        className="self-end min-w-[200px] rounded-full"
-        onClick={() => navigate('/articles')}
-      >
-        Back to articles
-      </Button>
+      <div className="flex justify-end gap-6 w-full">
+        <Button
+          variant={'outline'}
+          className="flex-1 max-w-[200px] rounded-full"
+          onClick={() => navigate('/articles')}
+        >
+          <ArrowLeft />
+          Back to articles
+        </Button>
+        <Button
+          className="flex-1 max-w-[200px] rounded-full"
+          onClick={() => navigate('/articles')}
+        >
+          Next article
+          <ArrowRight />
+        </Button>
+      </div>
     </div>
   )
 }

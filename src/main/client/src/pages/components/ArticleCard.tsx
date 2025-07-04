@@ -4,6 +4,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { I_ArticleProps } from '../types'
 import { Badge } from '@/components/ui/badge'
+import { ArrowRight } from 'lucide-react'
 
 const ArticleCard: React.FC<I_ArticleProps> = ({
   id,
@@ -30,6 +31,7 @@ const ArticleCard: React.FC<I_ArticleProps> = ({
         onClick={() => navigate(`/articles/${id}`)}
       >
         Read more
+        <ArrowRight />
       </Button>
     </div>
   )

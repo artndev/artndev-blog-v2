@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { ArrowUpRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
           onClick={() => navigate('/articles')}
         >
           Dive into articles
+          <ArrowUpRight />
         </Button>
       </div>
     </div>

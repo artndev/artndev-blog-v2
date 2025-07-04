@@ -4,7 +4,7 @@
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Trash2, Pen, Link } from 'lucide-react'
+import { Trash2, Pen, Link, ArrowLeft, Plus } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 const articles = [
@@ -52,19 +52,31 @@ const AdminPanel = () => {
       {articles?.length ? (
         <div className="flex justify-center w-full">
           <div className="flex flex-col gap-8 w-[min(1000px,_100%)]">
-            <Button
-              variant={'outline'}
-              className="self-end w-[200px] rounded-full"
-              onClick={() => navigate('/articles')}
-            >
-              Back to articles
-            </Button>
+            <div className="flex justify-end gap-6 w-full">
+              <Button
+                variant={'outline'}
+                className="flex-1 max-w-[200px] rounded-full"
+                onClick={() => navigate('/articles')}
+              >
+                <ArrowLeft />
+                Back to articles
+              </Button>
+              <Button
+                className="flex-1 max-w-[200px] rounded-full"
+                onClick={() => navigate('/admin/articles/add')}
+              >
+                Add article
+                <Plus />
+              </Button>
+            </div>
             {articles.map((article, i) => {
               return (
                 <div key={i} className="flex flex-col gap-6">
                   <div className="flex flex-col gap-2 text-2xl font-semibold hanken-grotesk">
                     {article.title}
-                    <Badge className="h-[max-content]">ID: {article.id}</Badge>
+                    <Badge variant={'outline'} className="h-[max-content]">
+                      ID: {article.id}
+                    </Badge>
                   </div>
                   <div className="flex gap-3 w-full">
                     <Button className="min-w-[100px] rounded-full">

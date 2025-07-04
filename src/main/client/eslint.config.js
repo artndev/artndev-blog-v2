@@ -24,6 +24,7 @@ export default tseslint.config([
     },
     rules: {
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
+      'react-refresh/only-export-components': ['off'],
     },
   },
 ])

@@ -9,22 +9,23 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { IsAdminSchema, type T_IsAdminSchema } from '@/lib/utils'
+import { useAdminContext } from '@/hooks/use-admin-content'
+import { AdminFormSchema, type T_AdminFormSchema } from '@/lib/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 const IsAdmin = () => {
-  const [isAdmin, setIsAdmin] = useState<boolean>(true) // false
-  const form = useForm<T_IsAdminSchema>({
-    resolver: zodResolver(IsAdminSchema),
+  const navigate = useNavigate()
+  const { cookies, setCookie } = useAdminContext()
+  const form = useForm<T_AdminFormSchema>({
+    resolver: zodResolver(AdminFormSchema),
     defaultValues: {
       auth_token: '',
     },
   })
 
-  const onSubmit = (formData: T_IsAdminSchema) => {
+  const onSubmit = (formData: T_AdminFormSchema) => {
     if (formData.auth_token !== import.meta.env.VITE_ADMIN_AUTH_TOKEN) {
       form.setError('auth_token', {
         message: 'Access is forbidden',
@@ -32,17 +33,23 @@ const IsAdmin = () => {
       return
     }
 
-    setIsAdmin(true)
+    setCookie('auth_token_provided', true, {
+      maxAge: 3600, // 1h
+      // secure: true,
+      // sameSite: 'strict',
+    })
+
+    navigate(0)
   }
 
   return (
     <>
-      {!isAdmin ? (
+      {!cookies.auth_token_provided ? (
         <div className="flex justify-center items-center w-full">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="flex flex-col gap-6 w-[min(300px,_100%)]"
+              className="flex flex-col gap-6 w-[min(500px,_100%)]"
             >
               <span className="text-2xl font-semibold hanken-grotesk">
                 Sign in
@@ -62,7 +69,9 @@ const IsAdmin = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit">Submit</Button>
+              <Button type="submit" className="max-w-[200px]">
+                Submit
+              </Button>
             </form>
           </Form>
         </div>
