@@ -28,7 +28,7 @@ const ArticleView: React.FC<I_ArticleProps> = ({
       <span className="text-sm text-(--muted-foreground)">
         Updated at {updated}
       </span>
-      <div className="flex justify-end gap-6 w-full">
+      <div className="flex justify-end gap-6 w-full mt-6">
         <Button
           variant={'outline'}
           className="flex-1 max-w-[200px] rounded-full"

@@ -7,7 +7,8 @@ const articles = [
   {
     id: 1,
     title: 'Generating AI videos using model',
-    subtitle: 'Useful prompts and general analysis',
+    subtitle:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
     content:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
     updated: new Date().toString(),
@@ -15,7 +16,8 @@ const articles = [
   {
     id: 2,
     title: 'Test2',
-    subtitle: 'Test2',
+    subtitle:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
     content:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
     updated: new Date().toString(),
@@ -23,7 +25,8 @@ const articles = [
   {
     id: 3,
     title: 'Test3',
-    subtitle: 'Test3',
+    subtitle:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
     content:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
     updated: new Date().toString(),
@@ -46,7 +49,7 @@ const Articles = () => {
     <>
       {articles?.length ? (
         <div className="flex justify-center w-full">
-          <div className="flex flex-col gap-8 w-[min(1000px,_100%)]">
+          <div className="flex flex-col gap-12 w-[min(1000px,_100%)]">
             {articles.map((article, i) => {
               return (
                 <ArticleCard

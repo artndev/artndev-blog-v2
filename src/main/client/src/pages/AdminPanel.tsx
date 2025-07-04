@@ -51,7 +51,7 @@ const AdminPanel = () => {
     <>
       {articles?.length ? (
         <div className="flex justify-center w-full">
-          <div className="flex flex-col gap-8 w-[min(1000px,_100%)]">
+          <div className="flex flex-col gap-12 w-[min(1000px,_100%)]">
             <div className="flex justify-end gap-6 w-full">
               <Button
                 variant={'outline'}
