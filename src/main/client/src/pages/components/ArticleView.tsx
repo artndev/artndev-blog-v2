@@ -6,6 +6,7 @@ import React from 'react'
 import Markdown from 'react-markdown'
 import { useNavigate } from 'react-router-dom'
 import type { I_ArticleProps } from '../types'
+import rehypeRaw from 'rehype-raw'
 
 const ArticleView: React.FC<I_ArticleProps> = ({
   id,
@@ -23,7 +24,7 @@ const ArticleView: React.FC<I_ArticleProps> = ({
         <Badge className="h-[max-content]">ID: {id}</Badge>
       </div>
       <div className="flex flex-col gap-3">
-        <Markdown>{content}</Markdown>
+        <Markdown rehypePlugins={[rehypeRaw]}>{content}</Markdown>
       </div>
       <span className="text-sm text-(--muted-foreground)">
         Updated at {updated}

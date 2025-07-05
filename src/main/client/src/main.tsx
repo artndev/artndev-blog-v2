@@ -4,12 +4,15 @@ import './index.css'
 import App from './App.tsx'
 import AdminProvider from '@/contexts/Admin.tsx'
 import { CookiesProvider } from 'react-cookie'
+import { TooltipProvider } from '@/components/ui/tooltip'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <CookiesProvider>
       <AdminProvider>
-        <App />
+        <TooltipProvider>
+          <App />
+        </TooltipProvider>
       </AdminProvider>
     </CookiesProvider>
   </StrictMode>

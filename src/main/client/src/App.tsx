@@ -18,15 +18,15 @@ const App = () => {
           <Route path="/articles" element={<Articles />} />
           <Route path="/articles/:id" element={<Article />} />
 
-          <Route path="/admin" element={<IsAdmin />}>
+          <Route path="/admin-panel" element={<IsAdmin />}>
             <Route index element={<AdminPanel />} />
 
             <Route
-              path="/admin/articles/:id/edit"
+              path="/admin-panel/articles/:id/edit"
               element={<ArticleForm onSubmit={() => {}} />}
             />
             <Route
-              path="/admin/articles/add"
+              path="/admin-panel/articles/add"
               element={<ArticleForm onSubmit={() => {}} />}
             />
           </Route>

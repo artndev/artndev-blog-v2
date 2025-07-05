@@ -63,7 +63,7 @@ const AdminPanel = () => {
               </Button>
               <Button
                 className="flex-1 max-w-[200px] rounded-full"
-                onClick={() => navigate('/admin/articles/add')}
+                onClick={() => navigate('/admin-panel/articles/add')}
               >
                 Add article
                 <Plus />

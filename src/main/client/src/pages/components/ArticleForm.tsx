@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -10,12 +9,15 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { ArticleFormSchema, type T_ArticleFormSchema } from '@/lib/schemas'
+import { cn } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import type { I_ArticleFormProps } from '../types'
+import RichEditor from './RichEditor'
 
 const ArticleForm: React.FC<I_ArticleFormProps> = ({ onSubmit }) => {
   const form = useForm<T_ArticleFormSchema>({
+    mode: 'onChange',
     resolver: zodResolver(ArticleFormSchema),
     defaultValues: {
       title: '',
@@ -29,7 +31,7 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({ onSubmit }) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-6 w-[min(500px,_100%)]"
+          className="flex flex-col gap-6 w-[min(1000px,_100%)]"
         >
           <span className="text-2xl font-semibold hanken-grotesk">Article</span>
           <FormField
@@ -37,12 +39,37 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({ onSubmit }) => {
             name="title"
             rules={{ required: true }}
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Token</FormLabel>
+              <FormItem className="max-w-[500px]">
+                <FormLabel>Article</FormLabel>
                 <FormControl>
-                  <Input placeholder="xxx-xxx-xxx" {...field} />
+                  <Input {...field} />
                 </FormControl>
-                <FormDescription>Authorize as admin</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="content"
+            rules={{ required: true }}
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Content</FormLabel>
+                <RichEditor
+                  className={cn(
+                    'max-w-full',
+                    form.formState.errors.content &&
+                      cn(
+                        'border-destructive',
+                        'focus-within:border-destructive'
+                      )
+                  )}
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+                <FormControl>
+                  <Input className="hidden" {...field} />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
