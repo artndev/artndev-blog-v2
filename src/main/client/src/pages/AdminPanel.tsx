@@ -123,11 +123,7 @@ const AdminPanel = () => {
                       </DialogTrigger>
                       <DialogContent className="flex flex-col gap-6 sm:max-w-md">
                         <DialogHeader className="flex flex-col gap-3">
-                          <DialogTitle
-                            style={{
-                              fontSize: 'var(--text-2xl) !important',
-                            }}
-                          >
+                          <DialogTitle className="text-2xl!">
                             Are you sure?
                           </DialogTitle>
                           <DialogDescription>

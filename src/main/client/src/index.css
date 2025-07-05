@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -131,9 +131,13 @@
   font-family: 'JetBrains Mono', monospace;
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted-foreground) transparent;
+}
+
 #root {
   @apply flex flex-col min-h-screen;
-  font-family: 'Inter', sans-serif;
 }
 
 button {
@@ -145,28 +149,32 @@ a {
   @apply underline;
 }
 
+main a {
+  @apply text-blue-500!;
+}
+
 h1 {
-  @apply text-4xl font-bold;
+  @apply text-4xl font-bold leading-none;
 }
 
 h2 {
-  @apply text-3xl font-bold;
+  @apply text-3xl font-bold leading-none;
 }
 
 h3 {
-  @apply text-2xl font-bold;
+  @apply text-2xl font-bold leading-none;
 }
 
 h4 {
-  @apply text-xl font-bold;
+  @apply text-xl font-bold leading-none;
 }
 
 h5 {
-  @apply text-lg font-bold;
+  @apply text-lg font-bold leading-none;
 }
 
 h6 {
-  @apply text-base font-bold;
+  @apply text-base font-bold leading-none;
 }
 
 @layer base {
