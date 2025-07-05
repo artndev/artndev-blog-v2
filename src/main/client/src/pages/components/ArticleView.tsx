@@ -3,10 +3,9 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import React from 'react'
-import Markdown from 'react-markdown'
 import { useNavigate } from 'react-router-dom'
 import type { I_ArticleProps } from '../types'
-import rehypeRaw from 'rehype-raw'
+import RichEditor from './RichEditor'
 
 const ArticleView: React.FC<I_ArticleProps> = ({
   id,
@@ -23,9 +22,7 @@ const ArticleView: React.FC<I_ArticleProps> = ({
         {title}
         <Badge className="h-[max-content]">ID: {id}</Badge>
       </div>
-      <div className="flex flex-col gap-3">
-        <Markdown rehypePlugins={[rehypeRaw]}>{content}</Markdown>
-      </div>
+      <RichEditor value={content} editable={false} toolbarDisabled={true} />
       <span className="text-sm text-(--muted-foreground)">
         Updated at {updated}
       </span>

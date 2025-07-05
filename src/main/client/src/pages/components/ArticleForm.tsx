@@ -56,6 +56,8 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({ onSubmit }) => {
               <FormItem className="flex flex-col">
                 <FormLabel>Content</FormLabel>
                 <RichEditor
+                  value={field.value}
+                  onChange={field.onChange}
                   className={cn(
                     'max-w-full',
                     form.formState.errors.content &&
@@ -64,8 +66,6 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({ onSubmit }) => {
                         'focus-within:border-destructive'
                       )
                   )}
-                  value={field.value}
-                  onChange={field.onChange}
                 />
                 <FormControl>
                   <Input className="hidden" {...field} />

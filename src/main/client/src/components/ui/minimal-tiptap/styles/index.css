@@ -102,6 +102,13 @@
   @apply z-0 outline-0;
 }
 
+/* for read-only */
+.minimal-tiptap-editor-container:has(
+  > .minimal-tiptap-editor > .ProseMirror[contenteditable='false']
+) {
+  @apply border-0 shadow-none focus-within:border-0;
+}
+
 .minimal-tiptap-editor .ProseMirror > div.editor {
   @apply block flex-1 whitespace-pre-wrap;
 }

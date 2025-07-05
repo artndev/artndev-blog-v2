@@ -16,7 +16,7 @@ const ArticleCard: React.FC<I_ArticleProps> = ({
   const navigate = useNavigate()
 
   return (
-    <div className={cn(`flex flex-col gap-6 w-full`, className)}>
+    <div className={cn(`flex flex-col gap-4 w-full`, className)}>
       <div className="flex flex-col gap-2 text-2xl font-semibold hanken-grotesk">
         {title}
         <Badge className="h-[max-content]">ID: {id}</Badge>
