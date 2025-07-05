@@ -3,7 +3,7 @@ import { Link, Outlet } from 'react-router-dom'
 const Layout = () => {
   return (
     <>
-      <header className="flex justify-center w-full p-8 sticky top-0 bg-(--background) shadow-sm z-1000">
+      <header className="flex justify-center w-full p-8 sticky top-0 bg-(--background) shadow-sm z-10">
         <div className="flex justify-between w-[min(1000px,_100%)] ">
           <Link to="/">Home</Link>
           <Link to="/articles">Articles</Link>

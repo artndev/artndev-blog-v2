@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import axios from './axios.js'
 import type { I_Article, I_AxiosResponse } from './types'
-import ArticleView from './components/ArticleView.js'
+import ArticleForm from './components/ArticleForm'
+import type { T_ArticleFormSchema } from '@/lib/schemas.js'
 
 // const article = {
 //   id: 1,
@@ -34,10 +35,10 @@ import ArticleView from './components/ArticleView.js'
 //   updated: new Date().toString(),
 // }
 
-const Article = () => {
+const EditArticle = () => {
+  const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
   const [article, setArticle] = useState<I_Article | null>(null)
-  // const [nextArticle, setNextArticle] = useState<number | null>(null)
 
   useEffect(() => {
     axios
@@ -48,20 +49,29 @@ const Article = () => {
       .catch(err => console.log(err))
   }, [id])
 
+  const onSubmit = (id: number, data: T_ArticleFormSchema) => {
+    axios
+      .put(`/articles/${id}`, data)
+      .then(() => {
+        navigate(`/articles/${id}`)
+        navigate(0)
+      })
+      .catch(err => console.log(err))
+  }
+
   return (
     <>
       {article ? (
-        <div className="flex justify-center w-full">
-          <div className="w-[min(1000px,_100%)]">
-            <ArticleView
-              id={article.id}
-              title={article.title}
-              content={article.content}
-              updated={new Date(article.updated).toLocaleDateString('en-GB', {
-                timeZone: 'UTC',
-              })}
-            />
-          </div>
+        <div className="flex justify-center items-center w-full">
+          <ArticleForm
+            formTitle="Edit article."
+            onSubmit={data => onSubmit(article.id, data)}
+            defaultValues={{
+              title: article.title,
+              subtitle: article.subtitle,
+              content: article.content,
+            }}
+          />
         </div>
       ) : (
         <span className="flex justify-center w-full">Loading...</span>
@@ -70,4 +80,4 @@ const Article = () => {
   )
 }
 
-export default Article
+export default EditArticle

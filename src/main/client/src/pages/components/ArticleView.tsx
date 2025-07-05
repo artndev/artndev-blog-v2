@@ -17,16 +17,23 @@ const ArticleView: React.FC<I_ArticleProps> = ({
   const navigate = useNavigate()
 
   return (
-    <div className={cn(`flex flex-col gap-6 w-full`, className)}>
-      <div className="flex flex-col gap-2 text-2xl font-semibold hanken-grotesk">
-        {title}
-        <Badge className="h-[max-content]">ID: {id}</Badge>
+    <div
+      className={cn(
+        `flex flex-col justify-between gap-12 w-full h-full`,
+        className
+      )}
+    >
+      <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-2 text-2xl font-semibold hanken-grotesk">
+          {title}
+          <Badge className="h-[max-content]">ID: {id}</Badge>
+        </div>
+        <RichEditor value={content} editable={false} toolbarDisabled={true} />
+        <span className="text-sm text-(--muted-foreground)">
+          Updated at {updated}
+        </span>
       </div>
-      <RichEditor value={content} editable={false} toolbarDisabled={true} />
-      <span className="text-sm text-(--muted-foreground)">
-        Updated at {updated}
-      </span>
-      <div className="flex justify-end gap-6 w-full mt-6">
+      <div className="flex justify-end gap-6">
         <Button
           variant={'outline'}
           className="flex-1 max-w-[200px] rounded-full"
@@ -37,7 +44,7 @@ const ArticleView: React.FC<I_ArticleProps> = ({
         </Button>
         <Button
           className="flex-1 max-w-[200px] rounded-full"
-          onClick={() => navigate('/articles')}
+          onClick={() => navigate(`/articles`)}
         >
           Next article
           <ArrowRight />

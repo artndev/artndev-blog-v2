@@ -1,10 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './Layout'
 import IsAdmin from './outlets/IsAdmin'
+import AddArticle from './pages/AddArticle'
 import AdminPanel from './pages/AdminPanel'
 import Article from './pages/Article'
 import Articles from './pages/Articles'
-import ArticleForm from './pages/components/ArticleForm'
+import EditArticle from './pages/EditArticle'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 
@@ -23,12 +24,9 @@ const App = () => {
 
             <Route
               path="/admin-panel/articles/:id/edit"
-              element={<ArticleForm onSubmit={() => {}} />}
+              element={<EditArticle />}
             />
-            <Route
-              path="/admin-panel/articles/add"
-              element={<ArticleForm onSubmit={() => {}} />}
-            />
+            <Route path="/admin-panel/articles/add" element={<AddArticle />} />
           </Route>
 
           <Route path="/*" element={<NotFound />} />

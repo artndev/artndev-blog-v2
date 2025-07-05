@@ -15,11 +15,15 @@ import { useForm } from 'react-hook-form'
 import type { I_ArticleFormProps } from '../types'
 import RichEditor from './RichEditor'
 
-const ArticleForm: React.FC<I_ArticleFormProps> = ({ onSubmit }) => {
+const ArticleForm: React.FC<I_ArticleFormProps> = ({
+  formTitle,
+  onSubmit,
+  defaultValues,
+}) => {
   const form = useForm<T_ArticleFormSchema>({
     mode: 'onChange',
     resolver: zodResolver(ArticleFormSchema),
-    defaultValues: {
+    defaultValues: defaultValues ?? {
       title: '',
       subtitle: '',
       content: '',
@@ -27,59 +31,74 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({ onSubmit }) => {
   })
 
   return (
-    <div className="flex justify-center items-center w-full">
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-6 w-[min(1000px,_100%)]"
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col gap-6 w-[min(1000px,_100%)]"
+      >
+        <span className="text-2xl font-semibold hanken-grotesk">
+          {formTitle}
+        </span>
+        <FormField
+          control={form.control}
+          name="title"
+          rules={{ required: true }}
+          render={({ field }) => (
+            <FormItem className="max-w-[500px]">
+              <FormLabel>Title</FormLabel>
+              <FormControl>
+                <Input autoFocus {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="subtitle"
+          rules={{ required: true }}
+          render={({ field }) => (
+            <FormItem className="max-w-[500px]">
+              <FormLabel>Subtitle</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="content"
+          rules={{ required: true }}
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>Content</FormLabel>
+              <RichEditor
+                value={field.value}
+                onChange={field.onChange}
+                className={cn(
+                  'max-w-full',
+                  form.formState.errors.content &&
+                    cn('border-destructive', 'focus-within:border-destructive')
+                )}
+              />
+              <FormControl>
+                <Input className="hidden" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button
+          type="submit"
+          className="max-w-[200px]"
+          disabled={form.formState.isSubmitting}
         >
-          <span className="text-2xl font-semibold hanken-grotesk">Article</span>
-          <FormField
-            control={form.control}
-            name="title"
-            rules={{ required: true }}
-            render={({ field }) => (
-              <FormItem className="max-w-[500px]">
-                <FormLabel>Article</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="content"
-            rules={{ required: true }}
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Content</FormLabel>
-                <RichEditor
-                  value={field.value}
-                  onChange={field.onChange}
-                  className={cn(
-                    'max-w-full',
-                    form.formState.errors.content &&
-                      cn(
-                        'border-destructive',
-                        'focus-within:border-destructive'
-                      )
-                  )}
-                />
-                <FormControl>
-                  <Input className="hidden" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" className="max-w-[200px]">
-            Submit
-          </Button>
-        </form>
-      </Form>
-    </div>
+          Submit
+        </Button>
+      </form>
+    </Form>
   )
 }
 

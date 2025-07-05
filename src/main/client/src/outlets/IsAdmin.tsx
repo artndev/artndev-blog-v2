@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -52,7 +51,7 @@ const IsAdmin = () => {
               className="flex flex-col gap-6 w-[min(500px,_100%)]"
             >
               <span className="text-2xl font-semibold hanken-grotesk">
-                Sign in
+                Sign in to admin panel.
               </span>
               <FormField
                 control={form.control}
@@ -62,14 +61,17 @@ const IsAdmin = () => {
                   <FormItem>
                     <FormLabel>Token</FormLabel>
                     <FormControl>
-                      <Input placeholder="xxx-xxx-xxx" {...field} />
+                      <Input placeholder="xxx-xxx-xxx" autoFocus {...field} />
                     </FormControl>
-                    <FormDescription>Authorize as admin</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="max-w-[200px]">
+              <Button
+                type="submit"
+                className="max-w-[200px]"
+                disabled={form.formState.isSubmitting}
+              >
                 Submit
               </Button>
             </form>

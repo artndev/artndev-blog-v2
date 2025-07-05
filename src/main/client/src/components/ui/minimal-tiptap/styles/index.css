@@ -106,7 +106,14 @@
 .minimal-tiptap-editor-container:has(
   > .minimal-tiptap-editor > .ProseMirror[contenteditable='false']
 ) {
-  @apply border-0 shadow-none focus-within:border-0;
+  @apply min-h-[max-content] border-0 shadow-none focus-within:border-0;
+}
+
+.minimal-tiptap-editor-container:has(
+    > .minimal-tiptap-editor > .ProseMirror[contenteditable='false']
+  )
+  .minimal-tiptap-editor {
+  @apply p-0;
 }
 
 .minimal-tiptap-editor .ProseMirror > div.editor {

@@ -8,7 +8,9 @@ export interface I_RichEditorProps {
 }
 
 export interface I_ArticleFormProps {
+  formTitle: string
   onSubmit: (data: T_ArticleFormSchema) => Promise<void> | void
+  defaultValues?: T_ArticleFormSchema
 }
 
 export interface I_ArticleProps {

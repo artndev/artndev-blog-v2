@@ -1,49 +1,49 @@
-// import { useEffect, useState } from 'react'
-// import axios from './axios.js'
-// import type { I_Article, I_AxiosResponse } from './types'
+import { useEffect, useState } from 'react'
+import axios from './axios.js'
+import type { I_Article, I_AxiosResponse } from './types'
 import ArticleCard from './components/ArticleCard'
 
-const articles = [
-  {
-    id: 1,
-    title: 'Generating AI videos using model',
-    subtitle:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-    content:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-    updated: new Date().toString(),
-  },
-  {
-    id: 2,
-    title: 'Test2',
-    subtitle:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-    content:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-    updated: new Date().toString(),
-  },
-  {
-    id: 3,
-    title: 'Test3',
-    subtitle:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-    content:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-    updated: new Date().toString(),
-  },
-]
+// const articles = [
+//   {
+//     id: 1,
+//     title: 'Generating AI videos using model',
+//     subtitle:
+//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+//     content:
+//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+//     updated: new Date().toString(),
+//   },
+//   {
+//     id: 2,
+//     title: 'Test2',
+//     subtitle:
+//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+//     content:
+//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+//     updated: new Date().toString(),
+//   },
+//   {
+//     id: 3,
+//     title: 'Test3',
+//     subtitle:
+//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+//     content:
+//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+//     updated: new Date().toString(),
+//   },
+// ]
 
 const Articles = () => {
-  // const [articles, setArticles] = useState<I_Article[] | null>(null)
+  const [articles, setArticles] = useState<I_Article[] | null>(null)
 
-  // useEffect(() => {
-  //   axios
-  //     .get('/articles')
-  //     .then((res: I_AxiosResponse<I_Article[] | null>) =>
-  //       setArticles(res.data.answer)
-  //     )
-  //     .catch(err => console.log(err))
-  // }, [])
+  useEffect(() => {
+    axios
+      .get('/articles')
+      .then((res: I_AxiosResponse<I_Article[] | null>) =>
+        setArticles(res.data.answer)
+      )
+      .catch(err => console.log(err))
+  }, [])
 
   return (
     <>
