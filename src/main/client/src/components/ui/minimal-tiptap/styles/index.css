@@ -113,7 +113,7 @@
     > .minimal-tiptap-editor > .ProseMirror[contenteditable='false']
   )
   .minimal-tiptap-editor {
-  @apply p-0 max-h-[initial];
+  @apply p-1 max-h-[initial];
 }
 
 .minimal-tiptap-editor .ProseMirror > div.editor {
