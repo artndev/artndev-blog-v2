@@ -12,7 +12,7 @@ const RichEditor: React.FC<
   return (
     <MinimalTiptapEditor
       editorClassName="focus:outline-hidden h-full"
-      editorContentClassName="p-6 overflow-auto h-full max-h-[1000px]"
+      editorContentClassName="p-6 overflow-auto h-full max-h-[700px]"
       output="html"
       {...props}
     />
