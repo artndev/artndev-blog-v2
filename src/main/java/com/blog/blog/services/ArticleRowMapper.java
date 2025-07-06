@@ -15,10 +15,12 @@ public class ArticleRowMapper implements RowMapper<Article> {
     }
 
     private Article map(@NonNull ResultSet rs) throws SQLException {
-        final String title = rs.getString("title");
-        final String subtitle = rs.getString("subtitle");
-        final String content = rs.getString("content");
+        final Integer id = rs.getInt("Id");
+        final String updated = rs.getString("Updated");
+        final String title = rs.getString("Title");
+        final String subtitle = rs.getString("Subtitle");
+        final String content = rs.getString("Content");
 
-        return new Article(title, subtitle, content);
+        return new Article(id, title, subtitle, content, updated);
     }
 }
