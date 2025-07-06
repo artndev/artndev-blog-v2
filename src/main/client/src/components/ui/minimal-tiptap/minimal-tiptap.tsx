@@ -21,7 +21,8 @@ export interface MinimalTiptapProps
   onChange?: (value: Content) => void
   className?: string
   editorContentClassName?: string
-  toolbarDisabled?: boolean /* obvious */
+  /* integrating new functionality to disable toolbar */
+  toolbarDisabled?: boolean
 }
 
 const Toolbar = ({ editor }: { editor: Editor }) => (
@@ -102,7 +103,7 @@ export const MinimalTiptapEditor = React.forwardRef<
           className
         )}
       >
-        {/* condition to hide it or not */}
+        {/* condition to decide whether hide it or not */}
         {!toolbarDisabled && <Toolbar editor={editor} />}
 
         <EditorContent

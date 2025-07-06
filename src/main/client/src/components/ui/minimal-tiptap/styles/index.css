@@ -102,7 +102,8 @@
   @apply z-0 outline-0;
 }
 
-/* for read-only */
+/* for non-editable variant */
+/* ======================== */
 .minimal-tiptap-editor-container:has(
   > .minimal-tiptap-editor > .ProseMirror[contenteditable='false']
 ) {
@@ -115,6 +116,7 @@
   .minimal-tiptap-editor {
   @apply p-1 max-h-[initial];
 }
+/* ======================== */
 
 .minimal-tiptap-editor .ProseMirror > div.editor {
   @apply block flex-1 whitespace-pre-wrap;

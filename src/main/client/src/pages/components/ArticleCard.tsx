@@ -1,10 +1,10 @@
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils.js'
+import type { I_ArticleProps } from '@/pages/types'
+import { ArrowRight } from 'lucide-react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import type { I_ArticleProps } from '../types'
-import { Badge } from '@/components/ui/badge'
-import { ArrowRight } from 'lucide-react'
 
 const ArticleCard: React.FC<I_ArticleProps> = ({
   id,
@@ -17,12 +17,12 @@ const ArticleCard: React.FC<I_ArticleProps> = ({
 
   return (
     <div className={cn(`flex flex-col gap-4 w-full`, className)}>
-      <div className="flex flex-col gap-2 text-2xl font-semibold hanken-grotesk">
+      <div className="flex flex-col gap-2 text-2xl font-semibold hanken-grotesk leading-none">
         {title}
         <Badge className="h-[max-content]">ID: {id}</Badge>
       </div>
       <span>{content}</span>
-      <span className="text-sm text-(--muted-foreground)">
+      <span className="text-sm text-muted-foreground)">
         Updated at {updated}
       </span>
       <Button

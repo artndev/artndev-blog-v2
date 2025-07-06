@@ -8,12 +8,12 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { ArticleFormSchema, type T_ArticleFormSchema } from '@/lib/schemas'
-import { cn } from '@/lib/utils'
+import { ArticleFormSchema, type T_ArticleFormSchema } from '@/lib/schemas.js'
+import { cn } from '@/lib/utils.js'
+import RichEditor from '@/pages/components/RichEditor'
+import type { I_ArticleFormProps } from '@/pages/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import type { I_ArticleFormProps } from '../types'
-import RichEditor from './RichEditor'
 
 const ArticleForm: React.FC<I_ArticleFormProps> = ({
   formTitle,
@@ -36,7 +36,7 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-6 w-[min(1000px,_100%)]"
       >
-        <span className="text-2xl font-semibold hanken-grotesk">
+        <span className="text-2xl font-semibold hanken-grotesk leading-none">
           {formTitle}
         </span>
         <FormField

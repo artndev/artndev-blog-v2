@@ -1,6 +1,6 @@
-import type { T_ArticleFormSchema } from '@/lib/schemas'
-import ArticleForm from './components/ArticleForm'
-import axios from './axios.js'
+import axios from '@/lib/axios.js'
+import type { T_ArticleFormSchema } from '@/lib/schemas.js'
+import ArticleForm from '@/pages/components/ArticleForm'
 import { useNavigate } from 'react-router-dom'
 
 const AddArticle = () => {

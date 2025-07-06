@@ -9,12 +9,12 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useAdminContext } from '@/hooks/use-admin-context'
-import { AdminFormSchema, type T_AdminFormSchema } from '@/lib/schemas'
+import { AdminFormSchema, type T_AdminFormSchema } from '@/lib/schemas.js'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Outlet, useNavigate } from 'react-router-dom'
 
-const IsAdmin = () => {
+const AdminOutlet = () => {
   const navigate = useNavigate()
   const { cookies, setCookie } = useAdminContext()
   const form = useForm<T_AdminFormSchema>({
@@ -50,7 +50,7 @@ const IsAdmin = () => {
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col gap-6 w-[min(500px,_100%)]"
             >
-              <span className="text-2xl font-semibold hanken-grotesk">
+              <span className="text-2xl font-semibold hanken-grotesk leading-none">
                 Sign in to admin panel.
               </span>
               <FormField
@@ -84,4 +84,4 @@ const IsAdmin = () => {
   )
 }
 
-export default IsAdmin
+export default AdminOutlet

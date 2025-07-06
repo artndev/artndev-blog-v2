@@ -1,4 +1,4 @@
-import { AdminContext } from '@/contexts/Admin'
+import { AdminContext } from '@/contexts/AdminContext'
 import { useContext } from 'react'
 
 export const useAdminContext = () => useContext(AdminContext)

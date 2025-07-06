@@ -1,8 +1,8 @@
+import axios from '@/lib/axios.js'
+import ArticleView from '@/pages/components/ArticleView'
+import type { I_Article, I_AxiosResponse } from '@/types'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import axios from './axios.js'
-import type { I_Article, I_AxiosResponse } from './types'
-import ArticleView from './components/ArticleView.js'
 
 // const article = {
 //   id: 1,
@@ -37,7 +37,6 @@ import ArticleView from './components/ArticleView.js'
 const Article = () => {
   const { id } = useParams<{ id: string }>()
   const [article, setArticle] = useState<I_Article | null>(null)
-  // const [nextArticle, setNextArticle] = useState<number | null>(null)
 
   useEffect(() => {
     axios

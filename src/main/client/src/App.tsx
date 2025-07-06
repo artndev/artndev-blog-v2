@@ -1,25 +1,25 @@
+import AdminOutlet from '@/outlets/AdminOutlet'
+import LayoutOutlet from '@/outlets/LayoutOutlet'
+import AddArticle from '@/pages/AddArticle'
+import AdminPanel from '@/pages/AdminPanel'
+import Article from '@/pages/Article'
+import Articles from '@/pages/Articles'
+import EditArticle from '@/pages/EditArticle'
+import Home from '@/pages/Home'
+import NotFound from '@/pages/NotFound'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Layout from './Layout'
-import IsAdmin from './outlets/IsAdmin'
-import AddArticle from './pages/AddArticle'
-import AdminPanel from './pages/AdminPanel'
-import Article from './pages/Article'
-import Articles from './pages/Articles'
-import EditArticle from './pages/EditArticle'
-import Home from './pages/Home'
-import NotFound from './pages/NotFound'
 
 const App = () => {
   return (
     <BrowserRouter basename="/">
       <Routes>
-        <Route element={<Layout />}>
+        <Route element={<LayoutOutlet />}>
           <Route index element={<Home />} />
 
           <Route path="/articles" element={<Articles />} />
           <Route path="/articles/:id" element={<Article />} />
 
-          <Route path="/admin-panel" element={<IsAdmin />}>
+          <Route path="/admin-panel" element={<AdminOutlet />}>
             <Route index element={<AdminPanel />} />
 
             <Route

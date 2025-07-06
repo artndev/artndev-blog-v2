@@ -1,3 +1,4 @@
+import axios from '@/lib/axios.js'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -10,11 +11,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import type { I_Article, I_AxiosResponse } from '@/types'
 import { ArrowLeft, Link, Pen, Plus, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from './axios.js'
-import type { I_Article, I_AxiosResponse } from './types'
 
 // const articles = [
 //   {
@@ -50,9 +50,7 @@ const AdminPanel = () => {
   useEffect(() => {
     axios
       .get('/articles')
-      .then((res: I_AxiosResponse<I_Article[] | null>) =>
-        setArticles(res.data.answer)
-      )
+      .then((res: I_AxiosResponse<I_Article[]>) => setArticles(res.data.answer))
       .catch(err => console.log(err))
   }, [])
 

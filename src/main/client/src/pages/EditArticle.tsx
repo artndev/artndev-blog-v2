@@ -1,9 +1,9 @@
+import axios from '@/lib/axios.js'
+import type { T_ArticleFormSchema } from '@/lib/schemas.js'
+import ArticleForm from '@/pages/components/ArticleForm'
+import type { I_Article, I_AxiosResponse } from '@/types'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import axios from './axios.js'
-import type { I_Article, I_AxiosResponse } from './types'
-import ArticleForm from './components/ArticleForm'
-import type { T_ArticleFormSchema } from '@/lib/schemas.js'
 
 // const article = {
 //   id: 1,

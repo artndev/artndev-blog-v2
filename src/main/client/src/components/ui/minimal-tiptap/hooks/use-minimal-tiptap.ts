@@ -48,7 +48,8 @@ const createExtensions = (placeholder: string) => [
   Link,
   Underline,
   Image.configure({
-    allowedMimeTypes: ['image/jpeg', 'image/png', 'image/gif'] /* changed */,
+    /* changing extensions of accepting images */
+    allowedMimeTypes: ['image/jpeg', 'image/png', 'image/gif'],
     maxFileSize: 5 * 1024 * 1024,
     allowBase64: true,
     uploadFn: async file => {

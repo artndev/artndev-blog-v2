@@ -1,7 +1,7 @@
+import axios from '@/lib/axios.js'
+import ArticleCard from '@/pages/components/ArticleCard'
+import type { I_Article, I_AxiosResponse } from '@/types'
 import { useEffect, useState } from 'react'
-import axios from './axios.js'
-import type { I_Article, I_AxiosResponse } from './types'
-import ArticleCard from './components/ArticleCard'
 
 // const articles = [
 //   {
@@ -39,9 +39,7 @@ const Articles = () => {
   useEffect(() => {
     axios
       .get('/articles')
-      .then((res: I_AxiosResponse<I_Article[] | null>) =>
-        setArticles(res.data.answer)
-      )
+      .then((res: I_AxiosResponse<I_Article[]>) => setArticles(res.data.answer))
       .catch(err => console.log(err))
   }, [])
 

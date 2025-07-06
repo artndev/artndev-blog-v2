@@ -8,7 +8,7 @@ const AdminProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [cookies, setCookie] = useCookies<
     'auth_token_provided',
-    { auth_token_provided?: boolean }
+    I_AdminContext['cookies']
   >(['auth_token_provided'])
 
   return (
