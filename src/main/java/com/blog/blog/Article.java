@@ -12,11 +12,11 @@ public class Article {
     private String updated;
 
     @NotBlank(message = "Title is required")
-    @Size(max = 255, message = "Title cannot be longer than 255 symbols")
+    // @Size(max = 255, message = "Title cannot be longer than 255 symbols")
     private String title;
 
     @NotBlank(message = "Subtitle is required")
-    @Size(max = 255, message = "Subtitle cannot be longer than 255 symbols")
+    // @Size(max = 255, message = "Subtitle cannot be longer than 255 symbols")
     private String subtitle;
 
     @NotBlank(message = "Content is required")
