@@ -6,7 +6,7 @@ import Article from '@/pages/Article'
 import Articles from '@/pages/Articles'
 import EditArticle from '@/pages/EditArticle'
 import Home from '@/pages/Home'
-import NotFound from '@/pages/NotFound'
+// import NotFound from '@/pages/NotFound'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 const App = () => {
@@ -29,7 +29,7 @@ const App = () => {
             <Route path="/admin-panel/articles/add" element={<AddArticle />} />
           </Route>
 
-          <Route path="/*" element={<NotFound />} />
+          {/* <Route path="/*" element={<NotFound />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
