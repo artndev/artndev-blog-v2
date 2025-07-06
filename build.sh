@@ -1,3 +1,3 @@
 # bash build.sh
-docker buildx build --load -t artndev-blog-backend .
-docker run --env-file .env -p 8080:8080 artndev-blog-backend
+docker buildx build --load -t blog .
+docker run --env-file .env -p 8080:8080 blog

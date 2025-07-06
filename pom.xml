@@ -98,7 +98,6 @@
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
 				<version>${frontend-maven-plugin.version}</version>
-
                 <configuration>
                     <workingDirectory>${frontend-src-dir}</workingDirectory>
                     <installDirectory>${project.build.directory}</installDirectory>
@@ -115,7 +114,6 @@
         					<npmVersion>10.8.2</npmVersion>
 						</configuration>
                     </execution>
-
                     <execution>
                         <id>npm-install</id>
                         <goals>
@@ -125,14 +123,13 @@
                             <arguments>install</arguments>
                         </configuration>
                     </execution>
-
 					<execution>
 						<id>npm-run-build</id>
 						<goals>
 							<goal>npm</goal>
 						</goals>
 						<phase>prepare-package</phase>
-						<configuration>
+						<configuration> 
 							<arguments>run build</arguments>
 						</configuration>
 					</execution>
