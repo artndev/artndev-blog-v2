@@ -28,6 +28,7 @@ const ArticleCard: React.FC<I_ArticleProps> = ({
         direction="right"
         content="Read more"
         onClick={() => navigate(`/articles/${id}`)}
+        className="self-end"
       />
     </div>
   )
