@@ -59,6 +59,9 @@ const Articles = () => {
                     'en-GB',
                     {
                       timeZone: 'UTC',
+                      month: 'short',
+                      day: '2-digit',
+                      year: 'numeric',
                     }
                   )}
                   key={i}

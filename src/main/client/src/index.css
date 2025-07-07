@@ -155,8 +155,12 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-a {
-  @apply underline;
+header a {
+  @apply text-foreground hover:text-muted-foreground active:text-muted-foreground focus:text-muted-foreground transition-colors duration-250;
+}
+
+footer a {
+  @apply text-background hover:text-muted-foreground active:text-muted-foreground focus:text-muted-foreground transition-colors duration-250;
 }
 
 main a {

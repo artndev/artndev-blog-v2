@@ -59,6 +59,9 @@ const Article = () => {
               content={article.content}
               updated={new Date(article.updated).toLocaleDateString('en-GB', {
                 timeZone: 'UTC',
+                month: 'short',
+                day: '2-digit',
+                year: 'numeric',
               })}
             />
           </div>
