@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input'
 import { useAdminContext } from '@/hooks/use-admin-context'
 import { AdminFormSchema, type T_AdminFormSchema } from '@/lib/schemas.js'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { LoaderCircleIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { Outlet, useNavigate } from 'react-router-dom'
 
@@ -73,6 +74,13 @@ const AdminOutlet = () => {
                 disabled={form.formState.isSubmitting}
               >
                 Submit
+                {form.formState.isSubmitting && (
+                  <LoaderCircleIcon
+                    className="animate-spin"
+                    size={16}
+                    aria-hidden="true"
+                  />
+                )}
               </Button>
             </form>
           </Form>

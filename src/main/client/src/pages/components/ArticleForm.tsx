@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils.js'
 import RichEditor from '@/pages/components/RichEditor'
 import type { I_ArticleFormProps } from '@/pages/types'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { LoaderCircleIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 
 const ArticleForm: React.FC<I_ArticleFormProps> = ({
@@ -96,6 +97,13 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
           disabled={form.formState.isSubmitting}
         >
           Submit
+          {form.formState.isSubmitting && (
+            <LoaderCircleIcon
+              className="animate-spin"
+              size={16}
+              aria-hidden="true"
+            />
+          )}
         </Button>
       </form>
     </Form>

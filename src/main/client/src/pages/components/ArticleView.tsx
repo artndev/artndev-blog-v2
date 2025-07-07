@@ -33,9 +33,9 @@ const ArticleView: React.FC<I_ArticleProps> = ({
         </span>
         <RichEditor value={content} editable={false} toolbarDisabled={true} />
       </div>
-      <div className="flex-1 flex flex-col justify-end gap-8">
+      <div className="flex-1 flex flex-col justify-end gap-12">
         <hr />
-        <div className="flex justify-between gap-6">
+        <div className="flex justify-between gap-3">
           <ButtonArrow
             direction="left"
             content="Back to articles"
