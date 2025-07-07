@@ -1,5 +1,6 @@
 import axios from '@/lib/axios.js'
 import ArticleView from '@/pages/components/ArticleView'
+import ArticleViewSkeleton from '@/pages/skeletons/ArticleViewSkeleton'
 import type { I_Article, I_AxiosResponse } from '@/types'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -51,19 +52,23 @@ const Article = () => {
     <>
       {article ? (
         <div className="flex justify-center w-full">
-          <div className="w-[min(1000px,_100%)]">
-            <ArticleView
-              id={article.id}
-              title={article.title}
-              content={article.content}
-              updated={new Date(article.updated).toLocaleDateString('en-GB', {
-                timeZone: 'UTC',
-              })}
-            />
+          <div className="flex justify-center w-full">
+            <div className="w-[min(1000px,_100%)]">
+              <ArticleView
+                id={article.id}
+                title={article.title}
+                content={article.content}
+                updated={new Date(article.updated).toLocaleDateString('en-GB', {
+                  timeZone: 'UTC',
+                })}
+              />
+            </div>
           </div>
         </div>
       ) : (
-        <span className="flex justify-center w-full">Loading...</span>
+        <div className="flex justify-center w-full">
+          <ArticleViewSkeleton />
+        </div>
       )}
     </>
   )

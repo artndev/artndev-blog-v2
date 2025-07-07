@@ -1,5 +1,6 @@
 import axios from '@/lib/axios.js'
 import ArticleCard from '@/pages/components/ArticleCard'
+import ArticleCardSkeleton from '@/pages/skeletons/ArticleCardSkeleton'
 import type { I_Article, I_AxiosResponse } from '@/types'
 import { useEffect, useState } from 'react'
 
@@ -67,7 +68,9 @@ const Articles = () => {
           </div>
         </div>
       ) : (
-        <span className="flex justify-center w-full">Loading...</span>
+        <div className="flex justify-center w-full">
+          <ArticleCardSkeleton />
+        </div>
       )}
     </>
   )
