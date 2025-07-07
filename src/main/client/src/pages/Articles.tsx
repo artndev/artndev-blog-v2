@@ -69,7 +69,9 @@ const Articles = () => {
         </div>
       ) : (
         <div className="flex justify-center w-full">
-          <ArticleCardSkeleton />
+          <div className="w-[min(1000px,_100%)]">
+            <ArticleCardSkeleton />
+          </div>
         </div>
       )}
     </>

@@ -1,4 +1,3 @@
-import axios from '@/lib/axios.js'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -11,6 +10,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import axios from '@/lib/axios.js'
+import AdminPanelSkeleton from '@/pages/skeletons/AdminPanelSkeleton'
 import type { I_Article, I_AxiosResponse } from '@/types'
 import { ArrowLeft, Link, Pen, Plus, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -65,93 +66,102 @@ const AdminPanel = () => {
     <>
       {articles?.length ? (
         <div className="flex justify-center w-full">
-          <div className="flex flex-col gap-12 w-[min(1000px,_100%)]">
-            <div className="flex justify-end gap-6 w-full">
-              <Button
-                variant={'outline'}
-                className="flex-1 max-w-[200px] rounded-full"
-                onClick={() => navigate('/articles')}
-              >
-                <ArrowLeft />
-                Back to articles
-              </Button>
-              <Button
-                className="flex-1 max-w-[200px] rounded-full"
-                onClick={() => navigate('/admin-panel/articles/add')}
-              >
-                Add article
-                <Plus />
-              </Button>
-            </div>
-            {articles.map((article, i) => {
-              return (
-                <div key={i} className="flex flex-col gap-6">
-                  <div className="flex flex-col gap-2 text-2xl font-semibold hanken-grotesk">
-                    {article.title}
-                    <Badge variant={'outline'} className="h-[max-content]">
-                      ID: {article.id}
-                    </Badge>
-                  </div>
-                  <div className="flex gap-3 w-full">
-                    <Button
-                      className="min-w-[100px] rounded-full"
-                      onClick={() =>
-                        navigate(`/admin-panel/articles/${article.id}/edit`)
-                      }
-                    >
-                      <Pen />
-                      Edit
-                    </Button>
-                    <Button
-                      className="min-w-[100px] rounded-full"
-                      onClick={() => navigate(`/articles/${article.id}`)}
-                    >
-                      <Link />
-                      View
-                    </Button>
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button
-                          variant={'destructive'}
-                          className="min-w-[100px] rounded-full ml-auto"
-                        >
-                          <Trash2 />
-                          Delete
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="flex flex-col gap-6 sm:max-w-md">
-                        <DialogHeader className="flex flex-col gap-3">
-                          <DialogTitle className="text-2xl!">
-                            Are you sure?
-                          </DialogTitle>
-                          <DialogDescription>
-                            This action will permanently be executed with no
-                            chance of recovery
-                          </DialogDescription>
-                        </DialogHeader>
-                        <DialogFooter>
-                          <DialogClose asChild>
-                            <Button variant="outline" className="min-w-[100px]">
-                              Cancel
-                            </Button>
-                          </DialogClose>
+          <div className="w-[min(1000px,_100%)]">
+            <div className="flex flex-col gap-12 w-full">
+              <div className="flex justify-end gap-6">
+                <Button
+                  variant={'outline'}
+                  className="flex-1 max-w-[200px] rounded-full"
+                  onClick={() => navigate('/articles')}
+                >
+                  <ArrowLeft />
+                  Back to articles
+                </Button>
+                <Button
+                  className="flex-1 max-w-[200px] rounded-full"
+                  onClick={() => navigate('/admin-panel/articles/add')}
+                >
+                  Add article
+                  <Plus />
+                </Button>
+              </div>
+              {articles.map((article, i) => {
+                return (
+                  <div key={i} className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-2 text-2xl font-semibold hanken-grotesk">
+                      {article.title}
+                      <Badge variant={'outline'} className="h-[max-content]">
+                        ID: {article.id}
+                      </Badge>
+                    </div>
+                    <div className="flex gap-3">
+                      <Button
+                        className="min-w-[100px] rounded-full"
+                        onClick={() =>
+                          navigate(`/admin-panel/articles/${article.id}/edit`)
+                        }
+                      >
+                        <Pen />
+                        Edit
+                      </Button>
+                      <Button
+                        className="min-w-[100px] rounded-full"
+                        onClick={() => navigate(`/articles/${article.id}`)}
+                      >
+                        <Link />
+                        View
+                      </Button>
+                      <Dialog>
+                        <DialogTrigger asChild>
                           <Button
-                            className="min-w-[100px]"
-                            onClick={() => onClick(article.id)}
+                            variant={'destructive'}
+                            className="min-w-[100px] rounded-full ml-auto"
                           >
-                            Yes
+                            <Trash2 />
+                            Delete
                           </Button>
-                        </DialogFooter>
-                      </DialogContent>
-                    </Dialog>
+                        </DialogTrigger>
+                        <DialogContent className="flex flex-col gap-6 sm:max-w-md">
+                          <DialogHeader className="flex flex-col gap-3">
+                            <DialogTitle className="text-2xl!">
+                              Are you sure?
+                            </DialogTitle>
+                            <DialogDescription>
+                              This action will permanently be executed with no
+                              chance of recovery
+                            </DialogDescription>
+                          </DialogHeader>
+                          <DialogFooter>
+                            <DialogClose asChild>
+                              <Button
+                                variant="outline"
+                                className="min-w-[100px]"
+                              >
+                                Cancel
+                              </Button>
+                            </DialogClose>
+                            <Button
+                              className="min-w-[100px]"
+                              onClick={() => onClick(article.id)}
+                            >
+                              Yes
+                            </Button>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
                   </div>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
           </div>
         </div>
       ) : (
-        <span className="flex justify-center w-full">Loading...</span>
+        <div className="flex justify-center w-full">
+          <div className="w-[min(1000px,_100%)]">
+            <AdminPanelSkeleton />
+          </div>
+        </div>
       )}
     </>
   )
