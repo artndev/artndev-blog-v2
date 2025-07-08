@@ -32,8 +32,8 @@ public class DataSourceConfig {
         hikariConfig.setMaximumPoolSize(5);
         hikariConfig.setMinimumIdle(1);
         hikariConfig.setConnectionTimeout(30000); // 30s      
-        hikariConfig.setIdleTimeout(7200000); // 2h  
-        hikariConfig.setMaxLifetime(3600000); // 1h
+        hikariConfig.setIdleTimeout(3600000); // 1h  
+        hikariConfig.setMaxLifetime(7200000); // 2h
 
         return new HikariDataSource(hikariConfig);
     }
