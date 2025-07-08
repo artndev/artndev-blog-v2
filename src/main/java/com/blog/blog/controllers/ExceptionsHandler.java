@@ -12,17 +12,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.blog.blog.ArticlesResponse;
 
 @ControllerAdvice
 public class ExceptionsHandler {
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public String notFoundError(NoHandlerFoundException e) {
-        return "redirect:/error?code=404";
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ArticlesResponse<Object>> validationError(MethodArgumentNotValidException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
@@ -49,14 +43,6 @@ public class ExceptionsHandler {
     public ResponseEntity<ArticlesResponse<Object>> databaseError(DataAccessException e) {
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(new ArticlesResponse<>(e.getMessage(), null));
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ArticlesResponse<Object>> internalServerError(Exception e) {
-        return ResponseEntity
-            .status(HttpStatus.INTERNAL_SERVER_ERROR)
             .contentType(MediaType.APPLICATION_JSON)
             .body(new ArticlesResponse<>(e.getMessage(), null));
     }

@@ -2,7 +2,6 @@ package com.blog.blog;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Null;
-import jakarta.validation.constraints.Size;
 
 public class Article {
     @Null

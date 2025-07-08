@@ -29,10 +29,11 @@ public class DataSourceConfig {
         hikariConfig.setUsername(DB_USERNAME);
         hikariConfig.setPassword(DB_PASSWORD);  
         // hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        hikariConfig.setMaximumPoolSize(20);
+        hikariConfig.setMaximumPoolSize(5);
+        hikariConfig.setMinimumIdle(1);
         hikariConfig.setConnectionTimeout(30000); // 30s      
-        hikariConfig.setIdleTimeout(18000000); // 5h    
-        hikariConfig.setMaxLifetime(18000000); // 5h
+        hikariConfig.setIdleTimeout(7200000); // 2h  
+        hikariConfig.setMaxLifetime(3600000); // 1h
 
         return new HikariDataSource(hikariConfig);
     }
