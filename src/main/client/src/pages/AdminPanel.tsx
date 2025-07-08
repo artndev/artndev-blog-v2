@@ -1,4 +1,4 @@
-import ButtonArrow from '@/components/custom/button-arrow'
+import ArrowButton from '@/components/custom/arrow-button'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dialog'
 import axios from '@/lib/axios.js'
 import AdminPanelSkeleton from '@/pages/skeletons/AdminPanelSkeleton'
-import type { I_Article, I_AxiosResponse } from '@/types'
+import type { I_Article, I_AxiosError, I_AxiosResponse } from '@/types'
 import { Link, Pen, Plus, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -52,14 +52,22 @@ const AdminPanel = () => {
     axios
       .get('/articles')
       .then((res: I_AxiosResponse<I_Article[]>) => setArticles(res.data.answer))
-      .catch(err => console.log(err))
+      .catch((err: I_AxiosError) => {
+        console.log(err)
+
+        navigate(`/error${err?.status && `?code=${err.status}`}`)
+      })
   }, [])
 
   const onClick = (id: number) => {
     axios
       .delete(`/articles/${id}`)
       .then(() => navigate(0))
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+
+        navigate(`/error${err?.status && `?code=${err.status}`}`)
+      })
   }
 
   return (
@@ -67,14 +75,14 @@ const AdminPanel = () => {
       {articles?.length ? (
         <div className="flex justify-center w-full">
           <div className="w-[min(1000px,_100%)]">
-            <div className="flex flex-col gap-12">
-              <div className="flex justify-between gap-3">
-                <ButtonArrow
+            <div className="flex flex-col gap-12 w-full">
+              <div className="flex justify-between gap-4">
+                <ArrowButton
                   direction="left"
                   content="Back to articles"
                   onClick={() => navigate('/articles')}
                 />
-                <ButtonArrow
+                <ArrowButton
                   direction="right"
                   directionNode={
                     <Plus className="icon transition-transform duration-250" />

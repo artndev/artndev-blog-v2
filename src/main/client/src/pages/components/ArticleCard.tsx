@@ -1,4 +1,4 @@
-import ButtonArrow from '@/components/custom/button-arrow'
+import ArrowButton from '@/components/custom/arrow-button'
 import { cn } from '@/lib/utils.js'
 import type { I_ArticleProps } from '@/pages/types'
 import React from 'react'
@@ -19,12 +19,10 @@ const ArticleCard: React.FC<I_ArticleProps> = ({
         {title}
       </div>
       <hr />
-      <span className="text-muted-foreground text-sm">
-        Updated at {updated}
-      </span>
+      <div className="text-muted-foreground text-sm">Updated at {updated}</div>
       <span>{content}</span>
       <hr />
-      <ButtonArrow
+      <ArrowButton
         direction="right"
         content="Read more"
         onClick={() => navigate(`/articles/${id}`)}

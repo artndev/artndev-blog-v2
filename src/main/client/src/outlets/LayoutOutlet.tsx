@@ -20,13 +20,13 @@ const LayoutOutlet = () => {
       <main className="flex-1 flex px-6 py-8">
         <Outlet />
       </main>
-      <footer className="flex flex-col gap-6 text-background bg-foreground p-8 shadow-lg shadow-black/5">
-        <span className="text-muted-foreground">
+      <footer className="flex flex-col gap-6 text-background bg-foreground p-8">
+        <div className="text-muted-foreground">
           Fullstack application based on Spring Boot and React
-        </span>
-        <div className="grid grid-cols-[repeat(2,_minmax(0,_250px))] gap-6">
+        </div>
+        <div className="grid grid-cols-[repeat(2,_minmax(0,_250px))]">
           <div className="flex flex-col gap-3">
-            <span className="font-semibold">Socials</span>
+            <div className="font-semibold">Socials</div>
             <a href={import.meta.env.VITE_GITHUB_URL} target="_blank">
               Github
             </a>
@@ -35,7 +35,7 @@ const LayoutOutlet = () => {
             </a>
           </div>
           <div className="flex flex-col gap-3">
-            <span className="font-semibold">Product</span>
+            <div className="font-semibold">Product</div>
             <a href={import.meta.env.VITE_LICENSE_URL} target="_blank">
               License
             </a>

@@ -1,8 +1,8 @@
+import MagneticButton from '@/components/bundui/magnetic-button'
 import { TextAnimate } from '@/components/magicui/text-animate'
 import { Button } from '@/components/ui/button'
 import { ArrowUpRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import MagneticButton from '@/components/bundui/magnetic-button'
 
 const Home = () => {
   const navigate = useNavigate()

@@ -1,9 +1,9 @@
 import axios from '@/lib/axios.js'
 import ArticleView from '@/pages/components/ArticleView'
 import ArticleViewSkeleton from '@/pages/skeletons/ArticleViewSkeleton'
-import type { I_Article, I_AxiosResponse } from '@/types'
+import type { I_Article, I_AxiosError, I_AxiosResponse } from '@/types'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 // const article = {
 //   id: 1,
@@ -36,6 +36,7 @@ import { useParams } from 'react-router-dom'
 // }
 
 const Article = () => {
+  const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
   const [article, setArticle] = useState<I_Article | null>(null)
 
@@ -45,7 +46,11 @@ const Article = () => {
       .then((res: I_AxiosResponse<I_Article | null>) =>
         setArticle(res.data.answer)
       )
-      .catch(err => console.log(err))
+      .catch((err: I_AxiosError) => {
+        console.log(err)
+
+        navigate(`/error${err?.status && `?code=${err.status}`}`)
+      })
   }, [id])
 
   return (

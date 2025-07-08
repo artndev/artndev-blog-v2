@@ -18,9 +18,9 @@ const ArticleViewSkeleton: React.FC<{ className?: string }> = ({
         <Skeleton className="w-full h-[250px]" />
       </div>
       <div className="flex-1 flex flex-col justify-end gap-8">
-        <div className="flex justify-between gap-3">
-          <Skeleton className="flex-1 max-w-[200px] h-[30px]" />
-          <Skeleton className="flex-1 max-w-[200px] h-[30px]" />
+        <div className="flex justify-between gap-4">
+          <Skeleton className="flex-1 h-[30px]" />
+          <Skeleton className="flex-1 h-[30px]" />
         </div>
       </div>
     </div>

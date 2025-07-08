@@ -134,12 +134,13 @@
 }
 
 ::-webkit-scrollbar {
+  --scrollbar: oklch(14.479% 0.00002 271.152 / 0.26);
   width: 3px;
   height: 3px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: oklch(14.479% 0.00002 271.152 / 0.26);
+  background-color: var(--scrollbar);
 }
 
 ::-webkit-scrollbar-track {
@@ -164,7 +165,7 @@ footer a {
 }
 
 main a {
-  @apply text-blue-500!;
+  @apply text-blue-500! hover:underline;
 }
 
 h1 {
