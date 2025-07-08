@@ -44,7 +44,7 @@ const AdminOutlet = () => {
     }
 
     setCookie('auth_token_provided', true, {
-      maxAge: 3600, // 1h
+      maxAge: 1800, // 30m
       // secure: true,
       sameSite: 'strict',
     })
