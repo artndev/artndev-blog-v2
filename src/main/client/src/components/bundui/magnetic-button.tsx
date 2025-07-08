@@ -37,13 +37,13 @@ function MagneticButton({
           y.set(distanceY * distance)
 
           /* integrated nice shadows */
-          ref.current.classList.add('shadow-lg', 'shadow-black/15')
+          ref.current.classList.add('shadow-lg', 'shadow-foreground/15')
         } else {
           x.set(0)
           y.set(0)
 
           /* integrated nice shadows */
-          ref.current.classList.remove('shadow-lg', 'shadow-black/15')
+          ref.current.classList.remove('shadow-lg', 'shadow-foreground/15')
         }
       }
     }
