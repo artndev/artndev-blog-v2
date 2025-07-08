@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class IndexController {
-    @RequestMapping({"/", "/articles/**", "/admin-panel/**", "/error"})
+    @RequestMapping({"/", "/articles/**", "/admin-panel/**", "/error/**"})
     public String index() {
         return "forward:/index.html";
     }
