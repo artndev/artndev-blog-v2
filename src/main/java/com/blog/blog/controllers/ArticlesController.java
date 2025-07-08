@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.blog.Article;
@@ -38,7 +37,7 @@ public class ArticlesController {
     @Autowired
     private ArticlesService articlesService;
 
-    @GetMapping("/articles")
+    @GetMapping(value = "/articles", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArticlesResponse<List<Article>>> getAllArticles() 
     throws DataAccessException {
         List<Article> articles = articlesService.getAllArticles();
@@ -48,7 +47,7 @@ public class ArticlesController {
         );  
     }
 
-    @GetMapping("/articles/{id}")
+    @GetMapping(value = "/articles/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArticlesResponse<Article>> getArticle(@PathVariable String id) 
     throws DataAccessException {
         Article article = articlesService.getArticle(Integer.parseInt(id));
