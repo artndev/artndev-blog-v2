@@ -16,6 +16,10 @@ export interface I_AxiosResponse<T> {
   }
 }
 
+export interface I_AxiosError {
+  status?: number // not always axios
+}
+
 export interface I_Article {
   id: number
   title: string
@@ -33,6 +37,10 @@ export interface I_AdminContext {
     value: Cookie,
     options?: CookieSetOptions
   ) => void
+}
+
+export interface I_IPContext {
+  ip: string | null
 }
 
 export interface I_OrderContext {

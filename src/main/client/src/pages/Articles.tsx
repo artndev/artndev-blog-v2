@@ -1,7 +1,9 @@
 import axios from '@/lib/axios.js'
 import ArticleCard from '@/pages/components/ArticleCard'
-import type { I_Article, I_AxiosResponse } from '@/types'
+import ArticleCardSkeleton from '@/pages/skeletons/ArticleCardSkeleton'
+import type { I_Article, I_AxiosError, I_AxiosResponse } from '@/types'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // const articles = [
 //   {
@@ -34,40 +36,54 @@ import { useEffect, useState } from 'react'
 // ]
 
 const Articles = () => {
+  const navigate = useNavigate()
   const [articles, setArticles] = useState<I_Article[] | null>(null)
 
   useEffect(() => {
     axios
       .get('/articles')
       .then((res: I_AxiosResponse<I_Article[]>) => setArticles(res.data.answer))
-      .catch(err => console.log(err))
+      .catch((err: I_AxiosError) => {
+        console.log(err)
+
+        navigate(`/error${err?.status && `?code=${err.status}`}`)
+      })
   }, [])
 
   return (
     <>
       {articles?.length ? (
         <div className="flex justify-center w-full">
-          <div className="flex flex-col gap-12 w-[min(1000px,_100%)]">
-            {articles.map((article, i) => {
-              return (
-                <ArticleCard
-                  id={article.id}
-                  title={article.title}
-                  content={article.subtitle}
-                  updated={new Date(article.updated).toLocaleDateString(
-                    'en-GB',
-                    {
-                      timeZone: 'UTC',
-                    }
-                  )}
-                  key={i}
-                />
-              )
-            })}
+          <div className="w-[min(1000px,_100%)]">
+            <div className="flex flex-col gap-12 w-full">
+              {articles.map((article, i) => {
+                return (
+                  <ArticleCard
+                    id={article.id}
+                    title={article.title}
+                    content={article.subtitle}
+                    updated={new Date(article.updated).toLocaleDateString(
+                      'en-GB',
+                      {
+                        timeZone: 'UTC',
+                        month: 'short',
+                        day: '2-digit',
+                        year: 'numeric',
+                      }
+                    )}
+                    key={i}
+                  />
+                )
+              })}
+            </div>
           </div>
         </div>
       ) : (
-        <span className="flex justify-center w-full">Loading...</span>
+        <div className="flex justify-center w-full">
+          <div className="w-[min(1000px,_100%)]">
+            <ArticleCardSkeleton />
+          </div>
+        </div>
       )}
     </>
   )

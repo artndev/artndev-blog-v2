@@ -17,6 +17,7 @@ public class ArticlesServiceAccess implements ArticlesDao {
 
     @Override
     public List<Article> getAllArticles() throws DataAccessException {
+        
         return jdbcTemplate.query(
             """
                SELECT * FROM Articles;     

@@ -1,8 +1,9 @@
 import axios from '@/lib/axios.js'
 import ArticleView from '@/pages/components/ArticleView'
-import type { I_Article, I_AxiosResponse } from '@/types'
+import ArticleViewSkeleton from '@/pages/skeletons/ArticleViewSkeleton'
+import type { I_Article, I_AxiosError, I_AxiosResponse } from '@/types'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 // const article = {
 //   id: 1,
@@ -35,6 +36,7 @@ import { useParams } from 'react-router-dom'
 // }
 
 const Article = () => {
+  const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
   const [article, setArticle] = useState<I_Article | null>(null)
 
@@ -44,7 +46,11 @@ const Article = () => {
       .then((res: I_AxiosResponse<I_Article | null>) =>
         setArticle(res.data.answer)
       )
-      .catch(err => console.log(err))
+      .catch((err: I_AxiosError) => {
+        console.log(err)
+
+        navigate(`/error${err?.status && `?code=${err.status}`}`)
+      })
   }, [id])
 
   return (
@@ -58,12 +64,19 @@ const Article = () => {
               content={article.content}
               updated={new Date(article.updated).toLocaleDateString('en-GB', {
                 timeZone: 'UTC',
+                month: 'short',
+                day: '2-digit',
+                year: 'numeric',
               })}
             />
           </div>
         </div>
       ) : (
-        <span className="flex justify-center w-full">Loading...</span>
+        <div className="flex justify-center w-full">
+          <div className="w-[min(1000px,_100%)]">
+            <ArticleViewSkeleton />
+          </div>
+        </div>
       )}
     </>
   )

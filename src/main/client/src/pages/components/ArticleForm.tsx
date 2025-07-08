@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils.js'
 import RichEditor from '@/pages/components/RichEditor'
 import type { I_ArticleFormProps } from '@/pages/types'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { LoaderCircleIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 
 const ArticleForm: React.FC<I_ArticleFormProps> = ({
@@ -34,11 +35,11 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-6 w-[min(1000px,_100%)]"
+        className="flex flex-col gap-4 w-full"
       >
-        <span className="text-2xl font-semibold hanken-grotesk leading-none">
+        <div className="text-2xl font-semibold hanken-grotesk leading-none">
           {formTitle}
-        </span>
+        </div>
         <FormField
           control={form.control}
           name="title"
@@ -92,10 +93,17 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
         />
         <Button
           type="submit"
-          className="max-w-[200px]"
+          className="max-w-[200px] rounded-full"
           disabled={form.formState.isSubmitting}
         >
           Submit
+          {form.formState.isSubmitting && (
+            <LoaderCircleIcon
+              className="animate-spin"
+              size={16}
+              aria-hidden="true"
+            />
+          )}
         </Button>
       </form>
     </Form>

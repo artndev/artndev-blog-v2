@@ -28,13 +28,21 @@ public class DataSourceConfig {
         hikariConfig.setJdbcUrl(DB_URL);
         hikariConfig.setUsername(DB_USERNAME);
         hikariConfig.setPassword(DB_PASSWORD);  
-        hikariConfig.setDriverClassName("com.mysql.jdbc.Driver");
+        // hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        hikariConfig.setMaximumPoolSize(20);
+        hikariConfig.setConnectionTimeout(30000); // 30s      
+        hikariConfig.setIdleTimeout(18000000); // 5h    
+        hikariConfig.setMaxLifetime(18000000); // 5h
 
         return new HikariDataSource(hikariConfig);
     }
 
     @Bean
     JdbcTemplate jdbcTemplate(HikariDataSource hikariDataSource) {
-        return new JdbcTemplate(hikariDataSource);
+        JdbcTemplate jdbc = new JdbcTemplate();
+        jdbc.setDataSource(hikariDataSource);
+        jdbc.setQueryTimeout(30000); // 30s
+
+        return jdbc;
     }
 }

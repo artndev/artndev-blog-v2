@@ -1,8 +1,6 @@
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import ArrowButton from '@/components/custom/arrow-button'
 import { cn } from '@/lib/utils.js'
 import type { I_ArticleProps } from '@/pages/types'
-import { ArrowRight } from 'lucide-react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -17,22 +15,19 @@ const ArticleCard: React.FC<I_ArticleProps> = ({
 
   return (
     <div className={cn(`flex flex-col gap-4 w-full`, className)}>
-      <div className="flex flex-col gap-2 text-2xl font-semibold hanken-grotesk leading-none">
+      <div className="text-2xl font-semibold hanken-grotesk leading-none">
         {title}
-        <Badge className="h-[max-content]">ID: {id}</Badge>
       </div>
+      <hr />
+      <div className="text-muted-foreground text-sm">Updated at {updated}</div>
       <span>{content}</span>
-      <span className="text-sm text-muted-foreground)">
-        Updated at {updated}
-      </span>
-      <Button
-        variant={'outline'}
-        className="self-end min-w-[200px] rounded-full"
+      <hr />
+      <ArrowButton
+        direction="right"
+        content="Read more"
         onClick={() => navigate(`/articles/${id}`)}
-      >
-        Read more
-        <ArrowRight />
-      </Button>
+        className="self-end"
+      />
     </div>
   )
 }

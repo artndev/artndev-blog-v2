@@ -5,9 +5,9 @@ import AdminPanel from '@/pages/AdminPanel'
 import Article from '@/pages/Article'
 import Articles from '@/pages/Articles'
 import EditArticle from '@/pages/EditArticle'
+import Error from '@/pages/Error'
 import Home from '@/pages/Home'
-// import NotFound from '@/pages/NotFound'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 const App = () => {
   return (
@@ -29,7 +29,8 @@ const App = () => {
             <Route path="/admin-panel/articles/add" element={<AddArticle />} />
           </Route>
 
-          {/* <Route path="/*" element={<NotFound />} /> */}
+          <Route path="/error" element={<Error />} />
+          <Route path="/*" element={<Navigate to="/error" />} />
         </Route>
       </Routes>
     </BrowserRouter>
