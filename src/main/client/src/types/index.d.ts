@@ -39,6 +39,10 @@ export interface I_AdminContext {
   ) => void
 }
 
+export interface I_IPContext {
+  ip: string | null
+}
+
 export interface I_OrderContext {
   order: Dictionary<number | null> | null
 }

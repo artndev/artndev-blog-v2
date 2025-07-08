@@ -21,7 +21,7 @@ const Error = () => {
             <img src={ErrorGif} alt="gif" className="w-full object-cover" />
             <div className="bg-foreground w-full h-full opacity-50 absolute" />
             <div className="text-5xl text-background font-semibold jetbrains-mono leading-none absolute">
-              {query.get('code') ?? '500'}
+              {query.get('code') ?? '418'}
             </div>
           </div>
           <span>
