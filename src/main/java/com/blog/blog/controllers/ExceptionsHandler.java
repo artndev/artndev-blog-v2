@@ -19,11 +19,8 @@ import com.blog.blog.ArticlesResponse;
 @ControllerAdvice
 public class ExceptionsHandler {
     @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<ArticlesResponse<Object>> notFoundError(NoHandlerFoundException e) {
-        return ResponseEntity
-            .status(HttpStatus.NOT_FOUND)
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(new ArticlesResponse<>(e.getMessage(), null));
+    public String notFoundError(NoHandlerFoundException e) {
+        return "redirect:/error?code=404";
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
