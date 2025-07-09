@@ -2,7 +2,7 @@
 
 The next-generation version of [my personal blog](https://github.com/artndev/artndev-blog) with a lot of improvements and an upgraded tech stack.
 
-In this version Back-end (REST API is available at /api subpath) and Front-end work on the same domain without any CORS policy.
+In this version Back-end (REST API is available at /api subpath) and Front-end work on the same domain without any CORS policy. Thanks to the _frontend-maven-plugin_ maven plugin.
 
 ## Tech Stack
 
