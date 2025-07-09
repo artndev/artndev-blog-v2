@@ -1,16 +1,16 @@
-## Overview
+# Overview
 
 The next-generation version of [my personal blog](https://github.com/artndev/artndev-blog) with a lot of improvements and an upgraded tech stack.
 
 In this version Back-end (REST API is available at _/api_ subpath) and Front-end work on the same domain without any CORS policy. Thanks to the _frontend-maven-plugin_ maven plugin.
 
-## Tech Stack
+# Tech Stack
 
 **Front-end:** React + Vite, Tailwind CSS, shadcn/ui, MagicUI, BundUI.
 </br>
 **Back-end:** Spring Boot, MySQL.
 
-## Run Locally
+# Run Locally
 
 Install [Git](https://git-scm.com/) on your machine to clone the repository.
 
