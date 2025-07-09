@@ -30,7 +30,7 @@ const App = () => {
           </Route>
 
           <Route path="/error" element={<Error />} />
-          <Route path="/*" element={<Navigate to="/error" />} />
+          <Route path="/*" element={<Navigate to="/error?code=404" />} />
         </Route>
       </Routes>
     </BrowserRouter>

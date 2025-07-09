@@ -5,25 +5,18 @@ import java.util.stream.Collectors;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.blog.blog.ArticlesResponse;
 
 @ControllerAdvice
 public class ExceptionsHandler {
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<ArticlesResponse<Object>> notFoundError(NoHandlerFoundException e) {
-        return ResponseEntity
-            .status(HttpStatus.NOT_FOUND)
-            .body(new ArticlesResponse<>(e.getMessage(), null));
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ArticlesResponse<Object>> validationError(MethodArgumentNotValidException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
@@ -34,6 +27,7 @@ public class ExceptionsHandler {
 
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
+            .contentType(MediaType.APPLICATION_JSON)
             .body(new ArticlesResponse<>(message, null));
     }
 
@@ -41,6 +35,7 @@ public class ExceptionsHandler {
     public ResponseEntity<ArticlesResponse<Object>> typeMismatchError(MethodArgumentTypeMismatchException e) {
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
+            .contentType(MediaType.APPLICATION_JSON)
             .body(new ArticlesResponse<>(e.getMessage(), null));
     }
 
@@ -48,13 +43,7 @@ public class ExceptionsHandler {
     public ResponseEntity<ArticlesResponse<Object>> databaseError(DataAccessException e) {
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
-            .body(new ArticlesResponse<>(e.getMessage(), null));
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ArticlesResponse<Object>> internalServerError(Exception e) {
-        return ResponseEntity
-            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .contentType(MediaType.APPLICATION_JSON)
             .body(new ArticlesResponse<>(e.getMessage(), null));
     }
 }
