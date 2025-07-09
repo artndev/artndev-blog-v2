@@ -13,7 +13,7 @@ The next-generation version of [my personal blog](https://github.com/artndev/art
 ## Dependencies
 
 - Install [Git](https://git-scm.com/) on your machine to clone the Github repository.
-- Install [Docker](https://www.docker.com/) (Docker Desktop or Docker Engine on Linux) on your machine to build and run the project locally.
+- Install [Docker](https://www.docker.com/) (Docker Desktop or Docker Engine on Linux) on your machine to build and run the application locally.
 
 ## Clone Repository
 
@@ -71,7 +71,7 @@ DB_USERNAME=...
 
 ## Build & Run Application with Docker
 
-Run the _build.sh_ script located in the root directory to build and run the project with Docker:
+Run the _build.sh_ script located in the root directory to build and run the application with Docker:
 
 ```bash
 bash build.sh
