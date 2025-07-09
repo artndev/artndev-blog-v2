@@ -5,7 +5,7 @@ const LayoutOutlet = () => {
     <>
       <header
         className={`
-          flex justify-center w-full p-8 sticky top-0 bg-background z-10 transition-all duration-500
+          flex justify-center items-center w-full min-h-[90px] px-8 sticky top-0 bg-background z-10 transition-all duration-500
           backdrop-blur-xl bg-background/10 border-b border-background/20 shadow-lg shadow-foreground/5 backdrop-blur-md bg-foreground/5"
         `}
       >
@@ -17,7 +17,7 @@ const LayoutOutlet = () => {
           </a>
         </div>
       </header>
-      <main className="flex-1 flex px-6 py-8">
+      <main className="flex-1 flex min-h-[calc(100vh_-_90px)] px-6 py-8">
         <Outlet />
       </main>
       <footer className="flex flex-col gap-6 text-background bg-foreground p-8">
