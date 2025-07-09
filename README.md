@@ -4,7 +4,7 @@ The next-generation version of [my personal blog](https://github.com/artndev/art
 
 ## Tech Stack
 
-**Front-end:** React, Tailwind CSS, shadcn/ui, MagicUI, BundUI.
+**Front-end:** React + Vite, Tailwind CSS, shadcn/ui, MagicUI, BundUI.
 </br>
 **Back-end:** Spring Boot, MySQL.
 
