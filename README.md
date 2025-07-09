@@ -15,11 +15,9 @@ The next-generation version of [my personal blog](https://github.com/artndev/art
 - Install [Git](https://git-scm.com/) on your machine to clone the Github repository.
 - Install [Docker](https://www.docker.com/) (Docker Desktop or Docker Engine on Linux) on your machine to build and run the project locally.
 
-## Build & Run Locally
+## Clone Repository
 
-### Clone repository
-
-Create a new directory where you want to deploy the personal blog, then clone the Github repository into it:
+Create a new directory where you want to deploy the application, then clone the Github repository into it:
 
 ```bash
 git clone https://github.com/artndev/artndev-blog-v2.git .
@@ -31,23 +29,15 @@ Navigate to the project directory:
 cd root
 ```
 
-Change the working branch from _master_ (production branch) to _dev-public_ (public development branch) in the project directory in order to go through further steps without any issues:
+Change the working branch from _master_ (production branch) to _dev_ (development branch) due to the specialties of the production and development environments:
 
 ```bash
 git checkout dev-public
 ```
 
-## Configure ENVs
+## Configure Environmental Variables
 
-### Front-end ENV
-
-Navigate to the front-end directory:
-
-```bash
-cd src/main/client
-```
-
-Open the _.env_ file and fill in the required variables:
+Open the _.env_ file located in the root directory and fill in the required environmental variables:
 
 ```env
 # IP of admin (other IPs will be blacklisted)
@@ -70,19 +60,7 @@ VITE_GITHUB_URL=https://github.com/artndev
 # Yours Telegram
 VITE_TELEGRAM_URL=...
 VITE_LICENSE_URL=https://github.com/artndev/artndev-blog-v2/blob/master/LICENSE.md
-```
 
-### Back-end ENV
-
-Return to the root directory:
-
-```bash
-cd ../../..
-```
-
-Open the _.env_ file located in the root directory and fill in your database credentials:
-
-```env
 # Fetch your DB credentials to paste here
 DB_HOST=...
 DB_NAME=...
@@ -91,16 +69,14 @@ DB_PORT=...
 DB_USERNAME=...
 ```
 
-## Build using Docker
+## Build & Run Application with Docker
 
-Install [Docker](https://www.docker.com/) (Docker Desktop or Docker Engine on Linux) on your machine to build and run the project locally.
-
-In the root directory, run the _build.sh_ script to build the project with Docker:
+Run the _build.sh_ script located in the root directory to build and run the project with Docker:
 
 ```bash
 bash build.sh
 ```
 
-## Access application
+## Access Application
 
-Once the build completes successfully, the application will be available at http://localhost:8080.
+Once the build is completed successfully, the application will be available at http://localhost:8080.
