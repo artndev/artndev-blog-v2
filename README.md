@@ -1,18 +1,18 @@
-## Overview
+# Overview
 
 The next-generation version of [my personal blog](https://github.com/artndev/artndev-blog) with a lot of improvements and an upgraded tech stack.
 
-## Tech Stack
+# Tech Stack
 
 **Front-end:** React + Vite, Tailwind CSS, shadcn/ui, MagicUI, BundUI.
 </br>
 **Back-end:** Spring Boot, MySQL.
 
-## Run Locally
+# Run Locally
 
 Install [Git](https://git-scm.com/) on your machine to clone the repository.
 
-### Clone repository
+## Clone repository
 
 Create a new directory where you want to deploy the personal blog, then clone the repository into it:
 
@@ -32,9 +32,9 @@ Change the working branch from _master_ (production branch) to _dev-public_ (pub
 git checkout dev-public
 ```
 
-### Configure ENVs
+## Configure ENVs
 
-#### Front-end ENV
+### Front-end ENV
 
 Navigate to the front-end directory:
 
@@ -67,7 +67,7 @@ VITE_TELEGRAM_URL=...
 VITE_LICENSE_URL=https://github.com/artndev/artndev-blog-v2/blob/master/LICENSE.md
 ```
 
-#### Back-end ENV
+### Back-end ENV
 
 Return to the root directory:
 
@@ -86,7 +86,7 @@ DB_PORT=...
 DB_USERNAME=...
 ```
 
-### Build using Docker
+## Build using Docker
 
 Install [Docker](https://www.docker.com/) (Docker Desktop or Docker Engine on Linux) on your machine to build and run the project locally.
 
@@ -96,6 +96,6 @@ In the root directory, run the _build.sh_ script to build the project with Docke
 bash build.sh
 ```
 
-#### Access the application
+### Access the application
 
 Once the build completes successfully, the application will be available at http://localhost:8080.
