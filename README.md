@@ -2,6 +2,8 @@
 
 The next-generation version of [my personal blog](https://github.com/artndev/artndev-blog) with a lot of improvements and an upgraded tech stack.
 
+In this version Back-end (REST API is available at /api subpath) and Front-end work on the same domain without any CORS policy.
+
 ## Tech Stack
 
 **Front-end:** React + Vite, Tailwind CSS, shadcn/ui, MagicUI, BundUI.
@@ -53,7 +55,7 @@ VITE_ADMIN_AUTH_IP=...
 VITE_ADMIN_AUTH_TOKEN=...
 
 # URL of API remains untouchable (if you are running project locally)
-# Otherwise, change API-URL to something like this:
+# Otherwise, change API URL to something like this:
 # https://your-domain.com/api
 VITE_API_URL=http://localhost:8080/api
 
