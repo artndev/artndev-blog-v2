@@ -1,3 +1,3 @@
-# bash build.sh
-docker buildx build --load -t blog .
-docker run --env-file .env -p 8080:8080 blog
+docker-compose build
+docker-compose up -d
+docker-compose ps

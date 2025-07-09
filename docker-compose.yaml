@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  blog:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DB_HOST: ${DB_HOST}
+        DB_NAME: ${DB_NAME}
+        DB_PASSWORD: ${DB_PASSWORD}
+        DB_PORT: ${DB_PORT}
+        DB_USERNAME: ${DB_USERNAME}
+        VITE_ADMIN_AUTH_IP: ${VITE_ADMIN_AUTH_IP}
+        VITE_ADMIN_AUTH_TOKEN: ${VITE_ADMIN_AUTH_TOKEN}
+        VITE_API_URL: ${VITE_API_URL}
+        VITE_SOURCE_URL: ${VITE_SOURCE_URL}
+        VITE_GITHUB_URL: ${VITE_GITHUB_URL}
+        VITE_TELEGRAM_URL: ${VITE_TELEGRAM_URL}
+        VITE_LICENSE_URL: ${VITE_LICENSE_URL}
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
