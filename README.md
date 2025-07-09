@@ -32,7 +32,7 @@ cd root
 Change the working branch from _master_ (production branch) to _dev_ (development branch) due to the specialties of the production and development environments:
 
 ```bash
-git checkout dev-public
+git checkout dev
 ```
 
 ## Configure Environmental Variables
