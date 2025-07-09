@@ -42,12 +42,12 @@ Open the _.env_ file located in the root directory and fill in the required envi
 ```env
 # IP of admin (other IPs will be blacklisted)
 VITE_ADMIN_AUTH_IP=...
-# Token to sign in to admin panel using UUIDv4 format
+# UUIDv4 token used for signing in to admin panel
 # To generate UUIDv4 token, follow link below:
 # https://www.uuidgenerator.net/version4
 VITE_ADMIN_AUTH_TOKEN=...
 
-# URL of API remains untouchable (if you are running project locally)
+# API URL remains untouchable (if you are running project locally)
 # Otherwise, change API URL to something like this:
 # https://your-domain.com/api
 VITE_API_URL=http://localhost:8080/api
@@ -57,11 +57,11 @@ VITE_SOURCE_URL=https://github.com/artndev/artndev-blog-v2
 
 # URLs in footer
 VITE_GITHUB_URL=https://github.com/artndev
-# Yours Telegram
 VITE_TELEGRAM_URL=...
 VITE_LICENSE_URL=https://github.com/artndev/artndev-blog-v2/blob/master/LICENSE.md
 
-# Fetch your DB credentials to paste here
+# Your DB credentials
+# Table schemas can be found in src\main\java\com\blog\blog\schemas
 DB_HOST=...
 DB_NAME=...
 DB_PASSWORD=...
