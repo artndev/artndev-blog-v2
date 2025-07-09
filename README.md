@@ -1,14 +1,14 @@
-# Overview
+## Overview
 
 The next-generation version of [my personal blog](https://github.com/artndev/artndev-blog) with a lot of improvements and an upgraded tech stack.
 
-# Tech Stack
+## Tech Stack
 
 **Front-end:** React + Vite, Tailwind CSS, shadcn/ui, MagicUI, BundUI.
 </br>
 **Back-end:** Spring Boot, MySQL.
 
-# Run Locally
+## Run Locally
 
 Install [Git](https://git-scm.com/) on your machine to clone the repository.
 
@@ -96,6 +96,6 @@ In the root directory, run the _build.sh_ script to build the project with Docke
 bash build.sh
 ```
 
-### Access the application
+## Access application
 
 Once the build completes successfully, the application will be available at http://localhost:8080.
