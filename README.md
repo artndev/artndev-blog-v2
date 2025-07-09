@@ -4,9 +4,9 @@ The next-generation version of [my personal blog](https://github.com/artndev/art
 
 ## Tech Stack
 
-**Front-end:** React, Tailwind CSS, shadcn/ui, MagicUI, BundUI
+**Front-end:** React, Tailwind CSS, shadcn/ui, MagicUI, BundUI.
 </br>
-**Back-end:** Spring Boot, MySQL
+**Back-end:** Spring Boot, MySQL.
 
 ## Run Locally
 
@@ -14,19 +14,19 @@ Install [Git](https://git-scm.com/) on your machine to clone the repository.
 
 ### Clone repository
 
-Create a new directory where you want to deploy the personal blog, then clone the repository into it.
+Create a new directory where you want to deploy the personal blog, then clone the repository into it:
 
 ```bash
 git clone https://github.com/artndev/artndev-blog-v2.git .
 ```
 
-Navigate to the project directory.
+Navigate to the project directory:
 
 ```bash
 cd root
 ```
 
-Change the working branch from _master_ (production branch) to _dev-public_ (public development branch) in the project directory to go through further steps without any issues.
+Change the working branch from _master_ (production branch) to _dev-public_ (public development branch) in the project directory to go through further steps without any issues:
 
 ```bash
 git checkout dev-public
@@ -36,13 +36,13 @@ git checkout dev-public
 
 #### Front-end ENV
 
-Navigate to the front-end directory.
+Navigate to the front-end directory:
 
 ```bash
 cd src/main/client
 ```
 
-Open the _.env_ file and fill in the required variables.
+Open the _.env_ file and fill in the required variables:
 
 ```env
 # IP of admin (other IPs will be blacklisted)
@@ -69,13 +69,13 @@ VITE_LICENSE_URL=https://github.com/artndev/artndev-blog-v2/blob/master/LICENSE.
 
 #### Back-end ENV
 
-Return to the root directory.
+Return to the root directory:
 
 ```bash
 cd ../../..
 ```
 
-Open the _.env_ file located in the root directory and fill in your database credentials.
+Open the _.env_ file located in the root directory and fill in your database credentials:
 
 ```env
 # Fetch your DB credentials to paste here
