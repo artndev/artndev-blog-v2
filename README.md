@@ -1,4 +1,4 @@
-## Overview
+## Quick Overview
 
 The next-generation version of [my personal blog](https://github.com/artndev/artndev-blog) with a lot of improvements and an upgraded tech stack.
 
