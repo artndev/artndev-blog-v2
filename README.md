@@ -1,8 +1,8 @@
-## Quick Overview
+## Overview
 
 The next-generation version of [my personal blog](https://github.com/artndev/artndev-blog) with a lot of improvements and an upgraded tech stack.
 
-> In this version, Back-end and Front-end work on the same domain without any CORS policy issues. Thanks to the Maven plugin called _frontend-maven-plugin_, REST API is available at the _/api_ subpath.
+> In this version, back-end and front-end work on the same domain without any CORS policy issues. Thanks to the Maven plugin called _frontend-maven-plugin_, REST API is available at the _/api_ subpath.
 
 ## Tech Stack
 
@@ -37,7 +37,7 @@ git checkout dev-public
 
 ## Configure Environmental Variables
 
-Open the _.env_ file located in the root directory and fill in the required environmental variables:
+Open the _.env.local_ file located in the root directory and fill in the required environmental variables:
 
 ```env
 # IP of admin (other IPs will be blacklisted)
