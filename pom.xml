@@ -141,27 +141,7 @@
 							<goal>npm</goal>
 						</goals>
 						<phase>prepare-package</phase>
-						<configuration>
-						    <environmentVariables>
-								<VITE_ADMIN_AUTH_TOKEN>
-									${env.VITE_ADMIN_AUTH_TOKEN}
-								</VITE_ADMIN_AUTH_TOKEN>
-								<VITE_API_URL>
-									${env.VITE_API_URL}
-								</VITE_API_URL>
-								<VITE_SOURCE_URL>
-									${env.VITE_SOURCE_URL}
-								</VITE_SOURCE_URL>
-								<VITE_GITHUB_URL>
-									${env.VITE_GITHUB_URL}
-								</VITE_GITHUB_URL>
-								<VITE_TELEGRAM_URL>
-									${env.VITE_TELEGRAM_URL}
-								</VITE_TELEGRAM_URL>
-								<VITE_LICENSE_URL>
-									${env.VITE_LICENSE_URL}
-								</VITE_LICENSE_URL>
-							</environmentVariables>  
+						<configuration>  
 							<arguments>run build</arguments>
 						</configuration>
 					</execution>
