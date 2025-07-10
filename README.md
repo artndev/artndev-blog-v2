@@ -29,10 +29,10 @@ Navigate to the project directory:
 cd root
 ```
 
-Change the working branch from _master_ (production branch) to _dev_ (development branch) due to the specialties of the production and development environments:
+Change the working branch from _master_ (production branch) to _dev-public_ (public development branch) due to the specialties of the production and development environments:
 
 ```bash
-git checkout dev
+git checkout dev-public
 ```
 
 ## Configure Environmental Variables
