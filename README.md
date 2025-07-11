@@ -71,7 +71,7 @@ DB_USERNAME=...
 
 ## Build & Run Application with Docker
 
-Run the _build.sh_ script located in the root directory to build and run the application with Docker:
+Use the _build.sh_ script located in the root directory to build and run the application with Docker:
 
 ```bash
 bash build.sh
