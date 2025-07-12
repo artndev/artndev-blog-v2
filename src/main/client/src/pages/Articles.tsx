@@ -44,7 +44,7 @@ const articlesData = [
     content:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
     updated: new Date().toString(),
-    tags: ['default', 'trAvelling'],
+    tags: ['default', 'trAveling'],
   },
 ]
 
@@ -147,7 +147,7 @@ const Articles = () => {
           <div className="flex flex-col gap-12 w-[min(1000px,_100%)]">
             {/* Filters */}
             <div className="flex flex-col gap-4 justify-between">
-              <div className="flex flex-wrap gap-2 text-xs">
+              <div className="flex flex-wrap gap-2">
                 {loadedTags.map((tag, i) => {
                   return (
                     <Button

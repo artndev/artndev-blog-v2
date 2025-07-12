@@ -14,7 +14,10 @@ import RichEditor from '@/pages/components/RichEditor'
 import type { I_ArticleFormProps } from '@/pages/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoaderCircleIcon } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+
+const tags = ['traveling', 'games', 'docker']
 
 const ArticleForm: React.FC<I_ArticleFormProps> = ({
   formTitle,
@@ -28,8 +31,16 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
       title: '',
       subtitle: '',
       content: '',
+      tags: '',
     },
   })
+  const [currentTags, setCurrentTags] = useState<string[]>(['default'])
+
+  useEffect(() => {
+    form.setValue('tags', JSON.stringify(currentTags))
+
+    console.log(form.getValues())
+  }, [currentTags])
 
   return (
     <Form {...form}>
@@ -84,6 +95,50 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
                     cn('border-destructive', 'focus-within:border-destructive')
                 )}
               />
+              <FormControl>
+                <Input className="hidden" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="tags"
+          rules={{
+            required: true,
+            value: 'default',
+          }}
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>Tags</FormLabel>
+              <div className="flex flex-wrap gap-2">
+                {tags.map(tag => {
+                  return (
+                    <Button
+                      type="button"
+                      variant={
+                        !currentTags.includes(tag) ? 'outline' : 'default'
+                      }
+                      className="text-xs"
+                      onClick={() => {
+                        if (currentTags.includes(tag)) {
+                          setCurrentTags([
+                            ...currentTags.filter(
+                              currentTag => currentTag !== tag
+                            ),
+                          ])
+                          return
+                        }
+
+                        setCurrentTags([...currentTags, tag])
+                      }}
+                    >
+                      {tag.trim().toUpperCase()}
+                    </Button>
+                  )
+                })}
+              </div>
               <FormControl>
                 <Input className="hidden" {...field} />
               </FormControl>
