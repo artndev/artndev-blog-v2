@@ -23,16 +23,16 @@ import com.blog.blog.services.ArticlesService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(
-    origins = "http://localhost:5173", 
-    methods = {
-        RequestMethod.GET, 
-        RequestMethod.POST, 
-        RequestMethod.PUT, 
-        RequestMethod.DELETE
-    }, 
-    maxAge = 3600
-)
+// @CrossOrigin(
+//     origins = "http://localhost:5173", 
+//     methods = {
+//         RequestMethod.GET, 
+//         RequestMethod.POST, 
+//         RequestMethod.PUT, 
+//         RequestMethod.DELETE
+//     }, 
+//     maxAge = 3600
+// )
 @RestController
 @RequestMapping("/api")
 public class ArticlesController {
