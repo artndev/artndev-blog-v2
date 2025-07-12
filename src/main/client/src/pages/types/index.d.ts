@@ -13,12 +13,13 @@ export interface I_ArticleFormProps {
   defaultValues?: T_ArticleFormSchema
 }
 
-export interface I_ArticleProps {
+export interface I_ArticleProps extends React.RefAttributes<HTMLDivElement> {
   id: number
   title: string
   content: string
   updated: string
   className?: string | string[]
+  i?: number
 }
 
 export {}

@@ -42,7 +42,10 @@ const Articles = () => {
   useEffect(() => {
     axios
       .get('/articles')
-      .then((res: I_AxiosResponse<I_Article[]>) => setArticles(res.data.answer))
+      .then((res: I_AxiosResponse<I_Article[]>) => {
+        setArticles(res.data.answer)
+        window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
+      })
       .catch((err: I_AxiosError) => {
         console.log(err)
 
@@ -71,6 +74,7 @@ const Articles = () => {
                         year: 'numeric',
                       }
                     )}
+                    i={i}
                     key={i}
                   />
                 )
