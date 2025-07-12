@@ -17,7 +17,6 @@ public class ArticlesServiceAccess implements ArticlesDao {
 
     @Override
     public List<Article> getAllArticles() throws DataAccessException {
-        
         return jdbcTemplate.query(
             """
                SELECT * FROM Articles;     
@@ -41,11 +40,12 @@ public class ArticlesServiceAccess implements ArticlesDao {
     public void addArticle(Article article) throws DataAccessException {
         jdbcTemplate.update(
             """
-                INSERT INTO Articles (Title, Subtitle, Content) VALUES(?, ?, ?);        
+                INSERT INTO Articles (Title, Subtitle, Content, Tags) VALUES(?, ?, ?, ?);        
             """,
             article.getTitle(),
             article.getSubtitle(),
-            article.getContent()
+            article.getContent(),
+            article.getTags()
         );
     };
 
@@ -57,12 +57,14 @@ public class ArticlesServiceAccess implements ArticlesDao {
                     Title = ?, 
                     Subtitle = ?, 
                     Content = ?,
+                    Tags = ?,
                     Updated = CURRENT_TIMESTAMP()
                 WHERE Id = ?;
             """,
             newArticle.getTitle(),
             newArticle.getSubtitle(),
             newArticle.getContent(),
+            newArticle.getTags(),
             id
         );
     }

@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -9,15 +10,13 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { ArticleFormSchema, type T_ArticleFormSchema } from '@/lib/schemas.js'
-import { cn } from '@/lib/utils.js'
+import { cn, strInclude } from '@/lib/utils.js'
 import RichEditor from '@/pages/components/RichEditor'
 import type { I_ArticleFormProps } from '@/pages/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoaderCircleIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-
-const tags = ['traveling', 'games', 'docker']
 
 const ArticleForm: React.FC<I_ArticleFormProps> = ({
   formTitle,
@@ -31,10 +30,30 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
       title: '',
       subtitle: '',
       content: '',
-      tags: '',
+      tags: '["default"]',
     },
   })
   const [currentTags, setCurrentTags] = useState<string[]>(['default'])
+  const [loadedTags, setLoadedTags] = useState<string[]>([
+    'traveling',
+    'games',
+    'docker',
+  ])
+
+  useEffect(() => {
+    const tags = JSON.parse(form.formState.defaultValues!.tags!)
+    let loadedTagsTemp: Set<string> = new Set<string>([])
+
+    loadedTagsTemp = new Set([
+      ...loadedTags,
+      ...tags
+        .filter((tag: string) => tag !== 'default')
+        .map((tag: string) => tag.trim().toUpperCase()),
+    ])
+
+    setLoadedTags(Array.from(loadedTagsTemp))
+    setCurrentTags(tags)
+  }, [form.formState.defaultValues])
 
   useEffect(() => {
     form.setValue('tags', JSON.stringify(currentTags))
@@ -112,32 +131,53 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Tags</FormLabel>
-              <div className="flex flex-wrap gap-2">
-                {tags.map(tag => {
-                  return (
-                    <Button
-                      type="button"
-                      variant={
-                        !currentTags.includes(tag) ? 'outline' : 'default'
-                      }
-                      className="text-xs"
-                      onClick={() => {
-                        if (currentTags.includes(tag)) {
-                          setCurrentTags([
-                            ...currentTags.filter(
-                              currentTag => currentTag !== tag
-                            ),
-                          ])
-                          return
-                        }
+              <FormDescription>Describing how it is working</FormDescription>
+              <div className="flex flex-col gap-2">
+                <Input
+                  className="max-w-[500px]"
+                  maxLength={50}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault()
 
-                        setCurrentTags([...currentTags, tag])
-                      }}
-                    >
-                      {tag.trim().toUpperCase()}
-                    </Button>
-                  )
-                })}
+                      setLoadedTags([...loadedTags, e.currentTarget.value])
+                      e.currentTarget.value = ''
+                    }
+                  }}
+                />
+                <div className="flex flex-wrap gap-2">
+                  {loadedTags.map((tag, i) => {
+                    const isIncluded = strInclude(currentTags, tag)
+
+                    return (
+                      <Button
+                        type="button"
+                        variant={!isIncluded ? 'outline' : 'default'}
+                        className="text-xs"
+                        onClick={() => {
+                          if (isIncluded) {
+                            setCurrentTags([
+                              ...currentTags.filter(
+                                currentTag =>
+                                  currentTag
+                                    .trim()
+                                    .replaceAll(' ', '')
+                                    .toLowerCase() !==
+                                  tag.trim().replaceAll(' ', '').toLowerCase()
+                              ),
+                            ])
+                            return
+                          }
+
+                          setCurrentTags([...currentTags, tag])
+                        }}
+                        key={i}
+                      >
+                        {tag.trim().toUpperCase()}
+                      </Button>
+                    )
+                  })}
+                </div>
               </div>
               <FormControl>
                 <Input className="hidden" {...field} />

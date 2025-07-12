@@ -10,30 +10,9 @@ import ArticleFormSkeleton from './skeletons/ArticleFormSkeleton'
 //   id: 1,
 //   title: 'Generating AI videos using model',
 //   subtitle: 'Useful prompts and general analysis',
-//   content: `
-//   # Test
-//   ## Test
-//   ### Test
-//   #### Test
-//   ##### Test
-//   ###### Test
-//   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?
-//   \n
-//   ![Test](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDMGheeUg2Ze_DzqNcamrV1aCW37jHSj2Vpw&s)
-//   \n
-//   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?
-//   \n
-//   <hr/>
-//   <h3>Test</h3>
-//   <img width=120 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDMGheeUg2Ze_DzqNcamrV1aCW37jHSj2Vpw&s" />
-//   <p>Some text! Yay!</p>
-//   <blockquote>Blockquote</blockquote>
-//   <s>Test</s>
-//   <code>
-//     console.log("Hey")
-//   </code>
-//   `,
+//   content: `Test`,
 //   updated: new Date().toString(),
+//   tags: '["default", "traveling"]',
 // }
 
 const EditArticle = () => {
@@ -68,6 +47,10 @@ const EditArticle = () => {
       })
   }
 
+  useEffect(() => {
+    console.log(article)
+  }, [article])
+
   return (
     <>
       {article ? (
@@ -80,6 +63,7 @@ const EditArticle = () => {
                 title: article.title,
                 subtitle: article.subtitle,
                 content: article.content,
+                tags: article.tags,
               }}
             />
           </div>

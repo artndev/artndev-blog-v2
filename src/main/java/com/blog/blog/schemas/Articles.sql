@@ -3,6 +3,7 @@ CREATE TABLE Articles (
     Title TEXT NOT NULL,
     Subtitle TEXT NOT NULL,
     Content TEXT NOT NULL,
+    Tags TEXT NOT NULL,
     Updated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     PRIMARY KEY (Id)
 );

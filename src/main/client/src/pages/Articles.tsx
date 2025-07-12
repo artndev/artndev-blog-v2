@@ -1,10 +1,4 @@
 import { Button } from '@/components/ui/button'
-import axios from '@/lib/axios.js'
-import ArticleCard from '@/pages/components/ArticleCard'
-import ArticleCardSkeleton from '@/pages/skeletons/ArticleCardSkeleton'
-import type { I_Article, I_AxiosError, I_AxiosResponse } from '@/types'
-import { useEffect, useState, type ReactNode } from 'react'
-import { useNavigate } from 'react-router-dom'
 import {
   Select,
   SelectContent,
@@ -12,59 +6,64 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import axios from '@/lib/axios.js'
+import { strInclude } from '@/lib/utils'
+import ArticleCard from '@/pages/components/ArticleCard'
+import ArticleCardSkeleton from '@/pages/skeletons/ArticleCardSkeleton'
+import type { I_Article, I_AxiosError, I_AxiosResponse } from '@/types'
 import { ArrowDown, ArrowUp } from 'lucide-react'
 import { motion } from 'motion/react'
+import { useEffect, useState, type ReactNode } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const articlesData = [
-  {
-    id: 10,
-    title: 'Generating AI videos using model',
-    subtitle:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-    content:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-    updated: new Date('Thu Jul 10 2025 10:52:20 GMT+0000').toString(),
-    tags: ['default', 'Web DevelopmEnt', 'Spring Boot'],
-  },
-  {
-    id: 9,
-    title: 'Test2',
-    subtitle:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-    content:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-    updated: new Date('Fri Jul 11 2025 10:52:20 GMT+0000').toString(),
-    tags: ['default', 'games', 'DOcker'],
-  },
-  {
-    id: 8,
-    title: 'Test3',
-    subtitle:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-    content:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-    updated: new Date().toString(),
-    tags: ['default', 'trAveling'],
-  },
-]
+// const articlesData = [
+//   {
+//     id: 10,
+//     title: 'Generating AI videos using model',
+//     subtitle:
+//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+//     content:
+//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+//     updated: new Date('Thu Jul 10 2025 10:52:20 GMT+0000').toString(),
+//     tags: ['default', 'Web DevelopmEnt', 'Spring Boot'],
+//   },
+//   {
+//     id: 9,
+//     title: 'Test2',
+//     subtitle:
+//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+//     content:
+//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+//     updated: new Date('Fri Jul 11 2025 10:52:20 GMT+0000').toString(),
+//     tags: ['default', 'games', 'DOcker'],
+//   },
+//   {
+//     id: 8,
+//     title: 'Test3',
+//     subtitle:
+//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+//     content:
+//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
+//     updated: new Date().toString(),
+//     tags: ['default', 'trAveling'],
+//   },
+// ]
 
 const Articles = () => {
-  // const navigate = useNavigate()
-  const [articles, setArticles] = useState<
-    (I_Article & { tags: string[] })[] | null
-  >(articlesData)
+  const navigate = useNavigate()
+  const [articles, setArticles] = useState<I_Article[] | null>(null)
   const [loadedTags, setLoadedTags] = useState<string[] | []>([])
 
-  // useEffect(() => {
-  //   axios
-  //     .get('/articles')
-  //     .then((res: I_AxiosResponse<I_Article[]>) => setArticles(res.data.answer))
-  //     .catch((err: I_AxiosError) => {
-  //       console.log(err)
+  useEffect(() => {
+    axios
+      .get('/articles')
+      .then((res: I_AxiosResponse<I_Article[]>) => setArticles(res.data.answer))
+      .catch((err: I_AxiosError) => {
+        console.log(err)
 
-  //       navigate(`/error${err?.status && `?code=${err.status}`}`)
-  //     })
-  // }, [])
+        navigate(`/error${err?.status && `?code=${err.status}`}`)
+      })
+  }, [])
 
   const [filterOrder, setFilterOrder] = useState<
     'latest_to_oldest' | 'oldest_to_latest' | string
@@ -77,10 +76,12 @@ const Articles = () => {
     let loadedTags: Set<string> = new Set<string>([])
 
     articles.forEach(article => {
+      const tags = JSON.parse(article.tags) as string[]
+
       loadedTags = new Set([
         ...loadedTags,
-        ...article.tags
-          .filter(tag => tag !== 'default')
+        ...tags
+          .filter((tag: string) => tag !== 'default')
           .map(tag => tag.trim().toUpperCase()),
       ])
     })
@@ -149,14 +150,14 @@ const Articles = () => {
             <div className="flex flex-col gap-4 justify-between">
               <div className="flex flex-wrap gap-2">
                 {loadedTags.map((tag, i) => {
+                  const isIncluded = strInclude(currentTags, tag)
+
                   return (
                     <Button
-                      variant={
-                        !currentTags.includes(tag) ? 'outline' : 'default'
-                      }
+                      variant={!isIncluded ? 'outline' : 'default'}
                       className="text-xs"
                       onClick={() => {
-                        if (currentTags.includes(tag)) {
+                        if (isIncluded) {
                           setCurrentTags([
                             ...currentTags.filter(
                               currentTag => currentTag !== tag
@@ -197,7 +198,9 @@ const Articles = () => {
               {articlesWrapper(
                 articles
                   .filter(article => {
-                    const parsedTags = article.tags.map(tag =>
+                    const tags = JSON.parse(article.tags) as string[]
+
+                    const parsedTags = tags.map(tag =>
                       tag.trim().replaceAll(' ', '').toLowerCase()
                     )
 
