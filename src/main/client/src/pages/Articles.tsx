@@ -42,10 +42,7 @@ const Articles = () => {
   useEffect(() => {
     axios
       .get('/articles')
-      .then((res: I_AxiosResponse<I_Article[]>) => {
-        setArticles(res.data.answer)
-        window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
-      })
+      .then((res: I_AxiosResponse<I_Article[]>) => setArticles(res.data.answer))
       .catch((err: I_AxiosError) => {
         console.log(err)
 

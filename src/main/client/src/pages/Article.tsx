@@ -43,10 +43,9 @@ const Article = () => {
   useEffect(() => {
     axios
       .get(`/articles/${id}`)
-      .then((res: I_AxiosResponse<I_Article | null>) => {
+      .then((res: I_AxiosResponse<I_Article | null>) =>
         setArticle(res.data.answer)
-        window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
-      })
+      )
       .catch((err: I_AxiosError) => {
         console.log(err)
 
