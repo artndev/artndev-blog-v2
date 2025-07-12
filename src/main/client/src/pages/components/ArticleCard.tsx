@@ -1,6 +1,7 @@
 import ArrowButton from '@/components/custom/arrow-button'
 import { cn } from '@/lib/utils.js'
 import type { I_ArticleProps } from '@/pages/types'
+import { Calendar } from 'lucide-react'
 import { motion } from 'motion/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -43,7 +44,10 @@ const ArticleCard: React.FC<I_ArticleProps> = ({
         {title}
       </div>
       <hr />
-      <div className="text-muted-foreground text-sm">Updated at {updated}</div>
+      <div className="flex items-center gap-2 text-muted-foreground text-sm">
+        <Calendar size={15} />
+        Updated at {updated}
+      </div>
       <span>{content}</span>
       <hr />
       <ArrowButton
