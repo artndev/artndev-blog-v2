@@ -1,4 +1,5 @@
 import ArrowButton from '@/components/custom/arrow-button'
+import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils.js'
 import type { I_ArticleProps } from '@/pages/types'
 import { Calendar } from 'lucide-react'
@@ -11,6 +12,7 @@ const ArticleCard: React.FC<I_ArticleProps> = ({
   title,
   content,
   updated,
+  tags,
   className,
   i,
   ...props
@@ -40,8 +42,23 @@ const ArticleCard: React.FC<I_ArticleProps> = ({
       }}
       {...props}
     >
-      <div className="text-2xl font-semibold hanken-grotesk leading-none">
-        {title}
+      <div className="flex flex-col gap-2">
+        <div className="text-2xl font-semibold hanken-grotesk leading-none">
+          {title}
+        </div>
+        {tags.length > 1 && (
+          <div className="flex flex-wrap gap-2">
+            {tags
+              .filter(tag => tag !== 'default')
+              .map((tag, i) => {
+                return (
+                  <Badge variant={'outline'} key={i}>
+                    {tag}
+                  </Badge>
+                )
+              })}
+          </div>
+        )}
       </div>
       <hr />
       <div className="flex items-center gap-2 text-muted-foreground text-sm">

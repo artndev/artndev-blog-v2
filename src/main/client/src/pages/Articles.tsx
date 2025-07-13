@@ -172,15 +172,21 @@ const Articles = () => {
             <div className="flex flex-col gap-12">
               {articlesWrapper(
                 articles
+                  .map(article => {
+                    return {
+                      ...article,
+                      tags: JSON.parse(article.tags) as string[],
+                    }
+                  })
                   .filter(article => {
-                    const tags = JSON.parse(article.tags) as string[]
-
-                    const parsedTags = tags.map(tag =>
+                    const parsedTags = article.tags.map(tag =>
                       tag.trim().replaceAll(' ', '').toLowerCase()
                     )
 
                     return currentTags.every(tag =>
-                      parsedTags.includes(tag.replaceAll(' ', '').toLowerCase())
+                      parsedTags.includes(
+                        tag.trim().replaceAll(' ', '').toLowerCase()
+                      )
                     )
                   })
                   .sort((a, b) => {
@@ -214,6 +220,7 @@ const Articles = () => {
                               year: 'numeric',
                             }
                           )}
+                          tags={article.tags}
                           i={i}
                         />
                       </motion.div>
