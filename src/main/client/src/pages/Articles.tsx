@@ -7,7 +7,6 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import axios from '@/lib/axios.js'
-import { strInclude } from '@/lib/utils'
 import ArticleCard from '@/pages/components/ArticleCard'
 import ArticleCardSkeleton from '@/pages/skeletons/ArticleCardSkeleton'
 import type { I_Article, I_AxiosError, I_AxiosResponse } from '@/types'
@@ -51,8 +50,12 @@ import { useNavigate } from 'react-router-dom'
 
 const Articles = () => {
   const navigate = useNavigate()
-  const [articles, setArticles] = useState<I_Article[] | null>(null)
+  const [articles, setArticles] = useState<I_Article[] | []>([])
+  const [filterOrder, setFilterOrder] = useState<
+    'latest_to_oldest' | 'oldest_to_latest' | string
+  >('latest_to_oldest')
   const [loadedTags, setLoadedTags] = useState<string[] | []>([])
+  const [currentTags, setCurrentTags] = useState<string[]>(['default'])
 
   useEffect(() => {
     axios
@@ -65,46 +68,19 @@ const Articles = () => {
       })
   }, [])
 
-  const [filterOrder, setFilterOrder] = useState<
-    'latest_to_oldest' | 'oldest_to_latest' | string
-  >('latest_to_oldest')
-  const [currentTags, setCurrentTags] = useState<string[]>(['default'])
-
   useEffect(() => {
-    if (!articles) return
-
     let loadedTags: Set<string> = new Set<string>([])
-
     articles.forEach(article => {
-      const tags = JSON.parse(article.tags) as string[]
+      let tags = JSON.parse(article.tags) as string[]
+      tags = [...tags]
+        .filter((tag: string) => tag !== 'default')
+        .map((tag: string) => tag.trim().toUpperCase())
 
-      loadedTags = new Set([
-        ...loadedTags,
-        ...tags
-          .filter((tag: string) => tag !== 'default')
-          .map(tag => tag.trim().toUpperCase()),
-      ])
+      loadedTags = new Set([...loadedTags, ...tags])
     })
 
     setLoadedTags(Array.from(loadedTags))
   }, [articles])
-
-  useEffect(() => {
-    if (!articles) return
-
-    let sortedArticles = null
-    if (filterOrder === 'latest_to_oldest') {
-      sortedArticles = articles.sort(
-        (a, b) => new Date(b.updated).getTime() - new Date(a.updated).getTime()
-      )
-    } else if (filterOrder === 'oldest_to_latest') {
-      sortedArticles = articles.sort(
-        (a, b) => new Date(a.updated).getTime() - new Date(b.updated).getTime()
-      )
-    }
-
-    setArticles(sortedArticles)
-  }, [filterOrder])
 
   const articlesWrapper = (articles: ReactNode[]) => {
     return (
@@ -112,7 +88,7 @@ const Articles = () => {
         {articles.length ? (
           articles
         ) : (
-          <motion.div key={`${currentTags.join(',')}`}>
+          <motion.div key={`${filterOrder}-${currentTags.join(',')}`}>
             <motion.div
               initial={'hidden'}
               whileInView={'visible'}
@@ -133,7 +109,7 @@ const Articles = () => {
                 delay: 0.1,
               }}
             >
-              Nothing has been found
+              Uhm, no, it has not been found...
             </motion.div>
           </motion.div>
         )}
@@ -150,7 +126,7 @@ const Articles = () => {
             <div className="flex flex-col gap-4 justify-between">
               <div className="flex flex-wrap gap-2">
                 {loadedTags.map((tag, i) => {
-                  const isIncluded = strInclude(currentTags, tag)
+                  const isIncluded = currentTags.includes(tag)
 
                   return (
                     <Button
@@ -175,7 +151,6 @@ const Articles = () => {
                   )
                 })}
               </div>
-
               <Select defaultValue={filterOrder} onValueChange={setFilterOrder}>
                 <SelectTrigger className="min-w-[200px] rounded-full">
                   <SelectValue placeholder="Sort by" />
@@ -206,6 +181,19 @@ const Articles = () => {
 
                     return currentTags.every(tag =>
                       parsedTags.includes(tag.replaceAll(' ', '').toLowerCase())
+                    )
+                  })
+                  .sort((a, b) => {
+                    if (filterOrder === 'latest_to_oldest') {
+                      return (
+                        new Date(b.updated).getTime() -
+                        new Date(a.updated).getTime()
+                      )
+                    }
+
+                    return (
+                      new Date(a.updated).getTime() -
+                      new Date(b.updated).getTime()
                     )
                   })
                   .map((article, i) => {

@@ -10,13 +10,15 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { ArticleFormSchema, type T_ArticleFormSchema } from '@/lib/schemas.js'
-import { cn, strInclude } from '@/lib/utils.js'
+import { cn } from '@/lib/utils.js'
 import RichEditor from '@/pages/components/RichEditor'
 import type { I_ArticleFormProps } from '@/pages/types'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { LoaderCircleIcon } from 'lucide-react'
+import { Hash, LoaderCircleIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+
+const TAG_REGEXP = /^[A-Za-z]{1,50}$/
 
 const ArticleForm: React.FC<I_ArticleFormProps> = ({
   formTitle,
@@ -35,37 +37,31 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
   })
   const [currentTags, setCurrentTags] = useState<string[]>(['default'])
   const [loadedTags, setLoadedTags] = useState<string[]>([
-    'traveling',
-    'games',
-    'docker',
+    'GAMES',
+    'BOOKS',
+    'TRAVELING',
   ])
+  const [tagInput, setTagInput] = useState<string>('')
 
   useEffect(() => {
-    const tags = JSON.parse(form.formState.defaultValues!.tags!)
-    let loadedTagsTemp: Set<string> = new Set<string>([])
+    let tags = JSON.parse(form.formState.defaultValues!.tags!) as string[]
+    tags = [...tags]
+      .filter((tag: string) => tag !== 'default')
+      .map((tag: string) => tag.trim().toUpperCase())
 
-    loadedTagsTemp = new Set([
-      ...loadedTags,
-      ...tags
-        .filter((tag: string) => tag !== 'default')
-        .map((tag: string) => tag.trim().toUpperCase()),
-    ])
-
-    setLoadedTags(Array.from(loadedTagsTemp))
-    setCurrentTags(tags)
-  }, [form.formState.defaultValues])
+    setLoadedTags(Array.from(new Set([...loadedTags, ...tags])))
+    setCurrentTags([...currentTags, ...tags])
+  }, [])
 
   useEffect(() => {
     form.setValue('tags', JSON.stringify(currentTags))
-
-    console.log(form.getValues())
   }, [currentTags])
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-4 w-full"
+        className="flex flex-col gap-6 w-full"
       >
         <div className="text-2xl font-semibold hanken-grotesk leading-none">
           {formTitle}
@@ -131,23 +127,76 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Tags</FormLabel>
-              <FormDescription>Describing how it is working</FormDescription>
-              <div className="flex flex-col gap-2">
-                <Input
-                  className="max-w-[500px]"
-                  maxLength={50}
-                  onKeyDown={e => {
-                    if (e.key === 'Enter') {
+              <FormDescription>
+                Only lowercase and uppercase latin letters are allowed
+              </FormDescription>
+              <div className="flex flex-col gap-4">
+                <div className="flex gap-2">
+                  <Input
+                    className="max-w-[500px]"
+                    value={tagInput}
+                    onChange={e => {
                       e.preventDefault()
 
-                      setLoadedTags([...loadedTags, e.currentTarget.value])
-                      e.currentTarget.value = ''
-                    }
-                  }}
-                />
+                      if (!new RegExp(TAG_REGEXP).test(tagInput)) {
+                        form.setError('tags', {
+                          message: 'Tag is invalid',
+                        })
+                      } else form.clearErrors('tags')
+
+                      setTagInput(e.target.value)
+                    }}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault()
+
+                        if (!tagInput.length) {
+                          form.setError('tags', {
+                            message: 'Tag cannot be empty',
+                          })
+                          return
+                        }
+
+                        if (!new RegExp(TAG_REGEXP).test(tagInput)) return
+
+                        setLoadedTags([
+                          ...loadedTags,
+                          tagInput.trim().toUpperCase(),
+                        ])
+
+                        setTagInput('')
+                      }
+                    }}
+                  />
+                  <Button
+                    variant={'outline'}
+                    size={'icon'}
+                    onClick={e => {
+                      e.preventDefault()
+
+                      if (!tagInput.length) {
+                        form.setError('tags', {
+                          message: 'Tag cannot be empty',
+                        })
+                        return
+                      }
+
+                      if (!new RegExp(TAG_REGEXP).test(tagInput)) return
+
+                      setLoadedTags([
+                        ...loadedTags,
+                        tagInput.trim().toUpperCase(),
+                      ])
+
+                      setTagInput('')
+                    }}
+                  >
+                    <Hash />
+                  </Button>
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {loadedTags.map((tag, i) => {
-                    const isIncluded = strInclude(currentTags, tag)
+                    const isIncluded = currentTags.includes(tag)
 
                     return (
                       <Button
@@ -158,12 +207,7 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
                           if (isIncluded) {
                             setCurrentTags([
                               ...currentTags.filter(
-                                currentTag =>
-                                  currentTag
-                                    .trim()
-                                    .replaceAll(' ', '')
-                                    .toLowerCase() !==
-                                  tag.trim().replaceAll(' ', '').toLowerCase()
+                                currentTag => currentTag !== tag
                               ),
                             ])
                             return
@@ -173,7 +217,7 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
                         }}
                         key={i}
                       >
-                        {tag.trim().toUpperCase()}
+                        {tag}
                       </Button>
                     )
                   })}
