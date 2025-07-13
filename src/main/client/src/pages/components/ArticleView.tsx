@@ -3,6 +3,7 @@ import { useOrderContext } from '@/hooks/use-order-context.js'
 import { cn } from '@/lib/utils.js'
 import RichEditor from '@/pages/components/RichEditor'
 import type { I_ArticleProps } from '@/pages/types'
+import { Calendar } from 'lucide-react'
 import { motion } from 'motion/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -50,9 +51,10 @@ const ArticleView: React.FC<I_ArticleProps> = ({
           {title}
         </div>
         <hr />
-        <span className="text-sm text-muted-foreground">
+        <div className="flex items-center gap-2 text-muted-foreground text-sm">
+          <Calendar size={15} />
           Updated at {updated}
-        </span>
+        </div>
         <RichEditor value={content} editable={false} toolbarDisabled={true} />
       </div>
       <div className="flex-1 flex flex-col justify-end gap-12">

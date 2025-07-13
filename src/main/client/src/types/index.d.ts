@@ -25,6 +25,7 @@ export interface I_Article {
   title: string
   subtitle: string
   content: string
+  tags: string
   updated: string
 }
 

@@ -20,7 +20,8 @@ public class ArticleRowMapper implements RowMapper<Article> {
         final String title = rs.getString("Title");
         final String subtitle = rs.getString("Subtitle");
         final String content = rs.getString("Content");
+        final String tags = rs.getString("Tags");
 
-        return new Article(id, title, subtitle, content, updated);
+        return new Article(id, title, subtitle, content, updated, tags);
     }
 }

@@ -21,12 +21,16 @@ public class Article {
     @NotBlank(message = "Content is required")
     private String content;
 
-    public Article(Integer id, String title, String subtitle, String content, String updated) {
+    @NotBlank(message = "Tags are required")
+    private String tags;
+
+    public Article(Integer id, String title, String subtitle, String content, String updated, String tags) {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
         this.content = content;
         this.updated = updated;
+        this.tags = tags;
     }
 
     public Integer getId() {
@@ -47,5 +51,9 @@ public class Article {
 
     public String getContent() {
         return content;
+    }
+
+    public String getTags() {
+        return tags;
     }
 }

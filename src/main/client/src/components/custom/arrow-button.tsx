@@ -17,7 +17,7 @@ const ArrowButton: React.FC<I_ButtonArrowProps> = ({
     <Button
       variant={variant ?? 'ghost'}
       className={cn(
-        'hover:text-foreground active:text-foreground focus:text-foreground',
+        'hover:text-foreground hover:bg-transparent active:text-foreground focus:text-foreground',
         direction === 'left'
           ? 'hover:[&_.icon]:-translate-x-0.5 active:[&_.icon]:-translate-x-0.5'
           : 'hover:[&_.icon]:translate-x-0.5 active:[&_.icon]:translate-x-0.5',

@@ -18,6 +18,7 @@ export const ArticleFormSchema = z.object({
   content: z.string().nonempty({
     message: 'Content cannot be empty',
   }),
+  tags: z.string() /* .optional() */,
 })
 
 export type T_ArticleFormSchema = z.infer<typeof ArticleFormSchema>
