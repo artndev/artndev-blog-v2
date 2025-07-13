@@ -68,6 +68,7 @@ const Article = () => {
                 day: '2-digit',
                 year: 'numeric',
               })}
+              tags={JSON.parse(article.tags) as string[]}
             />
           </div>
         </div>

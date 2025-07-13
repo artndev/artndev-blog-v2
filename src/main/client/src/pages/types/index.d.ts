@@ -18,6 +18,7 @@ export interface I_ArticleProps extends React.RefAttributes<HTMLDivElement> {
   title: string
   content: string
   updated: string
+  tags: string[]
   className?: string | string[]
   i?: number
 }
