@@ -1,10 +1,10 @@
 package com.blog.blog;
 
-public class ArticlesResponse<T> {
+public class ServerResponse<T> {
     private String message;
     private T answer;
 
-    public ArticlesResponse(String message, T answer) {
+    public ServerResponse(String message, T answer) {
         this.message = message;
         this.answer = answer;
     }

@@ -1,4 +1,4 @@
-package com.blog.blog.services;
+package com.blog.blog.services.row_mappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.NonNull;
 
-import com.blog.blog.Article;
+import com.blog.blog.instances.Article;
 
 public class ArticleRowMapper implements RowMapper<Article> {
     @Override
@@ -20,8 +20,7 @@ public class ArticleRowMapper implements RowMapper<Article> {
         final String title = rs.getString("Title");
         final String subtitle = rs.getString("Subtitle");
         final String content = rs.getString("Content");
-        final String tags = rs.getString("Tags");
 
-        return new Article(id, title, subtitle, content, updated, tags);
+        return new Article(id, title, subtitle, content, updated);
     }
 }

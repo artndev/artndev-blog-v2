@@ -1,4 +1,4 @@
-package com.blog.blog.controllers;
+package com.blog.blog.error_handlers;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import com.blog.blog.ArticlesResponse;
+import com.blog.blog.ServerResponse;
 
 @ControllerAdvice
 public class ExceptionsHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ArticlesResponse<Object>> validationError(MethodArgumentNotValidException e) {
+    public ResponseEntity<ServerResponse<Object>> validationError(MethodArgumentNotValidException e) {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         String message = fieldErrors
             .stream()
@@ -28,22 +28,22 @@ public class ExceptionsHandler {
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
             .contentType(MediaType.APPLICATION_JSON)
-            .body(new ArticlesResponse<>(message, null));
+            .body(new ServerResponse<>(message, null));
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<ArticlesResponse<Object>> typeMismatchError(MethodArgumentTypeMismatchException e) {
+    public ResponseEntity<ServerResponse<Object>> typeMismatchError(MethodArgumentTypeMismatchException e) {
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
             .contentType(MediaType.APPLICATION_JSON)
-            .body(new ArticlesResponse<>(e.getMessage(), null));
+            .body(new ServerResponse<>(e.getMessage(), null));
     }
 
     @ExceptionHandler(DataAccessException.class)
-    public ResponseEntity<ArticlesResponse<Object>> databaseError(DataAccessException e) {
+    public ResponseEntity<ServerResponse<Object>> databaseError(DataAccessException e) {
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
             .contentType(MediaType.APPLICATION_JSON)
-            .body(new ArticlesResponse<>(e.getMessage(), null));
+            .body(new ServerResponse<>(e.getMessage(), null));
     }
 }

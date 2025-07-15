@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
-import com.blog.blog.Article;
+import com.blog.blog.instances.Article;
 
 public interface ArticlesDao {
-    public List<Article> getAllArticles() throws DataAccessException;
+    public List<Article> getAllArticles(String sortBy, List<String> tags) throws DataAccessException;
 
     public Article getArticle(int id) throws DataAccessException;
 

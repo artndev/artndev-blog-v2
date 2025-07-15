@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.blog.blog.Article;
+import com.blog.blog.instances.Article;
 import com.blog.blog.interfaces.ArticlesDao;
 
 @Service
@@ -14,8 +14,8 @@ public class ArticlesService {
     @Autowired
     private ArticlesDao articelsDao;
 
-    public List<Article> getAllArticles() throws DataAccessException {
-        return articelsDao.getAllArticles();
+    public List<Article> getAllArticles(String sortBy, List<String> tags) throws DataAccessException {
+        return articelsDao.getAllArticles(sortBy, tags);
     }
 
     public Article getArticle(int id) throws DataAccessException {
