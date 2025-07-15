@@ -19,8 +19,8 @@ import com.blog.blog.ServerResponse;
 public class ExceptionsHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ServerResponse<Object>> validationError(MethodArgumentNotValidException e) {
-        List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
-        String message = fieldErrors
+        final List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+        final String message = fieldErrors
             .stream()
             .map(FieldError::getDefaultMessage)
             .collect(Collectors.joining("; "));

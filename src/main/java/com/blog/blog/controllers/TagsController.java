@@ -33,7 +33,7 @@ public class TagsController {
 
     @GetMapping(value = "/tags", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ServerResponse<List<Tag>>> getAllTags() {
-        List<Tag> tags = tagsService.getAllTags();
+        final List<Tag> tags = tagsService.getAllTags();
 
         return ResponseEntity.ok(
             new ServerResponse<List<Tag>>("Tags have been got successfully", tags)  

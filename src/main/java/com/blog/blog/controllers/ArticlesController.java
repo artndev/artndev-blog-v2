@@ -51,9 +51,8 @@ public class ArticlesController {
         @RequestParam(value = "tags", required = false) List<String> tags
     ) 
     throws DataAccessException {
-        final String parsedSortBy = sortBy.toUpperCase();
-
         // Validating sortBy request param
+        final String parsedSortBy = sortBy.toUpperCase();
         try {
             SortByOptions.valueOf(parsedSortBy);    
         } catch (IllegalArgumentException e) {
@@ -63,8 +62,7 @@ public class ArticlesController {
                 .body(new ServerResponse<>("Invalid sort_by parameter has been received", null));
         }
         
-        List<Article> articles = articlesService.getAllArticles(parsedSortBy, tags);
-
+        final List<Article> articles = articlesService.getAllArticles(parsedSortBy, tags);
         return ResponseEntity.ok(
             new ServerResponse<List<Article>>("Articles have been got successfully", articles)  
         );  
@@ -73,7 +71,7 @@ public class ArticlesController {
     @GetMapping(value = "/articles/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ServerResponse<Article>> getArticle(@PathVariable String id) 
     throws DataAccessException {
-        Article article = articlesService.getArticle(Integer.parseInt(id));
+        final Article article = articlesService.getArticle(Integer.parseInt(id));
 
         return ResponseEntity.ok(
             new ServerResponse<Article>("Article has been got successfully", article)  

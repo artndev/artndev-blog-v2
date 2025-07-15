@@ -40,7 +40,7 @@ public class ArticlesRepository implements ArticlesDao {
             );
         }
 
-        String placeholder = tags.stream()
+        final String placeholder = tags.stream()
             .map(tag -> "?")
             .collect(Collectors.joining(","));
         return jdbcTemplate.query(
@@ -70,7 +70,7 @@ public class ArticlesRepository implements ArticlesDao {
 
     @Override
     public void addArticle(ArticleTags article) throws DataAccessException {
-        SimpleJdbcInsert insertIntoArticles = new SimpleJdbcInsert(jdbcTemplate)
+        final SimpleJdbcInsert insertIntoArticles = new SimpleJdbcInsert(jdbcTemplate)
             .withTableName("Articles")
             .usingGeneratedKeyColumns("Id")
             .usingColumns("Title", "Subtitle", "Content");
@@ -80,12 +80,12 @@ public class ArticlesRepository implements ArticlesDao {
         articleArgs.put("subtitle", article.getSubtitle());
         articleArgs.put("content", article.getContent());
 
-        Number articleId = insertIntoArticles.executeAndReturnKey(articleArgs);
-        List<String> tags = article.getTags();
+        final Number articleId = insertIntoArticles.executeAndReturnKey(articleArgs);
+        final List<String> tags = article.getTags();
         if (tags == null || tags.isEmpty())
             return;
 
-        List<Object[]> tagsBatch = tags.stream()
+        final List<Object[]> tagsBatch = tags.stream()
             .map(tag -> new Object[] { tag })
             .collect(Collectors.toList());
         jdbcTemplate.batchUpdate(
@@ -95,7 +95,7 @@ public class ArticlesRepository implements ArticlesDao {
             tagsBatch
         );
 
-        String placeholder = tags.stream()
+        final String placeholder = tags.stream()
             .map(tag -> "?")
             .collect(Collectors.joining(","));
 
