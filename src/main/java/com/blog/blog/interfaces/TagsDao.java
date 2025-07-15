@@ -8,5 +8,4 @@ import com.blog.blog.instances.Tag;
 
 public interface TagsDao {
     public List<Tag> getAllTags() throws DataAccessException;
-
 }

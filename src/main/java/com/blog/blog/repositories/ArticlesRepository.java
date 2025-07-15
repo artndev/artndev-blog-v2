@@ -32,9 +32,10 @@ public class ArticlesRepository implements ArticlesDao {
         if (tags == null || tags.isEmpty())
         {
             return jdbcTemplate.query(
-                """
-                   SELECT * FROM Articles;
-                """,
+                String.format("""
+                   SELECT * FROM Articles 
+                   ORDER BY Updated %s;
+                """, sortBy),
                 new ArticleRowMapper()
             );
         }
@@ -43,14 +44,14 @@ public class ArticlesRepository implements ArticlesDao {
             .map(tag -> "?")
             .collect(Collectors.joining(","));
         return jdbcTemplate.query(
-            """
+            String.format("""
                SELECT article.*
                FROM Articles article
                JOIN ArticleTags articleTag ON article.Id = articleTag.ArticleId
                JOIN Tags tag ON articleTag.TagId = tag.Id
                WHERE tag.TagName IN (%s)
                ORDER BY article.Updated %s;
-            """.formatted(placeholder, sortBy),
+            """, placeholder, sortBy),
             new ArticleRowMapper(),
             tags.toArray()
         );
@@ -71,13 +72,13 @@ public class ArticlesRepository implements ArticlesDao {
     public void addArticle(ArticleTags article) throws DataAccessException {
         SimpleJdbcInsert insertIntoArticles = new SimpleJdbcInsert(jdbcTemplate)
             .withTableName("Articles")
-            .usingGeneratedKeyColumns("Id");
+            .usingGeneratedKeyColumns("Id")
+            .usingColumns("Title", "Subtitle", "Content");
 
         final Map<String, Object> articleArgs = new HashMap<>();
         articleArgs.put("title", article.getTitle());
         articleArgs.put("subtitle", article.getSubtitle());
         articleArgs.put("content", article.getContent());
-        articleArgs.put("updated", article.getUpdated());
 
         Number articleId = insertIntoArticles.executeAndReturnKey(articleArgs);
         List<String> tags = article.getTags();
