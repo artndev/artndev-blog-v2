@@ -1,5 +1,6 @@
 package com.blog.blog.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blog.blog.ServerResponse;
 import com.blog.blog.enums.SortByOptions;
 import com.blog.blog.instances.Article;
+import com.blog.blog.instances.ArticleTags;
 import com.blog.blog.services.ArticlesService;
 
 import jakarta.validation.Valid;
@@ -46,7 +48,7 @@ public class ArticlesController {
     @GetMapping(value = "/articles", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ServerResponse<List<Article>>> getAllArticles(
         @RequestParam(value = "sort_by", required = false, defaultValue = "ASC") String sortBy, 
-        @RequestParam(value = "tags", required = false, defaultValue = "default") List<String> tags
+        @RequestParam(value = "tags", required = false) List<String> tags
     ) 
     throws DataAccessException {
         final String parsedSortBy = sortBy.toUpperCase();
@@ -79,7 +81,7 @@ public class ArticlesController {
     }
 
     @PostMapping("/articles")
-    public ResponseEntity<ServerResponse<Boolean>> addArticle(@Valid @RequestBody Article article) 
+    public ResponseEntity<ServerResponse<Boolean>> addArticle(@Valid @RequestBody ArticleTags article) 
     throws DataAccessException {
         articlesService.addArticle(article);
 
@@ -89,7 +91,7 @@ public class ArticlesController {
     }
 
     @PutMapping("/articles/{id}")
-    public ResponseEntity<ServerResponse<Boolean>> updateArticle(@PathVariable String id, @Valid @RequestBody Article article) 
+    public ResponseEntity<ServerResponse<Boolean>> updateArticle(@PathVariable String id, @Valid @RequestBody ArticleTags article) 
     throws DataAccessException {
         articlesService.updateArticle(Integer.parseInt(id), article);
 

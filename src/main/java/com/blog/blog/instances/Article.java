@@ -31,22 +31,22 @@ public class Article {
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public String getUpdated() {
-        return updated;
+        return this.updated;
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public String getSubtitle() {
-        return subtitle;
+        return this.subtitle;
     }
 
     public String getContent() {
-        return content;
+        return this.content;
     }
 }

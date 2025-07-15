@@ -10,18 +10,18 @@ public class Tag {
 
     @NotBlank(message = "Name is required")
     @Size(max = 100, message = "Name cannot be longer than 100 symbols")
-    private String name;
+    private String tagName;
 
-    public Tag(Integer id, String name) {
+    public Tag(Integer id, String tagName) {
         this.id = id;
-        this.name = name;
+        this.tagName = tagName;
     }
 
     public Integer getId() {
         return this.id;
     }
 
-    public String getName() {
-        return this.name;
+    public String getTagName() {
+        return this.tagName;
     }
 }

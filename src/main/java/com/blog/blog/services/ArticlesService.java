@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.blog.blog.instances.Article;
+import com.blog.blog.instances.ArticleTags;
 import com.blog.blog.interfaces.ArticlesDao;
 
 @Service
@@ -22,11 +23,11 @@ public class ArticlesService {
         return articelsDao.getArticle(id);
     }
 
-    public void addArticle(Article article) throws DataAccessException {
+    public void addArticle(ArticleTags article) throws DataAccessException {
         articelsDao.addArticle(article);
     }
 
-    public void updateArticle(int id, Article newArticle) throws DataAccessException {
+    public void updateArticle(int id, ArticleTags newArticle) throws DataAccessException {
         articelsDao.updateArticle(id, newArticle);
     }
 
