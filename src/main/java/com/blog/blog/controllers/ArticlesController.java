@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.blog.ServerResponse;
-import com.blog.blog.enums.SortByOptions;
+import com.blog.blog.enums.SortByEnum;
 import com.blog.blog.instances.ArticleTags;
 import com.blog.blog.services.ArticlesService;
 
@@ -49,10 +49,10 @@ public class ArticlesController {
         @RequestParam(value = "tags", required = false) List<String> tags
     ) 
     throws DataAccessException {
-        // Validating sortBy request param
-        final String parsedSortBy = sortBy.toUpperCase();
+        SortByEnum validatedSortBy;
+
         try {
-            SortByOptions.valueOf(parsedSortBy);    
+            validatedSortBy = SortByEnum.valueOf(sortBy.toUpperCase());    
         } catch (IllegalArgumentException e) {
             return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
@@ -60,7 +60,8 @@ public class ArticlesController {
                 .body(new ServerResponse<>("Invalid sort_by parameter has been received", null));
         }
         
-        final List<ArticleTags> articles = articlesService.getAllArticles(parsedSortBy, tags);
+        final List<ArticleTags> articles = articlesService.getAllArticles(validatedSortBy, tags);
+
         return ResponseEntity.ok(
             new ServerResponse<List<ArticleTags>>("Articles have been got successfully", articles)  
         );  

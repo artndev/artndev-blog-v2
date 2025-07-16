@@ -5,10 +5,11 @@ import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
 
+import com.blog.blog.enums.SortByEnum;
 import com.blog.blog.instances.ArticleTags;
 
 public interface ArticlesDao {
-    public List<ArticleTags> getAllArticles(String sortBy, List<String> tags) throws DataAccessException;
+    public List<ArticleTags> getAllArticles(SortByEnum validatedSortBy, List<String> tags) throws DataAccessException;
 
     public Optional<ArticleTags> getArticle(Integer id) throws DataAccessException;
 

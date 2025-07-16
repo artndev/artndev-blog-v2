@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.blog.blog.enums.SortByEnum;
 import com.blog.blog.instances.ArticleTags;
 import com.blog.blog.interfaces.ArticlesDao;
 
@@ -15,8 +16,8 @@ public class ArticlesService {
     @Autowired
     private ArticlesDao articelsDao;
 
-    public List<ArticleTags> getAllArticles(String sortBy, List<String> tags) throws DataAccessException {
-        return articelsDao.getAllArticles(sortBy, tags);
+    public List<ArticleTags> getAllArticles(SortByEnum validatedSortBy, List<String> tags) throws DataAccessException {
+        return articelsDao.getAllArticles(validatedSortBy, tags);
     }
 
     public Optional<ArticleTags> getArticle(Integer id) throws DataAccessException {

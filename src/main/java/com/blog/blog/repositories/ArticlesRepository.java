@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.blog.blog.enums.SortByEnum;
 import com.blog.blog.instances.ArticleTags;
 import com.blog.blog.interfaces.ArticlesDao;
 import com.blog.blog.services.row_mappers.ArticleTagsExtractor;
@@ -23,20 +24,12 @@ public class ArticlesRepository implements ArticlesDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Override
-    public void deleteArticle(Integer id) throws DataAccessException {
-        jdbcTemplate.update(
-            """
-                DELETE FROM Articles WHERE Id = ?;
-            """,
-            id
-        );
-    }
-
     // === GET ===
 
     @Override
-    public List<ArticleTags> getAllArticles(String sortBy, List<String> tags) throws DataAccessException {
+    public List<ArticleTags> getAllArticles(SortByEnum validatedSortBy, List<String> tags) throws DataAccessException {
+        final String sortBy = validatedSortBy.getOption();
+
         if (tags == null || tags.isEmpty())
         {
             return jdbcTemplate.query(
@@ -51,7 +44,7 @@ public class ArticlesRepository implements ArticlesDao {
                     FROM Articles article
                     LEFT JOIN ArticleTags articleTag ON article.Id = articleTag.ArticleId
                     LEFT JOIN Tags tag ON articleTag.TagId = tag.Id
-                    ORDER BY article.Updated %s
+                    ORDER BY article.Updated %s;
                 """, sortBy),
                 new ArticleTagsExtractor()
             );
@@ -60,6 +53,10 @@ public class ArticlesRepository implements ArticlesDao {
         final String placeholder = tags.stream()
             .map(tag -> "?")
             .collect(Collectors.joining(","));
+
+        List<Object> tagsParams = new ArrayList<>(tags);
+        tagsParams.add(tags.size());
+
         return jdbcTemplate.query(
             String.format("""
                 SELECT 
@@ -73,15 +70,17 @@ public class ArticlesRepository implements ArticlesDao {
                 JOIN ArticleTags articleTag ON article.Id = articleTag.ArticleId
                 JOIN Tags tag ON articleTag.TagId = tag.Id
                 WHERE article.Id IN (
-                    SELECT DISTINCT articleTag2.ArticleId
+                    SELECT articleTag2.ArticleId
                     FROM ArticleTags articleTag2
                     JOIN Tags tag2 ON articleTag2.TagId = tag2.Id
                     WHERE tag2.TagName IN (%s)
+                    GROUP BY articleTag2.ArticleId
+                    HAVING COUNT(DISTINCT tag2.TagName) = ?
                 )
                 ORDER BY article.Updated %s;
             """, placeholder, sortBy),
             new ArticleTagsExtractor(),
-            tags.toArray()
+            tagsParams.toArray()
         );
     }
 
@@ -164,6 +163,16 @@ public class ArticlesRepository implements ArticlesDao {
         );
 
         insertArticleTags(id, tags);
+    }
+
+    @Override
+    public void deleteArticle(Integer id) throws DataAccessException {
+        jdbcTemplate.update(
+            """
+                DELETE FROM Articles WHERE Id = ?;
+            """,
+            id
+        );
     }
 
     // === UTILS ===
