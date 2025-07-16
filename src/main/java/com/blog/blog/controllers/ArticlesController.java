@@ -1,6 +1,5 @@
 package com.blog.blog.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.blog.ServerResponse;
 import com.blog.blog.enums.SortByOptions;
-import com.blog.blog.instances.Article;
 import com.blog.blog.instances.ArticleTags;
 import com.blog.blog.services.ArticlesService;
 
@@ -46,7 +44,7 @@ public class ArticlesController {
 
     // http://localhost:8080/api/articles?sort_by=asc&tags=kitty&tags=doggy
     @GetMapping(value = "/articles", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ServerResponse<List<Article>>> getAllArticles(
+    public ResponseEntity<ServerResponse<List<ArticleTags>>> getAllArticles(
         @RequestParam(value = "sort_by", required = false, defaultValue = "ASC") String sortBy, 
         @RequestParam(value = "tags", required = false) List<String> tags
     ) 
@@ -62,20 +60,23 @@ public class ArticlesController {
                 .body(new ServerResponse<>("Invalid sort_by parameter has been received", null));
         }
         
-        final List<Article> articles = articlesService.getAllArticles(parsedSortBy, tags);
+        final List<ArticleTags> articles = articlesService.getAllArticles(parsedSortBy, tags);
         return ResponseEntity.ok(
-            new ServerResponse<List<Article>>("Articles have been got successfully", articles)  
+            new ServerResponse<List<ArticleTags>>("Articles have been got successfully", articles)  
         );  
     }
 
     @GetMapping(value = "/articles/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ServerResponse<Article>> getArticle(@PathVariable String id) 
+    public ResponseEntity<ServerResponse<ArticleTags>> getArticle(@PathVariable String id) 
     throws DataAccessException {
-        final Article article = articlesService.getArticle(Integer.parseInt(id));
-
-        return ResponseEntity.ok(
-            new ServerResponse<Article>("Article has been got successfully", article)  
-        );
+        return articlesService.getArticle(Integer.parseInt(id))
+            .map(article -> ResponseEntity.ok(new ServerResponse<ArticleTags>("Article has been got successfully", article)))
+            .orElseGet(() -> 
+                ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(new ServerResponse<>("Article has not been found", null))
+            );
     }
 
     @PostMapping("/articles")

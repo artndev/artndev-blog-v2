@@ -13,4 +13,11 @@ public class ArticleTags extends Article {
     public List<String> getTags() {
         return this.tags;
     }
+
+    public void addTag(String tag) {
+        if (tag == null || this.tags.contains(tag))
+            return;
+
+        this.tags.add(tag);
+    }
 }
