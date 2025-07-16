@@ -9,10 +9,11 @@ import {
 import axios from '@/lib/axios.js'
 import ArticleCard from '@/pages/components/ArticleCard'
 import ArticleCardSkeleton from '@/pages/skeletons/ArticleCardSkeleton'
-import type { I_Article, I_AxiosError, I_AxiosResponse } from '@/types'
+import type { T_FilterOrder } from '@/pages/types'
+import type { I_Article, I_AxiosError, I_AxiosResponse, I_Tag } from '@/types'
 import { ArrowDown, ArrowUp } from 'lucide-react'
-import { motion } from 'motion/react'
-import { useEffect, useState, type ReactNode } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // const articlesData = [
@@ -51,16 +52,27 @@ import { useNavigate } from 'react-router-dom'
 const Articles = () => {
   const navigate = useNavigate()
   const [articles, setArticles] = useState<I_Article[] | []>([])
-  const [filterOrder, setFilterOrder] = useState<
-    'latest_to_oldest' | 'oldest_to_latest' | string
-  >('latest_to_oldest')
-  const [loadedTags, setLoadedTags] = useState<string[] | []>([])
-  const [currentTags, setCurrentTags] = useState<string[]>(['default'])
+  const [tags, setTags] = useState<I_Tag[] | []>([])
+  const [currentTags, setCurrentTags] = useState<Set<string>>(new Set())
+  const [filterOrder, setFilterOrder] = useState<T_FilterOrder>('asc')
 
   useEffect(() => {
     axios
-      .get('/articles')
+      .get(
+        `/articles?sort_by=${filterOrder}&tags=${Array.from(currentTags).join('&tags=')}`
+      )
       .then((res: I_AxiosResponse<I_Article[]>) => setArticles(res.data.answer))
+      .catch((err: I_AxiosError) => {
+        console.log(err)
+
+        navigate(`/error${err?.status && `?code=${err.status}`}`)
+      })
+  }, [filterOrder, currentTags])
+
+  useEffect(() => {
+    axios
+      .get('/tags')
+      .then((res: I_AxiosResponse<I_Tag[]>) => setTags(res.data.answer))
       .catch((err: I_AxiosError) => {
         console.log(err)
 
@@ -68,175 +80,119 @@ const Articles = () => {
       })
   }, [])
 
-  useEffect(() => {
-    let loadedTags: Set<string> = new Set<string>([])
-    articles.forEach(article => {
-      let tags = JSON.parse(article.tags) as string[]
-      tags = [...tags]
-        .filter((tag: string) => tag !== 'default')
-        .map((tag: string) => tag.trim().toUpperCase())
-
-      loadedTags = new Set([...loadedTags, ...tags])
-    })
-
-    setLoadedTags(Array.from(loadedTags))
-  }, [articles])
-
-  const articlesWrapper = (articles: ReactNode[]) => {
-    return (
-      <>
-        {articles.length ? (
-          articles
-        ) : (
-          <motion.div key={`${filterOrder}-${currentTags.join(',')}`}>
-            <motion.div
-              initial={'hidden'}
-              whileInView={'visible'}
-              viewport={{ once: true }}
-              variants={{
-                hidden: {
-                  opacity: 0,
-                  y: 10,
-                },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                },
-              }}
-              transition={{
-                duration: 0.5,
-                ease: [0.15, 0.55, 0.55, 1],
-                delay: 0.1,
-              }}
-            >
-              Uhm, no, it has not been found...
-            </motion.div>
-          </motion.div>
-        )}
-      </>
-    )
-  }
-
   return (
     <>
-      {articles?.length ? (
-        <div className="flex justify-center w-full">
-          <div className="flex flex-col gap-12 w-[min(1000px,_100%)]">
-            {/* Filters */}
-            <div className="flex flex-col gap-4 justify-between">
-              <div className="flex flex-wrap gap-2">
-                {loadedTags.map((tag, i) => {
-                  const isIncluded = currentTags.includes(tag)
+      <div className="flex justify-center w-full">
+        <div className="flex flex-col gap-12 w-[min(1000px,_100%)]">
+          {/* Filters */}
+          <div className="flex flex-col gap-4 justify-between">
+            <div className="flex flex-wrap gap-2">
+              {tags.map((tag, i) => {
+                const isEnabled = currentTags.has(tag.tagName)
 
+                return (
+                  <Button
+                    key={i}
+                    variant={isEnabled ? 'default' : 'outline'}
+                    className="text-xs"
+                    onClick={() => {
+                      if (isEnabled) {
+                        const temp = new Set([...currentTags])
+                        temp.delete(tag.tagName)
+
+                        setCurrentTags(temp)
+
+                        return
+                      }
+
+                      setCurrentTags(new Set([...currentTags, tag.tagName]))
+                    }}
+                  >
+                    {tag.tagName.toUpperCase()}
+                  </Button>
+                )
+              })}
+            </div>
+            <Select
+              defaultValue={filterOrder}
+              onValueChange={(value: T_FilterOrder) => setFilterOrder(value)}
+            >
+              <SelectTrigger className="min-w-[200px] rounded-full">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="desc">
+                  <ArrowUp />
+                  Oldest to latest
+                </SelectItem>
+                <SelectItem value="asc">
+                  <ArrowDown />
+                  Latest to oldest
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Content */}
+          {articles?.length ? (
+            <div className="flex flex-col gap-12">
+              <AnimatePresence mode="popLayout" initial={false}>
+                {articles.map((article, i) => {
                   return (
-                    <Button
-                      variant={!isIncluded ? 'outline' : 'default'}
-                      className="text-xs"
-                      onClick={() => {
-                        if (isIncluded) {
-                          setCurrentTags([
-                            ...currentTags.filter(
-                              currentTag => currentTag !== tag
-                            ),
-                          ])
-                          return
-                        }
-
-                        setCurrentTags([...currentTags, tag])
+                    <motion.div
+                      key={`${i}-${filterOrder}-${currentTags}`}
+                      initial={'hidden'}
+                      animate={'visible'}
+                      exit={'exit'}
+                      variants={{
+                        hidden: {
+                          opacity: 0,
+                          y: 10,
+                        },
+                        visible: {
+                          opacity: 1,
+                          y: 0,
+                        },
+                        exit: {
+                          opacity: 0,
+                          scale: 0.95,
+                          transition: {
+                            duration: 0.25,
+                          },
+                        },
                       }}
-                      key={i}
+                      transition={{
+                        duration: 0.5,
+                        ease: [0.15, 0.55, 0.55, 1],
+                        delay: Math.min(i * 0.1, 1),
+                      }}
+                      layout
                     >
-                      {tag}
-                    </Button>
+                      <ArticleCard
+                        id={article.id}
+                        title={article.title}
+                        content={article.subtitle}
+                        updated={new Date(article.updated).toLocaleDateString(
+                          'en-GB',
+                          {
+                            timeZone: 'UTC',
+                            month: 'short',
+                            day: '2-digit',
+                            year: 'numeric',
+                          }
+                        )}
+                        tags={article.tags.map(tag => tag.toUpperCase())}
+                      />
+                    </motion.div>
                   )
                 })}
-              </div>
-              <Select defaultValue={filterOrder} onValueChange={setFilterOrder}>
-                <SelectTrigger className="min-w-[200px] rounded-full">
-                  <SelectValue placeholder="Sort by" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="oldest_to_latest">
-                    <ArrowUp />
-                    Oldest to latest
-                  </SelectItem>
-                  <SelectItem value="latest_to_oldest">
-                    <ArrowDown />
-                    Latest to oldest
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              </AnimatePresence>
             </div>
-
-            {/* Content */}
-            <div className="flex flex-col gap-12">
-              {articlesWrapper(
-                articles
-                  .map(article => {
-                    return {
-                      ...article,
-                      tags: JSON.parse(article.tags) as string[],
-                    }
-                  })
-                  .filter(article => {
-                    const parsedTags = article.tags.map(tag =>
-                      tag.trim().replaceAll(' ', '').toLowerCase()
-                    )
-
-                    return currentTags.every(tag =>
-                      parsedTags.includes(
-                        tag.trim().replaceAll(' ', '').toLowerCase()
-                      )
-                    )
-                  })
-                  .sort((a, b) => {
-                    if (filterOrder === 'latest_to_oldest') {
-                      return (
-                        new Date(b.updated).getTime() -
-                        new Date(a.updated).getTime()
-                      )
-                    }
-
-                    return (
-                      new Date(a.updated).getTime() -
-                      new Date(b.updated).getTime()
-                    )
-                  })
-                  .map((article, i) => {
-                    return (
-                      <motion.div
-                        key={`${article.id}-${filterOrder}-${currentTags.join(',')}`}
-                      >
-                        <ArticleCard
-                          id={article.id}
-                          title={article.title}
-                          content={article.subtitle}
-                          updated={new Date(article.updated).toLocaleDateString(
-                            'en-GB',
-                            {
-                              timeZone: 'UTC',
-                              month: 'short',
-                              day: '2-digit',
-                              year: 'numeric',
-                            }
-                          )}
-                          tags={article.tags}
-                          i={i}
-                        />
-                      </motion.div>
-                    )
-                  })
-              )}
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="flex justify-center w-full">
-          <div className="w-[min(1000px,_100%)]">
+          ) : (
             <ArticleCardSkeleton />
-          </div>
+          )}
         </div>
-      )}
+      </div>
     </>
   )
 }

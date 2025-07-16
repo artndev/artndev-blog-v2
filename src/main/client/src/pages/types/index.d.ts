@@ -1,6 +1,8 @@
 import type { T_ArticleFormSchema } from '@/lib/schemas'
 import type { Content } from '@tiptap/react'
 
+export type T_FilterOrder = 'asc' | 'desc'
+
 export interface I_RichEditorProps {
   value?: Content | undefined
   onChange?: ((value: Content) => void) | undefined
@@ -20,7 +22,6 @@ export interface I_ArticleProps extends React.RefAttributes<HTMLDivElement> {
   updated: string
   tags: string[]
   className?: string | string[]
-  i?: number
 }
 
 export {}

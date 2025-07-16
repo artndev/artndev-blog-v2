@@ -25,8 +25,13 @@ export interface I_Article {
   title: string
   subtitle: string
   content: string
-  tags: string
+  tags: string[]
   updated: string
+}
+
+export interface I_Tag {
+  id: number
+  tagName: string
 }
 
 export interface I_AdminContext {

@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils.js'
 import RichEditor from '@/pages/components/RichEditor'
 import type { I_ArticleProps } from '@/pages/types'
 import { Calendar } from 'lucide-react'
-import { motion } from 'motion/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -16,36 +15,17 @@ const ArticleView: React.FC<I_ArticleProps> = ({
   updated,
   tags,
   className,
-  i,
   ...props
 }) => {
   const navigate = useNavigate()
   const { order } = useOrderContext()
 
   return (
-    <motion.div
+    <div
       className={cn(
         'flex flex-col justify-between gap-4 w-full h-full',
         className
       )}
-      initial={'hidden'}
-      whileInView={'visible'}
-      viewport={{ once: true }}
-      variants={{
-        hidden: {
-          opacity: 0,
-          x: -10,
-        },
-        visible: {
-          opacity: 1,
-          x: 0,
-        },
-      }}
-      transition={{
-        duration: 0.5,
-        ease: [0.15, 0.55, 0.55, 1],
-        delay: Math.min((i ?? 0) * 0.1, 1),
-      }}
       {...props}
     >
       <div className="flex flex-col gap-4">
@@ -53,19 +33,15 @@ const ArticleView: React.FC<I_ArticleProps> = ({
           <div className="text-2xl font-semibold hanken-grotesk leading-none">
             {title}
           </div>
-          {tags.length > 1 && (
-            <div className="flex flex-wrap gap-2">
-              {tags
-                .filter(tag => tag !== 'default')
-                .map((tag, i) => {
-                  return (
-                    <Badge variant={'outline'} key={i}>
-                      {tag}
-                    </Badge>
-                  )
-                })}
-            </div>
-          )}
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag, i) => {
+              return (
+                <Badge variant={'outline'} key={i}>
+                  {tag}
+                </Badge>
+              )
+            })}
+          </div>
         </div>
         <hr />
         <div className="flex items-center gap-2 text-muted-foreground text-sm">
@@ -94,7 +70,7 @@ const ArticleView: React.FC<I_ArticleProps> = ({
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 
