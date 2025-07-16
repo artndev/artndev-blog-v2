@@ -1,11 +1,12 @@
 package com.blog.blog.instances;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class ArticleTags extends Article {
     private List<String> tags;
 
-    public ArticleTags(Integer id, String title, String subtitle, String content, List<String> tags, String updated) {
+    public ArticleTags(Integer id, String title, String subtitle, String content, List<String> tags, Timestamp updated) {
         super(id, title, subtitle, content, updated);
         this.tags = tags;
     }

@@ -2,6 +2,7 @@ package com.blog.blog.services.row_mappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -22,10 +23,10 @@ public class ArticleTagsExtractor implements ResultSetExtractor<List<ArticleTags
 
             final ArticleTags article = articles.computeIfAbsent(articleId, id -> {
                 try {
-                    final String updated = rs.getString("Updated");
                     final String title = rs.getString("Title");
                     final String subtitle = rs.getString("Subtitle");
                     final String content = rs.getString("Content");
+                    final Timestamp updated = rs.getTimestamp("Updated");
 
                     return new ArticleTags(id, title, subtitle, content, new ArrayList<>(), updated);
                 } catch (SQLException e) {

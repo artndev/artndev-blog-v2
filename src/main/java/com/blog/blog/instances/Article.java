@@ -1,5 +1,7 @@
 package com.blog.blog.instances;
 
+import java.sql.Timestamp;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
@@ -20,9 +22,9 @@ public class Article {
     private String content;
 
     @Null
-    private String updated;
+    private Timestamp updated;
 
-    public Article(Integer id, String title, String subtitle, String content, String updated) {
+    public Article(Integer id, String title, String subtitle, String content, Timestamp updated) {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
@@ -34,7 +36,7 @@ public class Article {
         return this.id;
     }
 
-    public String getUpdated() {
+    public Timestamp getUpdated() {
         return this.updated;
     }
 

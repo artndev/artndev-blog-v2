@@ -2,6 +2,7 @@ package com.blog.blog.services.row_mappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.NonNull;
@@ -16,10 +17,10 @@ public class ArticleRowMapper implements RowMapper<Article> {
 
     private Article map(@NonNull ResultSet rs) throws SQLException {
         final Integer id = rs.getInt("Id");
-        final String updated = rs.getString("Updated");
         final String title = rs.getString("Title");
         final String subtitle = rs.getString("Subtitle");
         final String content = rs.getString("Content");
+        final Timestamp updated = rs.getTimestamp("Updated");
 
         return new Article(id, title, subtitle, content, updated);
     }
