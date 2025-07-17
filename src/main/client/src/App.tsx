@@ -1,4 +1,3 @@
-import AdminOutlet from '@/outlets/AdminOutlet'
 import LayoutOutlet from '@/outlets/LayoutOutlet'
 import AddArticle from '@/pages/AddArticle'
 import AdminPanel from '@/pages/AdminPanel'
@@ -21,18 +20,12 @@ const App = () => {
             <Route path="/articles" element={<Articles />} />
             <Route path="/articles/:id" element={<Article />} />
 
-            <Route path="/admin-panel" element={<AdminOutlet />}>
-              <Route index element={<AdminPanel />} />
-
-              <Route
-                path="/admin-panel/articles/:id/edit"
-                element={<EditArticle />}
-              />
-              <Route
-                path="/admin-panel/articles/add"
-                element={<AddArticle />}
-              />
-            </Route>
+            <Route path="/admin-panel" element={<AdminPanel />} />
+            <Route
+              path="/admin-panel/articles/:id/edit"
+              element={<EditArticle />}
+            />
+            <Route path="/admin-panel/articles/add" element={<AddArticle />} />
 
             <Route path="/error" element={<Error />} />
             <Route path="/*" element={<Navigate to="/error?code=404" />} />

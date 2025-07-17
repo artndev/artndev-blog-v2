@@ -1,7 +1,6 @@
 import App from '@/App'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import AdminProvider from '@/contexts/AdminContext'
-import IPProvider from '@/contexts/IPContext'
 import OrderProvider from '@/contexts/OrderContext'
 import '@/index.css'
 import { StrictMode } from 'react'
@@ -14,9 +13,7 @@ createRoot(document.getElementById('root')!).render(
       <AdminProvider>
         <OrderProvider>
           <TooltipProvider>
-            <IPProvider>
-              <App />
-            </IPProvider>
+            <App />
           </TooltipProvider>
         </OrderProvider>
       </AdminProvider>

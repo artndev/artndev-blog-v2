@@ -27,7 +27,7 @@ import com.blog.blog.services.ArticlesService;
 import jakarta.validation.Valid;
 
 @CrossOrigin(
-    origins = "http://localhost:5173", 
+    origins = "*", 
     methods = {
         RequestMethod.GET, 
         RequestMethod.POST, 

@@ -20,3 +20,14 @@ services:
       - "8080:8080"
     env_file:
       - .env
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+      args:
+        ADMIN_USERNAME: ${ADMIN_USERNAME}
+        ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+    ports:
+      - "80:80"
+    depends_on:
+      - blog

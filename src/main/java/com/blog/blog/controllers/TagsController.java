@@ -16,7 +16,7 @@ import com.blog.blog.instances.Tag;
 import com.blog.blog.services.TagsService;
 
 @CrossOrigin(
-    origins = "http://localhost:5173", 
+    origins = "*", 
     methods = {
         RequestMethod.GET, 
         RequestMethod.POST, 
