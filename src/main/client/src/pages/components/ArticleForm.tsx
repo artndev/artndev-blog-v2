@@ -9,22 +9,25 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import axios from '@/lib/axios.js'
+import { TAG_REGEXP } from '@/lib/regexes.js'
 import { ArticleFormSchema, type T_ArticleFormSchema } from '@/lib/schemas.js'
 import { cn } from '@/lib/utils.js'
 import RichEditor from '@/pages/components/RichEditor'
 import type { I_ArticleFormProps } from '@/pages/types'
+import type { I_AxiosError, I_AxiosResponse, I_Tag } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Hash, LoaderCircleIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-
-const TAG_REGEXP = /^[A-Za-z]{1,50}$/
+import { useNavigate } from 'react-router-dom'
 
 const ArticleForm: React.FC<I_ArticleFormProps> = ({
   formTitle,
   onSubmit,
   defaultValues,
 }) => {
+  const navigate = useNavigate()
   const form = useForm<T_ArticleFormSchema>({
     mode: 'onChange',
     resolver: zodResolver(ArticleFormSchema),
@@ -32,30 +35,43 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
       title: '',
       subtitle: '',
       content: '',
-      tags: '["default"]',
+      tags: [],
     },
   })
-  const [currentTags, setCurrentTags] = useState<string[]>(['default'])
-  const [loadedTags, setLoadedTags] = useState<string[]>([
-    'GAMES',
-    'BOOKS',
-    'TRAVELING',
-  ])
+  const [tags, setTags] = useState<string[] | []>([])
+  const [currentTags, setCurrentTags] = useState<Set<string>>(new Set())
   const [tagInput, setTagInput] = useState<string>('')
 
   useEffect(() => {
-    let tags = JSON.parse(form.formState.defaultValues!.tags!) as string[]
-    tags = [...tags]
-      .filter((tag: string) => tag !== 'default')
-      .map((tag: string) => tag.trim().toUpperCase())
+    axios
+      .get('/tags')
+      .then((res: I_AxiosResponse<I_Tag[]>) =>
+        setTags(res.data.answer.map(tag => tag.tagName))
+      )
+      .catch((err: I_AxiosError) => {
+        console.log(err)
 
-    setLoadedTags(Array.from(new Set([...loadedTags, ...tags])))
-    setCurrentTags([...currentTags, ...tags])
+        navigate(`/error${err?.status && `?code=${err.status}`}`)
+      })
   }, [])
 
   useEffect(() => {
-    form.setValue('tags', JSON.stringify(currentTags))
-  }, [currentTags])
+    const defaultTags = form.formState.defaultValues!.tags as string[]
+
+    setCurrentTags(new Set([...defaultTags, ...currentTags]))
+  }, [])
+
+  useEffect(() => form.setValue('tags', Array.from(currentTags)), [currentTags])
+
+  useEffect(() => {
+    if (tagInput === '') return
+
+    if (!new RegExp(TAG_REGEXP).test(tagInput)) {
+      form.setError('tags', {
+        message: 'Tag is invalid',
+      })
+    } else form.clearErrors('tags')
+  }, [tagInput])
 
   return (
     <Form {...form}>
@@ -120,10 +136,7 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
         <FormField
           control={form.control}
           name="tags"
-          rules={{
-            required: true,
-            value: 'default',
-          }}
+          rules={{ required: true }}
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Tags</FormLabel>
@@ -138,13 +151,7 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
                     onChange={e => {
                       e.preventDefault()
 
-                      if (!new RegExp(TAG_REGEXP).test(tagInput)) {
-                        form.setError('tags', {
-                          message: 'Tag is invalid',
-                        })
-                      } else form.clearErrors('tags')
-
-                      setTagInput(e.target.value)
+                      setTagInput(e.target.value.trim())
                     }}
                     onKeyDown={e => {
                       if (e.key === 'Enter') {
@@ -157,12 +164,10 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
                           return
                         }
 
-                        if (!new RegExp(TAG_REGEXP).test(tagInput)) return
+                        if (form.formState.errors.tags) return
 
-                        setLoadedTags([
-                          ...loadedTags,
-                          tagInput.trim().toUpperCase(),
-                        ])
+                        setTags([...tags, tagInput])
+                        setCurrentTags(new Set([tagInput, ...currentTags]))
 
                         setTagInput('')
                       }
@@ -181,12 +186,10 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
                         return
                       }
 
-                      if (!new RegExp(TAG_REGEXP).test(tagInput)) return
+                      if (form.formState.errors.tags) return
 
-                      setLoadedTags([
-                        ...loadedTags,
-                        tagInput.trim().toUpperCase(),
-                      ])
+                      setTags([...tags, tagInput])
+                      setCurrentTags(new Set([tagInput, ...currentTags]))
 
                       setTagInput('')
                     }}
@@ -194,34 +197,36 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
                     <Hash />
                   </Button>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {loadedTags.map((tag, i) => {
-                    const isIncluded = currentTags.includes(tag)
+                {tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {tags.map((tag, i) => {
+                      const isEnabled = currentTags.has(tag)
 
-                    return (
-                      <Button
-                        type="button"
-                        variant={!isIncluded ? 'outline' : 'default'}
-                        className="text-xs"
-                        onClick={() => {
-                          if (isIncluded) {
-                            setCurrentTags([
-                              ...currentTags.filter(
-                                currentTag => currentTag !== tag
-                              ),
-                            ])
-                            return
-                          }
+                      return (
+                        <Button
+                          type="button"
+                          variant={isEnabled ? 'default' : 'outline'}
+                          className="text-xs"
+                          onClick={() => {
+                            if (isEnabled) {
+                              const temp = new Set([...currentTags])
+                              temp.delete(tag)
 
-                          setCurrentTags([...currentTags, tag])
-                        }}
-                        key={i}
-                      >
-                        {tag}
-                      </Button>
-                    )
-                  })}
-                </div>
+                              setCurrentTags(temp)
+
+                              return
+                            }
+
+                            setCurrentTags(new Set([...currentTags, tag]))
+                          }}
+                          key={i}
+                        >
+                          {tag.toUpperCase()}
+                        </Button>
+                      )
+                    })}
+                  </div>
+                )}
               </div>
               <FormControl>
                 <Input className="hidden" {...field} />

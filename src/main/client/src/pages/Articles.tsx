@@ -52,7 +52,7 @@ import { useNavigate } from 'react-router-dom'
 const Articles = () => {
   const navigate = useNavigate()
   const [articles, setArticles] = useState<I_Article[] | []>([])
-  const [tags, setTags] = useState<I_Tag[] | []>([])
+  const [tags, setTags] = useState<string[] | []>([])
   const [currentTags, setCurrentTags] = useState<Set<string>>(new Set())
   const [filterOrder, setFilterOrder] = useState<T_FilterOrder>('asc')
 
@@ -72,7 +72,9 @@ const Articles = () => {
   useEffect(() => {
     axios
       .get('/tags')
-      .then((res: I_AxiosResponse<I_Tag[]>) => setTags(res.data.answer))
+      .then((res: I_AxiosResponse<I_Tag[]>) =>
+        setTags(res.data.answer.map(tag => tag.tagName))
+      )
       .catch((err: I_AxiosError) => {
         console.log(err)
 
@@ -88,7 +90,7 @@ const Articles = () => {
           <div className="flex flex-col gap-4 justify-between">
             <div className="flex flex-wrap gap-2">
               {tags.map((tag, i) => {
-                const isEnabled = currentTags.has(tag.tagName)
+                const isEnabled = currentTags.has(tag)
 
                 return (
                   <Button
@@ -98,17 +100,17 @@ const Articles = () => {
                     onClick={() => {
                       if (isEnabled) {
                         const temp = new Set([...currentTags])
-                        temp.delete(tag.tagName)
+                        temp.delete(tag)
 
                         setCurrentTags(temp)
 
                         return
                       }
 
-                      setCurrentTags(new Set([...currentTags, tag.tagName]))
+                      setCurrentTags(new Set([...currentTags, tag]))
                     }}
                   >
-                    {tag.tagName.toUpperCase()}
+                    {tag.toUpperCase()}
                   </Button>
                 )
               })}
@@ -140,7 +142,7 @@ const Articles = () => {
                 {articles.map((article, i) => {
                   return (
                     <motion.div
-                      key={`${i}-${filterOrder}-${currentTags}`}
+                      key={`${i}-${filterOrder}-${Array.from(currentTags).join(',')}`}
                       initial={'hidden'}
                       animate={'visible'}
                       exit={'exit'}

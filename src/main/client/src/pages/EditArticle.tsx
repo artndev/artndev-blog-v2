@@ -47,10 +47,6 @@ const EditArticle = () => {
       })
   }
 
-  useEffect(() => {
-    console.log(article)
-  }, [article])
-
   return (
     <>
       {article ? (
