@@ -13,7 +13,9 @@ ENV VITE_API_URL=$VITE_API_URL \
     VITE_LICENSE_URL=$VITE_LICENSE_URL
 
 WORKDIR /artndev-blog
-COPY . .
-    
-RUN npm install
+
+COPY client/package*.json ./
+RUN npm ci
+
+COPY client/ ./
 RUN npm run build
