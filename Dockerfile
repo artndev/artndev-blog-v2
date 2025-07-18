@@ -33,7 +33,7 @@ RUN mvn clean package -DskipTests
 
 FROM openjdk:21
 
-COPY --from=build /target/app.jar app.jar
+COPY --from=build /artndev-blog/target/app.jar app.jar
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
