@@ -1,0 +1,37 @@
+name: Deployment to VPS
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checking code
+        uses: actions/checkout@v3
+
+      - name: Copying files to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "."
+          target: "/var/www/artndev-blog"
+
+      - name: Rebuilding project
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /var/www/artndev-blog
+            echo "${{ secrets.ENV }}" > .env
+            echo "${{ secrets.WHITELISTED_IPS }}" > nginx/ips.white
+            echo "${{ secrets.BLACKLISTED_IPS }}" > nginx/ips.black
+            cd /var/www/artndev-blog/bin/sh
+            build.sh
