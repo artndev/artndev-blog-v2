@@ -31,8 +31,9 @@ jobs:
           script: |
             cd /var/www/artndev-blog
             echo "${{ secrets.ENV }}" > .env
-            echo "${{ secrets.WHITELISTED_IPS }}" > nginx/ips.white
-            echo "${{ secrets.BLACKLISTED_IPS }}" > nginx/ips.black
-            cd /var/www/artndev-blog/bin/bash
+            cd nginx
+            echo "${{ secrets.WHITELISTED_IPS }}" > ips.white
+            echo "${{ secrets.BLACKLISTED_IPS }}" > ips.black
+            cd /var/www/artndev-blog
             chmod +x build.sh
             ./build.sh
