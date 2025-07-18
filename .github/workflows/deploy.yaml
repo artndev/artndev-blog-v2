@@ -35,4 +35,4 @@ jobs:
             echo "${{ secrets.BLACKLISTED_IPS }}" > nginx/ips.black
             cd /var/www/artndev-blog/bin/bash
             chmod +x build.sh
-            build.sh
+            ./build.sh
