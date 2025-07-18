@@ -24,16 +24,6 @@ services:
         VITE_GITHUB_URL: ${VITE_GITHUB_URL}
         VITE_TELEGRAM_URL: ${VITE_TELEGRAM_URL}
         VITE_LICENSE_URL: ${VITE_LICENSE_URL}
-    env_file:
-      - .env
-    ports:
-      - "5173:80"
-
-  nginx:
-    build:
-      context: .
-      dockerfile: nginx/Dockerfile.nginx
-      args:
         ADMIN_USERNAME: ${ADMIN_USERNAME}
         ADMIN_PASSWORD: ${ADMIN_PASSWORD}
     env_file:
@@ -41,5 +31,4 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - client
       - server
