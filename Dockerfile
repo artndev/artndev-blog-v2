@@ -1,4 +1,6 @@
 FROM maven:3.9.8-eclipse-temurin-21 AS build
+
+WORKDIR /artndev-blog
 COPY . .
 
 ARG DB_HOST
@@ -30,6 +32,7 @@ ENV DB_HOST=$DB_HOST \
 RUN mvn clean package -DskipTests
 
 FROM openjdk:21
+
 COPY --from=build /target/app.jar app.jar
 
 EXPOSE 8080
