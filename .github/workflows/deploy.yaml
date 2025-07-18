@@ -6,14 +6,33 @@ on:
       - dev
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "23"
+
+      - name: Install frontend dependencies
+        run: |
+          cd src/main/client
+          npm ci
+
+      - name: Build frontend
+        run: |
+          cd src/main/client
+          npm run build
+
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checking code
-        uses: actions/checkout@v3
-
-      - name: Copying files to VPS
+      - name: Copy files to VPS
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -22,7 +41,7 @@ jobs:
           source: "."
           target: "/var/www/artndev-blog"
 
-      - name: Rebuilding project
+      - name: Rebuild project
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
