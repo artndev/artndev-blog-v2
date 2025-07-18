@@ -1,0 +1,15 @@
+FROM nginx:alpine
+
+ARG ADMIN_USERNAME
+ARG ADMIN_PASSWORD
+
+RUN apk add --no-cache apache2-utils
+RUN htpasswd -bc /etc/nginx/.htpasswd "$ADMIN_USERNAME" "$ADMIN_PASSWORD"
+
+COPY ips.white /etc/nginx/ips.white
+COPY ips.black /etc/nginx/ips.black
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY ../artndev-blog/frontend/dist /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
