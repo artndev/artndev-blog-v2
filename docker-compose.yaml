@@ -31,8 +31,8 @@ services:
 
   nginx:
     build:
-      context: nginx
-      dockerfile: Dockerfile.nginx
+      context: .
+      dockerfile: nginx/Dockerfile.nginx
       args:
         ADMIN_USERNAME: ${ADMIN_USERNAME}
         ADMIN_PASSWORD: ${ADMIN_PASSWORD}
