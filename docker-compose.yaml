@@ -11,10 +11,8 @@ services:
         DB_USERNAME: ${DB_USERNAME}
     env_file:
       - .env
-    expose:
-      - "8080"
-    networks:
-      - npm_network
+    ports:
+      - "8080:8080"
 
   client:
     build:
@@ -30,30 +28,7 @@ services:
         ADMIN_PASSWORD: ${ADMIN_PASSWORD}
     env_file:
       - .env
-    expose:
-      - "80"
+    ports:
+      - "80:80"
     depends_on:
       - server
-    networks:
-      - npm_network
-
-  npm:
-    image: jc21/nginx-proxy-manager:latest
-    container_name: nginx-proxy-manager
-    ports:
-      - "80:80" # HTTP
-      - "443:443" # HTTPS
-      - "81:81" # Admin panel
-    volumes:
-      - npm_data:/data
-      - npm_letsencrypt:/etc/letsencrypt
-    restart: unless-stopped
-    networks:
-      - npm_network
-
-networks:
-  npm_network:
-
-volumes:
-  npm_data:
-  npm_letsencrypt:
