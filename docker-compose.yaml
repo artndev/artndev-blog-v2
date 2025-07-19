@@ -2,7 +2,7 @@ services:
   server:
     build:
       context: .
-      dockerfile: server/Dockerfile.server
+      dockerfile: ./server/Dockerfile.server
       args:
         DB_HOST: ${DB_HOST}
         DB_NAME: ${DB_NAME}
@@ -17,7 +17,7 @@ services:
   client:
     build:
       context: .
-      dockerfile: client/Dockerfile.client
+      dockerfile: ./client/Dockerfile.client
       args:
         VITE_API_URL: ${VITE_API_URL}
         VITE_SOURCE_URL: ${VITE_SOURCE_URL}
@@ -29,6 +29,6 @@ services:
     env_file:
       - .env
     ports:
-      - "8081:8081"
+      - "80:80"
     depends_on:
       - server
