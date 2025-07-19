@@ -30,7 +30,7 @@ services:
         ADMIN_PASSWORD: ${ADMIN_PASSWORD}
     env_file:
       - .env
-    expose:
+    ports:
       - "80"
     depends_on:
       - server
