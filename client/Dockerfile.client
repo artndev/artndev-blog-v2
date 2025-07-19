@@ -26,7 +26,7 @@ ARG ADMIN_USERNAME
 ARG ADMIN_PASSWORD
 
 RUN apk add --no-cache apache2-utils
-RUN htpasswd -bc /data/.htpasswd "$ADMIN_USERNAME" "$ADMIN_PASSWORD"
+RUN htpasswd -bc /etc/nginx/.htpasswd "$ADMIN_USERNAME" "$ADMIN_PASSWORD"
 
 COPY --from=client-build /client/dist /usr/share/nginx/html
 
