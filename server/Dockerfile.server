@@ -18,9 +18,8 @@ COPY . .
 
 RUN mvn clean package -DskipTests
 
-FROM openjdk:21
 
-WORKDIR /artndev-blog
+FROM openjdk:21
 
 COPY --from=server-build /artndev-blog/target/app.jar app.jar
 
