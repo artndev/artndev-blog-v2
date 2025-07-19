@@ -10,4 +10,4 @@ echo "[INFO] Rebuilding Docker containers..."
 docker-compose build --no-cache
 
 echo "[INFO] Starting Docker containers..."
-docker compose up -d
+docker-compose up -d
