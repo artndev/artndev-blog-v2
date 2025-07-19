@@ -1,10 +1,9 @@
 #!/bin/bash
-
 echo "[INFO] Removing previous Docker containers..."
 docker-compose down
 
 echo "[INFO] Clearing Docker system..."
-docker container prune -f
+docker system prune -a -f
 
 echo "[INFO] Rebuilding Docker containers..."
 docker-compose build --no-cache
