@@ -1,0 +1,27 @@
+FROM maven:3.9.8-eclipse-temurin-21 AS server-build
+
+ARG DB_HOST
+ARG DB_NAME
+ARG DB_PASSWORD
+ARG DB_PORT
+ARG DB_USERNAME
+
+ENV DB_HOST=$DB_HOST
+ENV DB_NAME=$DB_NAME
+ENV DB_PASSWORD=$DB_PASSWORD
+ENV DB_PORT=$DB_PORT
+ENV DB_USERNAME=$DB_USERNAME
+
+WORKDIR /artndev-blog
+
+COPY . .
+
+RUN mvn clean package -DskipTests
+
+
+FROM openjdk:21
+
+COPY --from=server-build /artndev-blog/target/app.jar app.jar
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
