@@ -52,7 +52,7 @@ import { useNavigate } from 'react-router-dom'
 const Articles = () => {
   const navigate = useNavigate()
   const [articles, setArticles] = useState<I_Article[] | []>([])
-  const [tags, setTags] = useState<I_Tag[] | []>([])
+  const [tags, setTags] = useState<string[] | []>([])
   const [currentTags, setCurrentTags] = useState<Set<string>>(new Set())
   const [filterOrder, setFilterOrder] = useState<T_FilterOrder>('asc')
 
@@ -72,7 +72,9 @@ const Articles = () => {
   useEffect(() => {
     axios
       .get('/tags')
-      .then((res: I_AxiosResponse<I_Tag[]>) => setTags(res.data.answer))
+      .then((res: I_AxiosResponse<I_Tag[]>) =>
+        setTags(res.data.answer.map(tag => tag.tagName))
+      )
       .catch((err: I_AxiosError) => {
         console.log(err)
 
@@ -87,28 +89,28 @@ const Articles = () => {
           {/* Filters */}
           <div className="flex flex-col gap-4 justify-between">
             <div className="flex flex-wrap gap-2">
-              {tags.map(({ id, tagName }) => {
-                const isEnabled = currentTags.has(tagName)
+              {tags.map(tag => {
+                const isEnabled = currentTags.has(tag)
 
                 return (
                   <Button
-                    key={id}
+                    key={tag}
                     variant={isEnabled ? 'default' : 'outline'}
                     className="text-xs"
                     onClick={() => {
                       if (isEnabled) {
                         const temp = new Set([...currentTags])
-                        temp.delete(tagName)
+                        temp.delete(tag)
 
                         setCurrentTags(temp)
 
                         return
                       }
 
-                      setCurrentTags(new Set([...currentTags, tagName]))
+                      setCurrentTags(new Set([...currentTags, tag]))
                     }}
                   >
-                    {tagName.toUpperCase()}
+                    {tag.toUpperCase()}
                   </Button>
                 )
               })}

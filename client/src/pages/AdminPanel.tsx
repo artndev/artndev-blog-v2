@@ -61,7 +61,11 @@ const AdminPanel = () => {
 
   const onClick = (id: number) => {
     axios
-      .delete(`/articles/${id}`)
+      .delete(`/articles/${id}`, {
+        headers: {
+          Authorization: `Basic ${btoa(`${import.meta.env.VITE_ADMIN_USERNAME}:${import.meta.env.VITE_ADMIN_PASSWORD}`)}`,
+        },
+      })
       .then(() => navigate(0))
       .catch(err => {
         console.log(err)

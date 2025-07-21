@@ -35,7 +35,11 @@ const EditArticle = () => {
 
   const onSubmit = (id: number, data: T_ArticleFormSchema) => {
     axios
-      .put(`/articles/${id}`, data)
+      .put(`/articles/${id}`, data, {
+        headers: {
+          Authorization: `Basic ${btoa(`${import.meta.env.VITE_ADMIN_USERNAME}:${import.meta.env.VITE_ADMIN_PASSWORD}`)}`,
+        },
+      })
       .then(() => {
         navigate(`/articles/${id}`)
         navigate(0)
