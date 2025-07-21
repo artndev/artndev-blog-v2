@@ -174,6 +174,7 @@ public class ArticlesRepository implements ArticlesDao {
     }
 
     @Override
+    @Transactional
     public void deleteArticle(Integer id) throws DataAccessException {
         jdbcTemplate.update(
             """
