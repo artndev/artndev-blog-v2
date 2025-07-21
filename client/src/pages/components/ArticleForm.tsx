@@ -176,7 +176,9 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
                             tagName: tagInput,
                           },
                         ])
-                        setCurrentTags(new Set([tagInput, ...currentTags]))
+                        setCurrentTags(
+                          new Set([tagInput.toUpperCase(), ...currentTags])
+                        )
 
                         setTagInput('')
                       }
@@ -205,7 +207,9 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
                           tagName: tagInput,
                         },
                       ])
-                      setCurrentTags(new Set([tagInput, ...currentTags]))
+                      setCurrentTags(
+                        new Set([tagInput.toUpperCase(), ...currentTags])
+                      )
 
                       setTagInput('')
                     }}

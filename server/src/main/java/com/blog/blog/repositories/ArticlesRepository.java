@@ -177,11 +177,6 @@ public class ArticlesRepository implements ArticlesDao {
     @Transactional
     public void deleteArticle(Integer id) throws DataAccessException {
         jdbcTemplate.update(
-            "DELETE FROM ArticleTags WHERE ArticleId = ?;",
-            id
-        );
-
-        jdbcTemplate.update(
             """
                 DELETE FROM Articles WHERE Id = ?;
             """,
