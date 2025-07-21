@@ -38,7 +38,7 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
       tags: [],
     },
   })
-  const [tags, setTags] = useState<string[] | []>([])
+  const [tags, setTags] = useState<I_Tag[] | []>([])
   const [currentTags, setCurrentTags] = useState<Set<string>>(new Set())
   const [tagInput, setTagInput] = useState<string>('')
 
@@ -46,7 +46,7 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
     axios
       .get('/tags')
       .then((res: I_AxiosResponse<I_Tag[]>) =>
-        setTags(res.data.answer.map(tag => tag.tagName))
+        setTags([...res.data.answer].sort((a, b) => a.id - b.id))
       )
       .catch((err: I_AxiosError) => {
         console.log(err)
@@ -166,7 +166,16 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
 
                         if (form.formState.errors.tags) return
 
-                        setTags([...tags, tagInput])
+                        setTags([
+                          ...tags,
+                          {
+                            id:
+                              tags.length > 0
+                                ? tags[tags.length - 1].id + 1
+                                : 1,
+                            tagName: tagInput,
+                          },
+                        ])
                         setCurrentTags(new Set([tagInput, ...currentTags]))
 
                         setTagInput('')
@@ -188,7 +197,14 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
 
                       if (form.formState.errors.tags) return
 
-                      setTags([...tags, tagInput])
+                      setTags([
+                        ...tags,
+                        {
+                          id:
+                            tags.length > 0 ? tags[tags.length - 1].id + 1 : 1,
+                          tagName: tagInput,
+                        },
+                      ])
                       setCurrentTags(new Set([tagInput, ...currentTags]))
 
                       setTagInput('')
@@ -199,8 +215,8 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
                 </div>
                 {tags.length > 0 && (
                   <div className="flex flex-wrap gap-2">
-                    {tags.map((tag, i) => {
-                      const isEnabled = currentTags.has(tag)
+                    {tags.map(({ id, tagName }) => {
+                      const isEnabled = currentTags.has(tagName)
 
                       return (
                         <Button
@@ -210,18 +226,18 @@ const ArticleForm: React.FC<I_ArticleFormProps> = ({
                           onClick={() => {
                             if (isEnabled) {
                               const temp = new Set([...currentTags])
-                              temp.delete(tag)
+                              temp.delete(tagName)
 
                               setCurrentTags(temp)
 
                               return
                             }
 
-                            setCurrentTags(new Set([...currentTags, tag]))
+                            setCurrentTags(new Set([...currentTags, tagName]))
                           }}
-                          key={i}
+                          key={id}
                         >
-                          {tag.toUpperCase()}
+                          {tagName.toUpperCase()}
                         </Button>
                       )
                     })}

@@ -52,7 +52,7 @@ import { useNavigate } from 'react-router-dom'
 const Articles = () => {
   const navigate = useNavigate()
   const [articles, setArticles] = useState<I_Article[] | []>([])
-  const [tags, setTags] = useState<string[] | []>([])
+  const [tags, setTags] = useState<I_Tag[] | []>([])
   const [currentTags, setCurrentTags] = useState<Set<string>>(new Set())
   const [filterOrder, setFilterOrder] = useState<T_FilterOrder>('asc')
 
@@ -72,9 +72,7 @@ const Articles = () => {
   useEffect(() => {
     axios
       .get('/tags')
-      .then((res: I_AxiosResponse<I_Tag[]>) =>
-        setTags(res.data.answer.map(tag => tag.tagName))
-      )
+      .then((res: I_AxiosResponse<I_Tag[]>) => setTags(res.data.answer))
       .catch((err: I_AxiosError) => {
         console.log(err)
 
@@ -89,28 +87,28 @@ const Articles = () => {
           {/* Filters */}
           <div className="flex flex-col gap-4 justify-between">
             <div className="flex flex-wrap gap-2">
-              {tags.map((tag, i) => {
-                const isEnabled = currentTags.has(tag)
+              {tags.map(({ id, tagName }) => {
+                const isEnabled = currentTags.has(tagName)
 
                 return (
                   <Button
-                    key={i}
+                    key={id}
                     variant={isEnabled ? 'default' : 'outline'}
                     className="text-xs"
                     onClick={() => {
                       if (isEnabled) {
                         const temp = new Set([...currentTags])
-                        temp.delete(tag)
+                        temp.delete(tagName)
 
                         setCurrentTags(temp)
 
                         return
                       }
 
-                      setCurrentTags(new Set([...currentTags, tag]))
+                      setCurrentTags(new Set([...currentTags, tagName]))
                     }}
                   >
-                    {tag.toUpperCase()}
+                    {tagName.toUpperCase()}
                   </Button>
                 )
               })}

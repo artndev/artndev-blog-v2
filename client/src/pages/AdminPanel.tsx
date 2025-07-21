@@ -91,9 +91,9 @@ const AdminPanel = () => {
                   onClick={() => navigate('/admin-panel/articles/add')}
                 />
               </div>
-              {articles.map((article, i) => {
+              {articles.map(article => {
                 return (
-                  <div key={i} className="flex flex-col gap-4">
+                  <div key={article.id} className="flex flex-col gap-4">
                     <div className="text-2xl font-semibold hanken-grotesk">
                       {article.title}
                     </div>
