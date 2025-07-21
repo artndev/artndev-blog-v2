@@ -182,15 +182,6 @@ public class ArticlesRepository implements ArticlesDao {
             """,
             id
         );
-
-        jdbcTemplate.update(
-            """
-                DELETE FROM Tags
-                WHERE NOT EXISTS (
-                    SELECT 1 FROM ArticleTags WHERE Tags.Id = ArticleTags.TagId
-                );        
-            """
-        );
     }
 
     // === UTILS ===

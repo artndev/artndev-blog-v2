@@ -15,16 +15,16 @@ import com.blog.blog.ServerResponse;
 import com.blog.blog.instances.Tag;
 import com.blog.blog.services.TagsService;
 
-@CrossOrigin(
-    origins = "*", 
-    methods = {
-        RequestMethod.GET, 
-        RequestMethod.POST, 
-        RequestMethod.PUT, 
-        RequestMethod.DELETE
-    }, 
-    maxAge = 3600
-)
+// @CrossOrigin(
+//     origins = "*", 
+//     methods = {
+//         RequestMethod.GET, 
+//         RequestMethod.POST, 
+//         RequestMethod.PUT, 
+//         RequestMethod.DELETE
+//     }, 
+//     maxAge = 3600
+// )
 @RestController
 @RequestMapping("/api")
 public class TagsController {
