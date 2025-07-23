@@ -16,39 +16,6 @@ import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-// const articlesData = [
-//   {
-//     id: 10,
-//     title: 'Generating AI videos using model',
-//     subtitle:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-//     content:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-//     updated: new Date('Thu Jul 10 2025 10:52:20 GMT+0000').toString(),
-//     tags: ['default', 'Web DevelopmEnt', 'Spring Boot'],
-//   },
-//   {
-//     id: 9,
-//     title: 'Test2',
-//     subtitle:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-//     content:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-//     updated: new Date('Fri Jul 11 2025 10:52:20 GMT+0000').toString(),
-//     tags: ['default', 'games', 'DOcker'],
-//   },
-//   {
-//     id: 8,
-//     title: 'Test3',
-//     subtitle:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-//     content:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-//     updated: new Date().toString(),
-//     tags: ['default', 'trAveling'],
-//   },
-// ]
-
 const Articles = () => {
   const navigate = useNavigate()
   const [articles, setArticles] = useState<I_Article[] | []>([])
