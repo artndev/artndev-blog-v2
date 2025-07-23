@@ -61,7 +61,11 @@ const AdminPanel = () => {
 
   const onClick = (id: number) => {
     axios
-      .delete(`/articles/${id}`)
+      .delete(`/articles/${id}`, {
+        headers: {
+          Authorization: `Basic ${btoa(`${import.meta.env.VITE_ADMIN_USERNAME}:${import.meta.env.VITE_ADMIN_PASSWORD}`)}`,
+        },
+      })
       .then(() => navigate(0))
       .catch(err => {
         console.log(err)
@@ -91,9 +95,9 @@ const AdminPanel = () => {
                   onClick={() => navigate('/admin-panel/articles/add')}
                 />
               </div>
-              {articles.map((article, i) => {
+              {articles.map(article => {
                 return (
-                  <div key={i} className="flex flex-col gap-4">
+                  <div key={article.id} className="flex flex-col gap-4">
                     <div className="text-2xl font-semibold hanken-grotesk">
                       {article.title}
                     </div>

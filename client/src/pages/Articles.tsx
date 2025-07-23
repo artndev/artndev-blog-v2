@@ -89,12 +89,12 @@ const Articles = () => {
           {/* Filters */}
           <div className="flex flex-col gap-4 justify-between">
             <div className="flex flex-wrap gap-2">
-              {tags.map((tag, i) => {
+              {tags.map(tag => {
                 const isEnabled = currentTags.has(tag)
 
                 return (
                   <Button
-                    key={i}
+                    key={tag}
                     variant={isEnabled ? 'default' : 'outline'}
                     className="text-xs"
                     onClick={() => {
@@ -123,11 +123,11 @@ const Articles = () => {
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="desc">
+                <SelectItem value="asc">
                   <ArrowUp />
                   Oldest to latest
                 </SelectItem>
-                <SelectItem value="asc">
+                <SelectItem value="desc">
                   <ArrowDown />
                   Latest to oldest
                 </SelectItem>

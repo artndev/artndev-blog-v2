@@ -1,13 +1,12 @@
 #!/bin/bash
-echo "[INFO] Removing previous Docker containers..."
+echo "[INFO] Stopping Docker containers from docker-compose.yaml..."
 docker-compose down
 
 echo "[INFO] Clearing Docker system..."
 docker stop $(docker ps -a -q)
-docker rm $(docker ps -a -q)
 docker system prune -a -f
 
-echo "[INFO] Rebuilding Docker containers..."
+echo "[INFO] Building Docker containers..."
 docker-compose build --no-cache
 
 echo "[INFO] Starting Docker containers..."

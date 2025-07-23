@@ -9,7 +9,11 @@ const AddArticle = () => {
 
   const onSubmit = (data: T_ArticleFormSchema) => {
     axios
-      .post('/articles', data)
+      .post('/articles', data, {
+        headers: {
+          Authorization: `Basic ${btoa(`${import.meta.env.VITE_ADMIN_USERNAME}:${import.meta.env.VITE_ADMIN_PASSWORD}`)}`,
+        },
+      })
       .then(() => {
         navigate('/articles')
         navigate(0)
