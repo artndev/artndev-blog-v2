@@ -1,0 +1,13 @@
+DELIMITER $$
+
+CREATE TRIGGER after_article_delete
+AFTER DELETE ON Articles
+FOR EACH ROW
+BEGIN
+  DELETE FROM Tags
+  WHERE NOT EXISTS (
+    SELECT 1 FROM ArticleTags WHERE Tags.Id = ArticleTags.TagId
+  );
+END$$
+
+DELIMITER ;

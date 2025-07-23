@@ -1,0 +1,7 @@
+CREATE TABLE ArticleTags (
+    ArticleId INT NOT NULL,
+    TagId INT NOT NULL,
+    PRIMARY KEY (ArticleId, TagId),
+    FOREIGN KEY (ArticleId) REFERENCES Articles(Id) ON DELETE CASCADE,
+    FOREIGN KEY (TagId) REFERENCES Tags(Id) ON DELETE CASCADE
+);
