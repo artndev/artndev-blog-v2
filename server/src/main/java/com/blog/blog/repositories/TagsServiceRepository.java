@@ -7,8 +7,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.blog.blog.instances.Tag;
 import com.blog.blog.interfaces.TagsDao;
+import com.blog.blog.records.Tag;
 import com.blog.blog.services.row_mappers.TagRowMapper;
 
 @Repository

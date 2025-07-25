@@ -11,24 +11,24 @@ import java.util.Map;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.lang.NonNull;
 
-import com.blog.blog.instances.ArticleTags;
+import com.blog.blog.records.Article;
 
-public class ArticleTagsExtractor implements ResultSetExtractor<List<ArticleTags>> {
+public class ArticleExtractor implements ResultSetExtractor<List<Article>> {
     @Override
-    public List<ArticleTags> extractData(@NonNull ResultSet rs) throws SQLException {
-        Map<Integer, ArticleTags> articles = new LinkedHashMap<>();
+    public List<Article> extractData(@NonNull ResultSet rs) throws SQLException {
+        Map<Integer, Article> articles = new LinkedHashMap<>();
 
         while (rs.next()) {
             final Integer articleId = rs.getInt("article_id");
 
-            final ArticleTags article = articles.computeIfAbsent(articleId, id -> {
+            final Article article = articles.computeIfAbsent(articleId, id -> {
                 try {
                     final String title = rs.getString("Title");
                     final String subtitle = rs.getString("Subtitle");
                     final String content = rs.getString("Content");
                     final Timestamp updated = rs.getTimestamp("Updated");
 
-                    return new ArticleTags(id, title, subtitle, content, new ArrayList<>(), updated);
+                    return new Article(id, title, subtitle, content, updated, new ArrayList<>());
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }

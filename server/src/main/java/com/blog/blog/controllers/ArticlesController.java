@@ -21,30 +21,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.blog.ServerResponse;
 import com.blog.blog.enums.SortByEnum;
-import com.blog.blog.instances.ArticleTags;
+import com.blog.blog.records.Article;
 import com.blog.blog.services.ArticlesService;
 
 import jakarta.validation.Valid;
 
-// @CrossOrigin(
-//     origins = "*", 
-//     methods = {
-//         RequestMethod.GET, 
-//         RequestMethod.POST, 
-//         RequestMethod.PUT, 
-//         RequestMethod.DELETE
-//     }, 
-//     maxAge = 3600
-// )
+@CrossOrigin(
+    origins = "*", 
+    methods = {
+        RequestMethod.GET, 
+        RequestMethod.POST, 
+        RequestMethod.PUT, 
+        RequestMethod.DELETE
+    }, 
+    maxAge = 3600
+)
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/articles")
 public class ArticlesController {
     @Autowired
     private ArticlesService articlesService;
 
     // http://localhost:8080/api/articles?sort_by=asc&tags=kitty&tags=doggy
-    @GetMapping(value = "/articles", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ServerResponse<List<ArticleTags>>> getAllArticles(
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ServerResponse<List<Article>>> getAllArticles(
         @RequestParam(value = "sort_by", required = false, defaultValue = "ASC") String sortBy, 
         @RequestParam(value = "tags", required = false) List<String> tags
     ) 
@@ -60,18 +60,18 @@ public class ArticlesController {
                 .body(new ServerResponse<>("Invalid sort_by parameter has been received", null));
         }
         
-        final List<ArticleTags> articles = articlesService.getAllArticles(validatedSortBy, tags);
+        final List<Article> articles = articlesService.getAllArticles(validatedSortBy, tags);
 
         return ResponseEntity.ok(
-            new ServerResponse<List<ArticleTags>>("Articles have been got successfully", articles)  
+            new ServerResponse<List<Article>>("Articles have been got successfully", articles)  
         );  
     }
 
-    @GetMapping(value = "/articles/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ServerResponse<ArticleTags>> getArticle(@PathVariable String id) 
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ServerResponse<Article>> getArticle(@PathVariable String id) 
     throws DataAccessException {
         return articlesService.getArticle(Integer.parseInt(id))
-            .map(article -> ResponseEntity.ok(new ServerResponse<ArticleTags>("Article has been got successfully", article)))
+            .map(article -> ResponseEntity.ok(new ServerResponse<Article>("Article has been got successfully", article)))
             .orElseGet(() -> 
                 ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
@@ -80,8 +80,8 @@ public class ArticlesController {
             );
     }
 
-    @PostMapping("/articles")
-    public ResponseEntity<ServerResponse<Boolean>> addArticle(@Valid @RequestBody ArticleTags article) 
+    @PostMapping("/")
+    public ResponseEntity<ServerResponse<Boolean>> addArticle(@Valid @RequestBody Article article) 
     throws DataAccessException {
         articlesService.addArticle(article);
 
@@ -90,8 +90,8 @@ public class ArticlesController {
         );
     }
 
-    @PutMapping("/articles/{id}")
-    public ResponseEntity<ServerResponse<Boolean>> updateArticle(@PathVariable String id, @Valid @RequestBody ArticleTags article) 
+    @PutMapping("/{id}")
+    public ResponseEntity<ServerResponse<Boolean>> updateArticle(@PathVariable String id, @Valid @RequestBody Article article) 
     throws DataAccessException {
         articlesService.updateArticle(Integer.parseInt(id), article);
 
@@ -100,7 +100,7 @@ public class ArticlesController {
         );
     }
 
-    @DeleteMapping("/articles/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ServerResponse<Boolean>> deleteArticle(@PathVariable String id) 
     throws DataAccessException {
         articlesService.deleteArticle(Integer.parseInt(id));

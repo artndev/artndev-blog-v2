@@ -1,4 +1,4 @@
-package com.blog.blog.error_handlers;
+package com.blog.blog.exceptions;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package com.blog.blog.error_handlers;
+package com.blog.blog.exceptions;
 
 import java.util.List;
 import java.util.stream.Collectors;
