@@ -1,3 +1,5 @@
+# Building server
+
 FROM maven:3.9.8-eclipse-temurin-21 AS server-build
 
 ARG DB_HOST
@@ -12,16 +14,19 @@ ENV DB_PASSWORD=$DB_PASSWORD
 ENV DB_PORT=$DB_PORT
 ENV DB_USERNAME=$DB_USERNAME
 
-WORKDIR /artndev-blog
+WORKDIR /app
 
-COPY . .
+COPY ./server ./server
+
+WORKDIR /app/server
 
 RUN mvn clean package -DskipTests
 
+# Copying server build
 
 FROM openjdk:21
 
-COPY --from=server-build /artndev-blog/target/app.jar app.jar
+COPY --from=server-build /app/server/target/app.jar app.jar
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -15,23 +15,23 @@ import com.blog.blog.records.ServerResponse;
 import com.blog.blog.records.Tag;
 import com.blog.blog.services.TagsService;
 
-@CrossOrigin(
-    origins = "*", 
-    methods = {
-        RequestMethod.GET, 
-        RequestMethod.POST, 
-        RequestMethod.PUT, 
-        RequestMethod.DELETE
-    }, 
-    maxAge = 3600
-)
+// @CrossOrigin(
+//     origins = "*", 
+//     methods = {
+//         RequestMethod.GET, 
+//         RequestMethod.POST, 
+//         RequestMethod.PUT, 
+//         RequestMethod.DELETE
+//     }, 
+//     maxAge = 3600
+// )
 @RestController
 @RequestMapping("/api/v1/tags")
 public class TagsController {
     @Autowired
     private TagsService tagsService;
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ServerResponse<List<Tag>>> getAllTags() {
         final List<Tag> tags = tagsService.getAllTags();
 

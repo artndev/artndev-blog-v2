@@ -26,16 +26,16 @@ import com.blog.blog.services.ArticlesService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(
-    origins = "*", 
-    methods = {
-        RequestMethod.GET, 
-        RequestMethod.POST, 
-        RequestMethod.PUT, 
-        RequestMethod.DELETE
-    }, 
-    maxAge = 3600
-)
+// @CrossOrigin(
+//     origins = "*", 
+//     methods = {
+//         RequestMethod.GET, 
+//         RequestMethod.POST, 
+//         RequestMethod.PUT, 
+//         RequestMethod.DELETE
+//     }, 
+//     maxAge = 3600
+// )
 @RestController
 @RequestMapping("/api/v1/articles")
 public class ArticlesController {
@@ -43,7 +43,7 @@ public class ArticlesController {
     private ArticlesService articlesService;
 
     // http://localhost:8080/api/v1/articles?sort_by=asc&tags=kitty&tags=doggy
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ServerResponse<List<Article>>> getAllArticles(
         @RequestParam(value = "sort_by", required = false, defaultValue = "ASC") String sortBy, 
         @RequestParam(value = "tags", required = false) List<String> tags
@@ -80,7 +80,7 @@ public class ArticlesController {
             );
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<ServerResponse<Boolean>> addArticle(@Valid @RequestBody Article article) 
     throws DataAccessException {
         articlesService.addArticle(article);
