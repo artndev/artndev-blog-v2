@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.blog.blog.enums.SortByEnum;
 import com.blog.blog.interfaces.ArticlesDao;
 import com.blog.blog.records.Article;
-import com.blog.blog.services.row_mappers.ArticleExtractor;
+import com.blog.blog.services.mappers.ArticleExtractor;
 
 @Repository
 public class ArticlesRepository implements ArticlesDao {
@@ -28,7 +28,7 @@ public class ArticlesRepository implements ArticlesDao {
 
     @Override
     public List<Article> getAllArticles(SortByEnum validatedSortBy, List<String> tags) throws DataAccessException {
-        final String sortBy = validatedSortBy.getOption();
+        final String sortBy = validatedSortBy.option();
 
         if (tags == null || tags.isEmpty())
         {

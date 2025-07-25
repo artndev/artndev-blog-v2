@@ -1,4 +1,4 @@
-package com.blog.blog.services.row_mappers;
+package com.blog.blog.services.mappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.blog.blog.interfaces.TagsDao;
 import com.blog.blog.records.Tag;
-import com.blog.blog.services.row_mappers.TagRowMapper;
+import com.blog.blog.services.mappers.TagRowMapper;
 
 @Repository
 public class TagsServiceRepository implements TagsDao {

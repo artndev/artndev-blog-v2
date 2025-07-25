@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blog.blog.ServerResponse;
 import com.blog.blog.enums.SortByEnum;
 import com.blog.blog.records.Article;
+import com.blog.blog.records.ServerResponse;
 import com.blog.blog.services.ArticlesService;
 
 import jakarta.validation.Valid;
