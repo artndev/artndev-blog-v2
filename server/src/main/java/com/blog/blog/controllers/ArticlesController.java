@@ -42,7 +42,7 @@ public class ArticlesController {
     @Autowired
     private ArticlesService articlesService;
 
-    // http://localhost:8080/api/articles?sort_by=asc&tags=kitty&tags=doggy
+    // http://localhost:8080/api/v1/articles?sort_by=asc&tags=kitty&tags=doggy
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ServerResponse<List<Article>>> getAllArticles(
         @RequestParam(value = "sort_by", required = false, defaultValue = "ASC") String sortBy, 
