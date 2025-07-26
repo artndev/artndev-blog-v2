@@ -38,7 +38,7 @@ class ArticlesServiceTests {
 
         final SortByEnum sortBy = SortByEnum.ASC;
 
-        List<Article> articles = Arrays.asList(
+        final List<Article> articles = Arrays.asList(
             new Article(
                 1, 
                 "Test Title", 
