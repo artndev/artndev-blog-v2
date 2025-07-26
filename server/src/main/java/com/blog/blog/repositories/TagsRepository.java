@@ -12,7 +12,7 @@ import com.blog.blog.records.Tag;
 import com.blog.blog.services.mappers.TagRowMapper;
 
 @Repository
-public class TagsServiceRepository implements TagsDao {
+public class TagsRepository implements TagsDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 

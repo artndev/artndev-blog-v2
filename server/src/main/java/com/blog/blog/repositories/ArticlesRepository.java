@@ -24,8 +24,6 @@ public class ArticlesRepository implements ArticlesDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // === GET ===
-
     @Override
     public List<Article> getAllArticles(SortByEnum validatedSortBy, List<String> tags) throws DataAccessException {
         final String sortBy = validatedSortBy.option();
@@ -109,7 +107,6 @@ public class ArticlesRepository implements ArticlesDao {
             .findFirst();
     };
 
-    // === EDIT ===
 
     @Override
     @Transactional
@@ -184,7 +181,6 @@ public class ArticlesRepository implements ArticlesDao {
         );
     }
 
-    // === UTILS ===
 
     private void insertTags(List<String> tags) {
         final List<Object[]> tagsBatch = tags.stream()
