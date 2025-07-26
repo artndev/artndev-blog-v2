@@ -139,7 +139,8 @@ public class ArticlesRepository implements ArticlesDao {
                 UPDATE Articles SET 
                     Title = ?, 
                     Subtitle = ?, 
-                    Content = ?
+                    Content = ?,
+                    Updated = CURRENT_TIMESTAMP
                 WHERE Id = ?;
             """,
             newArticle.title(),

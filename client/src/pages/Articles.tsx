@@ -90,11 +90,11 @@ const Articles = () => {
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="desc">
+                <SelectItem value="asc">
                   <ArrowUp />
                   Oldest to latest
                 </SelectItem>
-                <SelectItem value="asc">
+                <SelectItem value="desc">
                   <ArrowDown />
                   Latest to oldest
                 </SelectItem>
