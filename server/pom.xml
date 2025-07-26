@@ -38,6 +38,8 @@
 	</properties>
 
 	<dependencies>
+		<!-- Spring Boot starters -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -52,12 +54,6 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
 		</dependency>
 
@@ -65,6 +61,8 @@
 			<groupId>org.springframework.boot</groupId> 
 			<artifactId>spring-boot-starter-validation</artifactId> 
 		</dependency>
+
+		<!-- Driver dependency -->
 
 		<dependency>
             <groupId>mysql</groupId>
@@ -74,11 +72,15 @@
     		<scope>compile</scope>
         </dependency>
 
+		<!-- Dependency which serves annotations dictionary -->
+
 		<dependency>
     		<groupId>org.projectlombok</groupId>
     		<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Dependencies for fixing formatting issues in browser -->
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -89,13 +91,51 @@
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
     	</dependency>
+
+		<!-- Liquibase dependency -->
+
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+     	</dependency>
+
+		<!-- Testing dependencies -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
-		<!-- for docker needs -->
+		<!-- For docker consistency  -->
 		<finalName>app</finalName>
 
 		<plugins>
+			<plugin>
+				<!-- Liquibase configuration -->
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>4.5.0</version>
+				<configuration>
+					<propertyFile>
+						src/main/resources/liquibase.properties
+					</propertyFile>
+					<changeLogFile>
+						src/main/resources/db/changelog/changelog-v1.0.mysql.sql
+					</changeLogFile>
+					<outputChangeLogFile>
+						src/main/resources/db/changelog/changelog-v1.0.mysql.sql
+					</outputChangeLogFile>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

@@ -17,33 +17,6 @@ import { Link, Pen, Plus, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-// const articles = [
-//   {
-//     id: 1,
-//     title: 'Generating AI videos using model',
-//     subtitle: 'Useful prompts and general analysis',
-//     content:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-//     updated: new Date().toString(),
-//   },
-//   {
-//     id: 2,
-//     title: 'Test2',
-//     subtitle: 'Test2',
-//     content:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-//     updated: new Date().toString(),
-//   },
-//   {
-//     id: 3,
-//     title: 'Test3',
-//     subtitle: 'Test3',
-//     content:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?',
-//     updated: new Date().toString(),
-//   },
-// ]
-
 const AdminPanel = () => {
   const navigate = useNavigate()
   const [articles, setArticles] = useState<I_Article[] | null>(null)

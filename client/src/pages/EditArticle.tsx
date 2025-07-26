@@ -6,15 +6,6 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import ArticleFormSkeleton from './skeletons/ArticleFormSkeleton'
 
-// const article = {
-//   id: 1,
-//   title: 'Generating AI videos using model',
-//   subtitle: 'Useful prompts and general analysis',
-//   content: `Test`,
-//   updated: new Date().toString(),
-//   tags: '["default", "traveling"]',
-// }
-
 const EditArticle = () => {
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()

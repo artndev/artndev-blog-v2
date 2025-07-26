@@ -10,7 +10,7 @@ public enum SortByEnum {
         this.option = option;
     }
 
-    public String getOption() {
+    public String option() {
         return this.option;
     }
 }

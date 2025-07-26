@@ -6,36 +6,6 @@ import { motion } from 'motion/react'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-// const article = {
-//   id: 1,
-//   title: 'Generating AI videos using model',
-//   subtitle: 'Useful prompts and general analysis',
-//   content: `
-//   # Test
-//   ## Test
-//   ### Test
-//   #### Test
-//   ##### Test
-//   ###### Test
-//   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?
-//   \n
-//   ![Test](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDMGheeUg2Ze_DzqNcamrV1aCW37jHSj2Vpw&s)
-//   \n
-//   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio esse quis nemo, deserunt delectus dolore omnis non nisi molestias natus. Architecto accusamus cum, mollitia distinctio culpa temporibus quas enim voluptate?
-//   \n
-//   <hr/>
-//   <h3>Test</h3>
-//   <img width=120 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDMGheeUg2Ze_DzqNcamrV1aCW37jHSj2Vpw&s" />
-//   <p>Some text! Yay!</p>
-//   <blockquote>Blockquote</blockquote>
-//   <s>Test</s>
-//   <code>
-//     console.log("Hey")
-//   </code>
-//   `,
-//   updated: new Date().toString(),
-// }
-
 const Article = () => {
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()

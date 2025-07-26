@@ -1,3 +1,5 @@
+# Building client
+
 FROM node:24 AS client-build
 
 ARG VITE_API_URL
@@ -18,11 +20,12 @@ ENV VITE_ADMIN_PASSWORD=$ADMIN_PASSWORD
 
 WORKDIR /client
 
-COPY client/ ./
+COPY ./client/ ./
 
 RUN npm ci
 RUN npm run build
 
+# Building Nginx
 
 FROM nginx:alpine
 
@@ -35,6 +38,9 @@ RUN htpasswd -bc /etc/nginx/.htpasswd "$ADMIN_USERNAME" "$ADMIN_PASSWORD"
 COPY nginx/ips.white /etc/nginx/ips.white
 COPY nginx/ips.black /etc/nginx/ips.black
 COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copying client build
+
 COPY --from=client-build /client/dist /usr/share/nginx/html
 
 EXPOSE 80
