@@ -123,11 +123,11 @@ const Articles = () => {
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="asc">
+                <SelectItem value="desc">
                   <ArrowUp />
                   Oldest to latest
                 </SelectItem>
-                <SelectItem value="desc">
+                <SelectItem value="asc">
                   <ArrowDown />
                   Latest to oldest
                 </SelectItem>
