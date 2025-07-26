@@ -23,7 +23,7 @@ CREATE TABLE Articles (
 
 -- changeset agres:1753454053781-3
 -- preconditions onFail:MARK_RAN onError:MARK_RAN
--- precondition-sql-check expectedResult:0 SELECT COUNT(*) from information_schema.TABLES WHERE TABLE_SCHEMA = 'blog_dev_dev' AND TABLE_NAME = 'Tags';
+-- precondition-sql-check expectedResult:0 SELECT COUNT(*) from information_schema.TABLES WHERE TABLE_SCHEMA = 'blog_dev' AND TABLE_NAME = 'Tags';
 CREATE TABLE Tags (
   Id INT AUTO_INCREMENT NOT NULL, 
   TagName VARCHAR(100) NOT NULL, 
