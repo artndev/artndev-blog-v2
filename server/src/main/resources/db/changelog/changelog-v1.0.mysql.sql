@@ -17,7 +17,7 @@ CREATE TABLE Articles (
   Title VARCHAR(255) NULL, 
   Subtitle VARCHAR(255) NULL, 
   Content TEXT NULL, 
-  Updated TIMESTAMP DEFAULT NOW() NOT NULL, 
+  Updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
   CONSTRAINT PK_ARTICLES PRIMARY KEY (Id)
 );
 
@@ -67,12 +67,3 @@ BEGIN
   );
 END;
 -- rollback DROP TRIGGER after_article_delete;
-
--- changeset agres:1753454053781-8
--- comment: Enable automatic timestamp update on article modification
--- preconditions onFail:MARK_RAN onError:MARK_RAN
--- precondition-sql-check expectedResult:0 SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'Articles' AND COLUMN_NAME = 'Updated' AND EXTRA LIKE '%ON UPDATE CURRENT_TIMESTAMP%';
-ALTER TABLE Articles 
-  MODIFY COLUMN Updated 
-    TIMESTAMP DEFAULT NOW() NOT NULL ON UPDATE CURRENT_TIMESTAMP;
--- rollback ALTER TABLE Articles MODIFY COLUMN Updated TIMESTAMP DEFAULT NOW() NOT NULL;
