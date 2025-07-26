@@ -2,7 +2,7 @@
 
 -- changeset agres:1753454053781-1
 -- preconditions onFail:MARK_RAN onError:MARK_RAN
--- precondition-sql-check expectedResult:0 SELECT COUNT(*) from information_schema.tables WHERE table_name = 'ArticleTags';
+-- precondition-sql-check expectedResult:0 SELECT COUNT(*) from information_schema.TABLES WHERE TABLE_NAME = 'ArticleTags';
 CREATE TABLE ArticleTags (
   ArticleId INT NOT NULL, 
   TagId INT NOT NULL, 
@@ -11,19 +11,19 @@ CREATE TABLE ArticleTags (
 
 -- changeset agres:1753454053781-2
 -- preconditions onFail:MARK_RAN onError:MARK_RAN
--- precondition-sql-check expectedResult:0 SELECT COUNT(*) from information_schema.tables WHERE table_name = 'Articles';
+-- precondition-sql-check expectedResult:0 SELECT COUNT(*) from information_schema.TABLES WHERE TABLE_NAME = 'Articles';
 CREATE TABLE Articles (
   Id INT AUTO_INCREMENT NOT NULL, 
   Title VARCHAR(255) NULL, 
   Subtitle VARCHAR(255) NULL, 
   Content TEXT NULL, 
-  Updated timestamp DEFAULT NOW() NOT NULL, 
+  Updated TIMESTAMP DEFAULT NOW() NOT NULL, 
   CONSTRAINT PK_ARTICLES PRIMARY KEY (Id)
 );
 
 -- changeset agres:1753454053781-3
 -- preconditions onFail:MARK_RAN onError:MARK_RAN
--- precondition-sql-check expectedResult:0 SELECT COUNT(*) from information_schema.tables WHERE table_name = 'Tags';
+-- precondition-sql-check expectedResult:0 SELECT COUNT(*) from information_schema.TABLES WHERE TABLE_NAME = 'Tags';
 CREATE TABLE Tags (
   Id INT AUTO_INCREMENT NOT NULL, 
   TagName VARCHAR(100) NOT NULL, 
@@ -33,12 +33,12 @@ CREATE TABLE Tags (
 
 -- changeset agres:1753454053781-4
 -- preconditions onFail:MARK_RAN onError:MARK_RAN
--- precondition-sql-check expectedResult:0 SELECT COUNT(*) FROM information_schema.statistics WHERE table_schema = DATABASE() AND table_name = 'ArticleTags' AND index_name = 'TagId';
+-- precondition-sql-check expectedResult:0 SELECT COUNT(*) FROM information_schema.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'ArticleTags' AND INDEX_NAME = 'TagId';
 CREATE INDEX TagId ON ArticleTags(TagId);
 
 -- changeset agres:1753454053781-5
 -- preconditions onFail:MARK_RAN onError:MARK_RAN
--- precondition-sql-check expectedResult:0 SELECT COUNT(*) from information_schema.constraints WHERE constraint_name = 'ArticleTags_ibfk_1' AND table_name = 'ArticleTags';
+-- precondition-sql-check expectedResult:0 SELECT COUNT(*) from information_schema.CONSTRAINTS WHERE CONSTRAINT_NAME = 'ArticleTags_ibfk_1' AND TABLE_NAME = 'ArticleTags';
 ALTER TABLE ArticleTags 
   ADD CONSTRAINT ArticleTags_ibfk_1 
   FOREIGN KEY (ArticleId) REFERENCES Articles (Id) 
@@ -47,7 +47,7 @@ ALTER TABLE ArticleTags
 
 -- changeset agres:1753454053781-6
 -- preconditions onFail:MARK_RAN onError:MARK_RAN
--- precondition-sql-check expectedResult:0 SELECT COUNT(*) from information_schema.constraints WHERE constraint_name = 'ArticleTags_ibfk_2' AND table_name = 'ArticleTags';
+-- precondition-sql-check expectedResult:0 SELECT COUNT(*) from information_schema.CONSTRAINTS WHERE CONSTRAINT_NAME = 'ArticleTags_ibfk_2' AND TABLE_NAME = 'ArticleTags';
 ALTER TABLE ArticleTags 
   ADD CONSTRAINT ArticleTags_ibfk_2 FOREIGN KEY (TagId) REFERENCES Tags (Id) 
     ON UPDATE RESTRICT 
@@ -56,7 +56,7 @@ ALTER TABLE ArticleTags
 -- changeset agres:1753454053781-7
 -- comment: Create trigger to remove orphan tags after article deletion
 -- preconditions onFail:MARK_RAN onError:MARK_RAN
--- precondition-sql-check expectedResult:0 SELECT COUNT(*) FROM information_schema.triggers WHERE trigger_schema = DATABASE() AND trigger_name = 'after_article_delete';
+-- precondition-sql-check expectedResult:0 SELECT COUNT(*) FROM information_schema.TRIGGERS WHERE TRIGGER_SCHEMA = DATABASE() AND TRIGGER_NAME = 'after_article_delete';
 CREATE TRIGGER after_article_delete
 AFTER DELETE ON Articles
 FOR EACH ROW
@@ -67,3 +67,12 @@ BEGIN
   );
 END;
 -- rollback DROP TRIGGER after_article_delete;
+
+-- changeset agres:1753454053781-8
+-- comment: Enable automatic timestamp update on article modification
+-- preconditions onFail:MARK_RAN onError:MARK_RAN
+-- precondition-sql-check expectedResult:0 SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'Articles' AND COLUMN_NAME = 'Updated' AND EXTRA LIKE '%ON UPDATE CURRENT_TIMESTAMP%';
+ALTER TABLE Articles 
+  MODIFY COLUMN Updated 
+    TIMESTAMP DEFAULT NOW() NOT NULL ON UPDATE CURRENT_TIMESTAMP;
+-- rollback ALTER TABLE Articles MODIFY COLUMN Updated TIMESTAMP DEFAULT NOW() NOT NULL;
