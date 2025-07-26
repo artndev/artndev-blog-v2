@@ -1,4 +1,4 @@
-package com.blog.blog.error_handlers;
+package com.blog.blog.exceptions;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import com.blog.blog.ServerResponse;
+import com.blog.blog.records.ServerResponse;
 
 @ControllerAdvice
 public class ExceptionsHandler {

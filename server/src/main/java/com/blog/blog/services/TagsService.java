@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.blog.blog.instances.Tag;
 import com.blog.blog.interfaces.TagsDao;
+import com.blog.blog.records.Tag;
 
 @Service
 public class TagsService {

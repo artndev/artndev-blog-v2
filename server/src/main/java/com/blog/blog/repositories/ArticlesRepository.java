@@ -15,20 +15,18 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.blog.blog.enums.SortByEnum;
-import com.blog.blog.instances.ArticleTags;
 import com.blog.blog.interfaces.ArticlesDao;
-import com.blog.blog.services.row_mappers.ArticleTagsExtractor;
+import com.blog.blog.records.Article;
+import com.blog.blog.services.mappers.ArticleExtractor;
 
 @Repository
 public class ArticlesRepository implements ArticlesDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // === GET ===
-
     @Override
-    public List<ArticleTags> getAllArticles(SortByEnum validatedSortBy, List<String> tags) throws DataAccessException {
-        final String sortBy = validatedSortBy.getOption();
+    public List<Article> getAllArticles(SortByEnum validatedSortBy, List<String> tags) throws DataAccessException {
+        final String sortBy = validatedSortBy.option();
 
         if (tags == null || tags.isEmpty())
         {
@@ -46,7 +44,7 @@ public class ArticlesRepository implements ArticlesDao {
                     LEFT JOIN Tags tag ON articleTag.TagId = tag.Id
                     ORDER BY article.Updated %s;
                 """, sortBy),
-                new ArticleTagsExtractor()
+                new ArticleExtractor()
             );
         }
 
@@ -79,14 +77,14 @@ public class ArticlesRepository implements ArticlesDao {
                 )
                 ORDER BY article.Updated %s;
             """, placeholder, sortBy),
-            new ArticleTagsExtractor(),
+            new ArticleExtractor(),
             tagsParams.toArray()
         );
     }
 
     @Override
-    public Optional<ArticleTags> getArticle(Integer id) throws DataAccessException {
-        final List<ArticleTags> articles = jdbcTemplate.query(
+    public Optional<Article> getArticle(Integer id) throws DataAccessException {
+        final List<Article> articles = jdbcTemplate.query(
             """
                 SELECT 
                     article.Id AS article_id,
@@ -100,7 +98,7 @@ public class ArticlesRepository implements ArticlesDao {
                 LEFT JOIN Tags tag ON articleTag.TagId = tag.Id
                 WHERE article.Id = ?;
             """,
-            new ArticleTagsExtractor(),
+            new ArticleExtractor(),
             id
         );
 
@@ -109,24 +107,23 @@ public class ArticlesRepository implements ArticlesDao {
             .findFirst();
     };
 
-    // === EDIT ===
 
     @Override
     @Transactional
-    public void addArticle(ArticleTags article) throws DataAccessException {
+    public void addArticle(Article article) throws DataAccessException {
         final SimpleJdbcInsert insertIntoArticles = new SimpleJdbcInsert(jdbcTemplate)
             .withTableName("Articles")
             .usingGeneratedKeyColumns("Id")
             .usingColumns("Title", "Subtitle", "Content");
 
         final Map<String, Object> articleArgs = new HashMap<>();
-        articleArgs.put("title", article.getTitle());
-        articleArgs.put("subtitle", article.getSubtitle());
-        articleArgs.put("content", article.getContent());
+        articleArgs.put("title", article.title());
+        articleArgs.put("subtitle", article.subtitle());
+        articleArgs.put("content", article.content());
 
         final Number articleId = insertIntoArticles.executeAndReturnKey(articleArgs);
 
-        final List<String> tags = article.getTags();
+        final List<String> tags = article.tags();
         if (tags == null || tags.isEmpty())
             return;
 
@@ -136,7 +133,7 @@ public class ArticlesRepository implements ArticlesDao {
 
     @Override
     @Transactional
-    public void updateArticle(Integer id, ArticleTags newArticle) throws DataAccessException {
+    public void updateArticle(Integer id, Article newArticle) throws DataAccessException {
         jdbcTemplate.update(
             """
                 UPDATE Articles SET 
@@ -145,9 +142,9 @@ public class ArticlesRepository implements ArticlesDao {
                     Content = ?
                 WHERE Id = ?;
             """,
-            newArticle.getTitle(),
-            newArticle.getSubtitle(),
-            newArticle.getContent(),
+            newArticle.title(),
+            newArticle.subtitle(),
+            newArticle.content(),
             id
         );
 
@@ -165,7 +162,7 @@ public class ArticlesRepository implements ArticlesDao {
             """
         );
 
-        final List<String> tags = newArticle.getTags();
+        final List<String> tags = newArticle.tags();
         if (tags == null || tags.isEmpty())
             return;
 
@@ -184,7 +181,6 @@ public class ArticlesRepository implements ArticlesDao {
         );
     }
 
-    // === UTILS ===
 
     private void insertTags(List<String> tags) {
         final List<Object[]> tagsBatch = tags.stream()

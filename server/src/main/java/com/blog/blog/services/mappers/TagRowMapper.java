@@ -1,4 +1,4 @@
-package com.blog.blog.services.row_mappers;
+package com.blog.blog.services.mappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.NonNull;
 
-import com.blog.blog.instances.Tag;
+import com.blog.blog.records.Tag;
 
 public class TagRowMapper implements RowMapper<Tag> {
     @Override
