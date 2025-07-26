@@ -34,9 +34,9 @@ class ArticlesServiceTests {
     @Test
     void getAllArticles() {
         // Given
-        Timestamp updated = Timestamp.from(Instant.now());
+        final Timestamp updated = Timestamp.from(Instant.now());
 
-        SortByEnum sortBy = SortByEnum.ASC;
+        final SortByEnum sortBy = SortByEnum.ASC;
 
         List<Article> articles = Arrays.asList(
             new Article(
@@ -52,7 +52,7 @@ class ArticlesServiceTests {
         when(articlesRepository.getAllArticles(sortBy, null)).thenReturn(articles);
 
         // When
-        List<Article> result = articlesService.getAllArticles(sortBy, null);
+        final List<Article> result = articlesService.getAllArticles(sortBy, null);
 
         // Then
         assertThat(result).hasSize(1);
@@ -69,13 +69,13 @@ class ArticlesServiceTests {
     @Test
     void getAllArticles_asc() {
         // Given
-        Instant now = Instant.now();
-        Timestamp updated = Timestamp.from(now);
-        Timestamp updated2 = Timestamp.from(now.plus(Duration.ofDays(1)));
+        final Instant now = Instant.now();
+        final Timestamp updated = Timestamp.from(now);
+        final Timestamp updated2 = Timestamp.from(now.plus(Duration.ofDays(1)));
 
-        SortByEnum sortBy = SortByEnum.ASC;
+        final SortByEnum sortBy = SortByEnum.ASC;
 
-        List<Article> articles = Arrays.asList(
+        final List<Article> articles = Arrays.asList(
             new Article(
                 1, 
                 "Test Title", 
@@ -112,13 +112,13 @@ class ArticlesServiceTests {
     @Test
     void getAllArticles_desc() {
         // Given
-        Instant now = Instant.now();
-        Timestamp updated = Timestamp.from(now);
-        Timestamp updated2 = Timestamp.from(now.plus(Duration.ofDays(1)));
+        final Instant now = Instant.now();
+        final Timestamp updated = Timestamp.from(now);
+        final Timestamp updated2 = Timestamp.from(now.plus(Duration.ofDays(1)));
 
-        SortByEnum sortBy = SortByEnum.DESC;
+        final SortByEnum sortBy = SortByEnum.DESC;
 
-        List<Article> articles = Arrays.asList(
+        final List<Article> articles = Arrays.asList(
             new Article(
                 1, 
                 "Test Title", 
@@ -155,14 +155,14 @@ class ArticlesServiceTests {
     @Test
     void getAllArticles_tags() {
         // Given
-        Instant now = Instant.now();
-        Timestamp updated = Timestamp.from(now);
-        Timestamp updated2 = Timestamp.from(now.plus(Duration.ofDays(1)));
+        final Instant now = Instant.now();
+        final Timestamp updated = Timestamp.from(now);
+        final Timestamp updated2 = Timestamp.from(now.plus(Duration.ofDays(1)));
 
-        SortByEnum sortBy = SortByEnum.DESC;
-        List<String> tags = Arrays.asList("TESTB");
+        final SortByEnum sortBy = SortByEnum.DESC;
+        final List<String> tags = Arrays.asList("TESTB");
 
-        List<Article> articles = Arrays.asList(
+        final List<Article> articles = Arrays.asList(
             new Article(
                 1, 
                 "Test Title", 
@@ -199,8 +199,8 @@ class ArticlesServiceTests {
     @Test
     void getArticle() {
         // Given
-        Timestamp updated = Timestamp.from(Instant.now());
-        Article article = new Article(
+        final Timestamp updated = Timestamp.from(Instant.now());
+        final Article article = new Article(
             1, 
             "Test Title", 
             "Test Subtitle", 
@@ -212,7 +212,7 @@ class ArticlesServiceTests {
         when(articlesRepository.getArticle(1)).thenReturn(Optional.of(article));
 
         // When
-        Optional<Article> result = articlesService.getArticle(1);
+        final Optional<Article> result = articlesService.getArticle(1);
 
         // Then
         assertThat(result).isPresent();
@@ -232,7 +232,7 @@ class ArticlesServiceTests {
         when(articlesRepository.getArticle(999)).thenReturn(Optional.empty());
 
         // When
-        Optional<Article> result = articlesService.getArticle(999);
+        final Optional<Article> result = articlesService.getArticle(999);
 
         // Then
         assertThat(result).isEmpty();
@@ -244,7 +244,7 @@ class ArticlesServiceTests {
     @Test
     void addArticle() {
         // Given
-        Article article = new Article(
+        final Article article = new Article(
             null, 
             "Test Title", 
             "Test Subtitle", 
@@ -264,8 +264,8 @@ class ArticlesServiceTests {
     @Test
     void updateArticle() {
         // Given
-        Timestamp updated = Timestamp.from(Instant.now());
-        Article article = new Article(
+        final Timestamp updated = Timestamp.from(Instant.now());
+        final Article article = new Article(
             1, 
             "Test Title", 
             "Test Subtitle", 

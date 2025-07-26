@@ -27,14 +27,14 @@ class TagsServiceTests {
     @Test
     void getAllTags() {
         // Given
-        Tag tag = new Tag(null, "TESTA");
+        final Tag tag = new Tag(null, "TESTA");
         
-        List<Tag> tags = Arrays.asList(tag);
+        final List<Tag> tags = Arrays.asList(tag);
         
         when(tagsRepository.getAllTags()).thenReturn(tags);
 
         // When
-        List<Tag> result = tagsService.getAllTags();
+        final List<Tag> result = tagsService.getAllTags();
 
         // Then
         assertThat(result).hasSize(1);
