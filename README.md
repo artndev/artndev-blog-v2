@@ -41,6 +41,7 @@ Open the _.env.local_ file located in the root directory and fill in the require
 
 ```env
 # Table schemas can be found in src\main\java\com\blog\blog\schemas folder
+# They are needed to create the same environment as mine
 
 # IP of admin (other IPs will be blacklisted)
 VITE_ADMIN_AUTH_IP=...
