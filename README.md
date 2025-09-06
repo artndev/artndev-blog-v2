@@ -45,9 +45,7 @@ Open the _.env.local_ file located in the root directory and fill in the require
 
 # IP of admin (other IPs will be blacklisted)
 VITE_ADMIN_AUTH_IP=...
-# UUIDv4 token used for signing in to admin panel
-# To generate UUIDv4 token, follow link below:
-# https://www.uuidgenerator.net/version4
+# UUIDv4 secrets used for access to secured destinations
 VITE_ADMIN_AUTH_TOKEN=...
 
 # API URL remains untouchable (if you are running project locally)
@@ -70,6 +68,10 @@ DB_PASSWORD=...
 DB_PORT=...
 DB_USERNAME=...
 ```
+
+## Useful Links
+
+- [UUIDv4 generator](https://www.uuidgenerator.net/version4)
 
 ## Build & Run Application with Docker
 
