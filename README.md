@@ -40,6 +40,8 @@ git checkout dev-public
 Open the _.env.local_ file located in the root directory and fill in the required environmental variables:
 
 ```env
+# Table schemas can be found in src\main\java\com\blog\blog\schemas folder
+
 # IP of admin (other IPs will be blacklisted)
 VITE_ADMIN_AUTH_IP=...
 # UUIDv4 token used for signing in to admin panel
@@ -61,7 +63,6 @@ VITE_TELEGRAM_URL=...
 VITE_LICENSE_URL=https://github.com/artndev/artndev-blog-v2/blob/master/LICENSE.md
 
 # Your DB credentials
-# Table schemas can be found in src\main\java\com\blog\blog\schemas
 DB_HOST=...
 DB_NAME=...
 DB_PASSWORD=...
