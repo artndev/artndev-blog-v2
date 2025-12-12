@@ -1,8 +1,8 @@
-## Overview
+## Quick Overview
 
 The next-generation version of [my personal blog](https://github.com/artndev/artndev-blog) with a lot of improvements and an upgraded tech stack.
 
-> In this version, back-end and front-end work on the same domain without any CORS policy issues. Thanks to the Maven plugin called _frontend-maven-plugin_, REST API is available at the _/api_ subpath.
+- In this version, back-end and front-end work on the same domain without any CORS policy issues. Thanks to the Maven plugin called _frontend-maven-plugin_, REST API is available at the _/api_ subpath.
 
 ## Tech Stack
 
@@ -40,11 +40,12 @@ git checkout dev-public
 Open the _.env.local_ file located in the root directory and fill in the required environmental variables:
 
 ```env
+# Table schemas can be found in src\main\java\com\blog\blog\schemas folder
+# They are needed to create the same environment as mine
+
 # IP of admin (other IPs will be blacklisted)
 VITE_ADMIN_AUTH_IP=...
-# UUIDv4 token used for signing in to admin panel
-# To generate UUIDv4 token, follow link below:
-# https://www.uuidgenerator.net/version4
+# UUIDv4 secrets used for access to secured destinations
 VITE_ADMIN_AUTH_TOKEN=...
 
 # API URL remains untouchable (if you are running project locally)
@@ -61,13 +62,16 @@ VITE_TELEGRAM_URL=...
 VITE_LICENSE_URL=https://github.com/artndev/artndev-blog-v2/blob/master/LICENSE.md
 
 # Your DB credentials
-# Table schemas can be found in src\main\java\com\blog\blog\schemas
 DB_HOST=...
 DB_NAME=...
 DB_PASSWORD=...
 DB_PORT=...
 DB_USERNAME=...
 ```
+
+## Useful Links
+
+- [UUIDv4 generator](https://www.uuidgenerator.net/version4)
 
 ## Build & Run Application with Docker
 
