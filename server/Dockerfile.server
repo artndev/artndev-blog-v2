@@ -25,7 +25,7 @@ RUN mvn clean compile -X && \
 
 # Copying server build
 
-FROM openjdk:21
+FROM eclipse-temurin:21
 
 COPY --from=server-build /app/server/target/app.jar app.jar
 
